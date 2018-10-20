@@ -20,6 +20,7 @@ namespace LauncherFinal.Models.Settings
         private string _clientFolder;
         private string _configUrl;
         private bool _optimizeJava;
+        private string _updateConfigUrl;
 
         public string JavaPath
         {
@@ -43,6 +44,12 @@ namespace LauncherFinal.Models.Settings
         {
             get => _configUrl;
             set => SetProperty(ref _configUrl, value);
+        }
+
+        public string UpdateConfigUrl
+        {
+            get => _updateConfigUrl;
+            set => SetProperty(ref _updateConfigUrl, value);
         }
 
         public string ClientFolder
