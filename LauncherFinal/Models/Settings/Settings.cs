@@ -7,32 +7,99 @@ using LauncherFinal.Models.Settings.Interfases;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings
-{                         
+{
     public class Settings : ISettings
     {
-        public string JavaPath { get; set; }
-        public int Megobytes { get; set; }
-        public bool OptimizeJava { get; set; }
+        private string _javaPath;
+        private int _megobytes;
+        private IUpdateConfig _updateConfig;
+        private IProjectConfig _projectConfig;
+        private bool _savePass;
+        private string _password;
+        private string _login;
+        private string _clientFolder;
+        private string _configUrl;
+        private bool _optimizeJava;
 
-        public string ConfigUrl { get; set; }
-        public string ClientFolder { get; set; }
+        public string JavaPath
+        {
+            get => _javaPath;
+            set => SetProperty(ref _javaPath, value);
+        }
 
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public bool SavePass { get; set; }
+        public int Megobytes
+        {
+            get => _megobytes;
+            set => SetProperty(ref _megobytes, value);
+        }
+
+        public bool OptimizeJava
+        {
+            get => _optimizeJava;
+            set => SetProperty(ref _optimizeJava, value);
+        }
+
+        public string ConfigUrl
+        {
+            get => _configUrl;
+            set => SetProperty(ref _configUrl, value);
+        }
+
+        public string ClientFolder
+        {
+            get => _clientFolder;
+            set => SetProperty(ref _clientFolder, value);
+        }
+
+        public string Login
+        {
+            get => _login;
+            set => SetProperty(ref _login, value);
+        }
+
+        public string Password
+        {
+            get => _password;
+            set => SetProperty(ref _password, value);
+        }
+
+        public bool SavePass
+        {
+            get => _savePass;
+            set => SetProperty(ref _savePass, value);
+        }
 
         [JsonConverter(typeof(ProjectConfig))]
-        public IProjectConfig ProjectConfig { get; set; }
+        public IProjectConfig ProjectConfig
+        {
+            get => _projectConfig;
+            set => SetProperty(ref _projectConfig, value);
+        }
 
         [JsonConverter(typeof(UpdateConfig))]
-        public IUpdateConfig UpdateConfig { get; set; }
+        public IUpdateConfig UpdateConfig
+        {
+            get => _updateConfig;
+            set => SetProperty(ref _updateConfig, value);
+        }
+
+        public event EventHandler OnSettingsChanged;
 
         public Settings(string clientFolder)
         {
-            ClientFolder = clientFolder;
+            _clientFolder = clientFolder;
         }
 
         #region Methods
+
+        private void SetProperty<T>(ref T source, T value)
+        {
+            if (Equals(source, value))
+                return;
+
+            source = value;
+            OnSettingsChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         public static Settings CreateDefault()
         {

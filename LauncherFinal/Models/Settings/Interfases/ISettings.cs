@@ -1,4 +1,5 @@
-﻿using LauncherFinal.JsonSerializer;
+﻿using System;
+using LauncherFinal.JsonSerializer;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings.Interfases
@@ -22,5 +23,6 @@ namespace LauncherFinal.Models.Settings.Interfases
         [JsonConverter(typeof(UpdateConfig))]
         IUpdateConfig UpdateConfig { get; set; }
 
+        event EventHandler OnSettingsChanged;
     }
 }

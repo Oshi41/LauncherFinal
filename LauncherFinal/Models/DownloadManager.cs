@@ -41,6 +41,10 @@ namespace LauncherFinal.Models
 
             _uri = uri;
             _file = file ?? Path.GetTempFileName();
+
+            if (File.Exists(_file))
+                File.Delete(_file);
+
             _interval = interval;
 
             // если интервал задан меньше 0, отключаем проверку скорости
