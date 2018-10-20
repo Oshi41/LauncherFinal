@@ -24,14 +24,9 @@ namespace LauncherFinal
 
         private IoCContainer()
         {
-            var basePath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "Universal Launcher");
-            var settingsFilePath = Path.Combine(basePath, "settings.txt");
-
-
-            var settings = new Settings(basePath);
-            var worker = new SettingsWorker(settingsFilePath, settings);
+            var settings = Settings.CreateDefault();
+            var worker = new SettingsWorker(Path.Combine(settings.ClientFolder, "settings.txt"),
+                settings);
 
             RegisterAsSigleton<ISettings>(settings);
             RegisterAsSigleton<ISettingsWorker>(worker);

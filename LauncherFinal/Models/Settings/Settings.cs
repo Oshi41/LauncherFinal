@@ -17,25 +17,41 @@ namespace LauncherFinal.Models.Settings
         public string ConfigUrl { get; set; }
         public string ClientFolder { get; set; }
 
-        public string Name { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
         public bool SavePass { get; set; }
 
         [JsonConverter(typeof(ProjectConfig))]
         public IProjectConfig ProjectConfig { get; set; }
 
+        [JsonConverter(typeof(UpdateConfig))]
+        public IUpdateConfig UpdateConfig { get; set; }
+
         public Settings(string clientFolder)
         {
             ClientFolder = clientFolder;
-
-            Megobytes = 1024 + 512;
-
-            JavaPath = Find64Java();
-            if (string.IsNullOrWhiteSpace(JavaPath))
-                JavaPath = FindAnyJava();
         }
 
         #region Methods
+
+        public static Settings CreateDefault()
+        {
+            var basePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Universal Launcher");
+
+            var settings = new Settings(basePath)
+            {
+                Megobytes = 1024 + 512
+            };
+
+            settings.JavaPath = settings.Find64Java();
+
+            if (string.IsNullOrWhiteSpace(settings.JavaPath))
+                settings.JavaPath = settings.FindAnyJava();
+
+            return settings;
+        }
 
         private string Find64Java()
         {

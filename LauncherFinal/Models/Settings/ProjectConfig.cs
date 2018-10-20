@@ -7,6 +7,8 @@ namespace LauncherFinal.Models.Settings
 {
     public class ProjectConfig : IProjectConfig
     {
+        public string ProjectSite { get; set; }
+
         [JsonConverter(typeof(ConcreteTypeConverter<List<Server>>))]
         public IList<IServer> Servers { get; set; }
     }

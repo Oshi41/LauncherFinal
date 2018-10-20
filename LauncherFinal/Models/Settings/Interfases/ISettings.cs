@@ -12,11 +12,15 @@ namespace LauncherFinal.Models.Settings.Interfases
         string ConfigUrl { get; set; }
         string ClientFolder { get; set; }
 
-        string Name { get; set; }
+        string Login { get; set; }
         string Password { get; set; }
         bool SavePass { get; set; }
 
         [JsonConverter(typeof(ConcreteTypeConverter<ProjectConfig>))]
         IProjectConfig ProjectConfig { get; set; }
+
+        [JsonConverter(typeof(UpdateConfig))]
+        IUpdateConfig UpdateConfig { get; set; }
+
     }
 }
