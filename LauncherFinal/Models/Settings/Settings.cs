@@ -1,4 +1,5 @@
 ﻿using LauncherFinal.Models.Settings.Interfases;
+using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings
 {                         
@@ -15,6 +16,7 @@ namespace LauncherFinal.Models.Settings
         public string Password { get; set; }
         public bool SavePass { get; set; }
 
+        [JsonConverter(typeof(ProjectConfig))]
         public IProjectConfig ProjectConfig { get; set; }
     }
 }

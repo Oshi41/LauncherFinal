@@ -77,6 +77,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DownloadManager.cs" />
     <Compile Include="Models\IoCContainer.cs" />
     <Compile Include="Models\Settings\Interfases\IProjectConfig.cs" />
     <Compile Include="Models\Settings\Interfases\IServer.cs" />
@@ -113,8 +114,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\DownloadManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

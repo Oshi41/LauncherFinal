@@ -67,7 +67,26 @@ namespace LauncherFinal.Models.Settings
 
         public async void DownloadAsync()
         {
-            //var url = 
+            DownloadManager manager = null;
+            try
+            {
+                manager = new DownloadManager(_settings.ConfigUrl, interval: -1);
+
+                var path = await manager.Download();
+                if (manager.IsError)
+                    throw manager.LastError;
+
+                var json = File.ReadAllText(path);
+                _settings.ProjectConfig = JsonConvert.DeserializeObject<ProjectConfig>(json);
+            }
+            catch (Exception e)
+            {
+                Trace.Write(e);
+            }
+            finally
+            {
+                manager?.Dispose();
+            }
         }
     }
 }
