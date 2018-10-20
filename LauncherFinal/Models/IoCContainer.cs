@@ -30,9 +30,8 @@ namespace LauncherFinal
             var settingsFilePath = Path.Combine(basePath, "settings.txt");
 
 
-            var settings = new Settings {ClientFolder = basePath};
+            var settings = new Settings(basePath);
             var worker = new SettingsWorker(settingsFilePath, settings);
-            worker.Read();
 
             RegisterAsSigleton<ISettings>(settings);
             RegisterAsSigleton<ISettingsWorker>(worker);

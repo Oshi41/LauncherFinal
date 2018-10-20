@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using LauncherFinal.Models.Settings.Interfases;
 
 namespace LauncherFinal
 {
@@ -7,5 +8,20 @@ namespace LauncherFinal
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            var settingsWorker = IoCContainer.Instance.Resolve<ISettingsWorker>();
+
+            settingsWorker.Read();
+            settingsWorker.DownloadAsync();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            var settingsWorker = IoCContainer.Instance.Resolve<ISettingsWorker>();
+            settingsWorker.Save();
+        }
     }
 }
