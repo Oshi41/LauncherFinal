@@ -81,6 +81,8 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\PassworBinderBehavior.cs" />
     <Compile Include="Converters\SwitchConverter.cs" />
+    <Compile Include="Models\AuthModules\ElyAuthModule.cs" />
+    <Compile Include="Models\AuthModules\IAuthModule.cs" />
     <Compile Include="Models\ForgeLaunchWorker.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
     <Compile Include="ViewModels\PopupViewModels\DownloadViewModel.cs" />
