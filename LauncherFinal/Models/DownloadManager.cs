@@ -107,7 +107,7 @@ namespace LauncherFinal.Models
             }
             catch (Exception e)
             {
-                Trace.WriteLine(e.Message);
+                Trace.Write(e);
             }
 
             return _file;
@@ -132,7 +132,7 @@ namespace LauncherFinal.Models
             }
             catch (Exception e)
             {
-                Trace.WriteLine(e.Message);
+                Trace.Write(e);
                 LastError = e;
                 return false;
             }

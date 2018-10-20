@@ -39,6 +39,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -77,7 +79,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CompressionManager.cs" />
+    <Compile Include="Models\CryptoWorker.cs" />
     <Compile Include="Models\DownloadManager.cs" />
+    <Compile Include="Models\HashChecker.cs" />
     <Compile Include="Models\IoCContainer.cs" />
     <Compile Include="Models\Settings\Interfases\IProjectConfig.cs" />
     <Compile Include="Models\Settings\Interfases\IServer.cs" />
