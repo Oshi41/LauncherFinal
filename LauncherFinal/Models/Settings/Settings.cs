@@ -39,7 +39,7 @@ namespace LauncherFinal.Models.Settings
             set => SetProperty(ref _optimizeJava, value);
         }
 
-        public string ConfigUrl
+        public string ProjectConfigUrl
         {
             get => _configUrl;
             set => SetProperty(ref _configUrl, value);
@@ -98,7 +98,7 @@ namespace LauncherFinal.Models.Settings
                 return;
 
             source = value;
-            OnSettingsChanged?.Invoke(this, EventArgs.Empty);
+            OnSettingsChanged?.Invoke(value, EventArgs.Empty);
         }
 
         public static Settings CreateDefault()

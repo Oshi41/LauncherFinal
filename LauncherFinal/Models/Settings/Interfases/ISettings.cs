@@ -10,7 +10,8 @@ namespace LauncherFinal.Models.Settings.Interfases
         int Megobytes { get; set; }
         bool OptimizeJava { get; set; }
 
-        string ConfigUrl { get; set; }
+        string ProjectConfigUrl { get; set; }
+        string UpdateConfigUrl { get; set; }
         string ClientFolder { get; set; }
 
         string Login { get; set; }

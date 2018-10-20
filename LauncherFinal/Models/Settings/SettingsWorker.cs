@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using LauncherFinal.Models.Settings.Interfases;
 using Newtonsoft.Json;
 
@@ -67,21 +68,31 @@ namespace LauncherFinal.Models.Settings
 
         public async void DownloadAsync()
         {
+            var projectJson = await DownloadAndRead(_settings.ProjectConfigUrl);
+            _settings.ProjectConfig = JsonConvert.DeserializeObject<ProjectConfig>(projectJson);
+
+            var updateJson = await DownloadAndRead(_settings.UpdateConfigUrl);
+            _settings.UpdateConfig = JsonConvert.DeserializeObject<UpdateConfig>(updateJson);
+        }
+
+        private async Task<string> DownloadAndRead(string url)
+        {
             DownloadManager manager = null;
+
             try
             {
-                manager = new DownloadManager(_settings.ConfigUrl, interval: -1);
+                manager = new DownloadManager(url, interval: -1);
 
                 var path = await manager.Download();
                 if (manager.IsError)
                     throw manager.LastError;
 
-                var json = File.ReadAllText(path);
-                _settings.ProjectConfig = JsonConvert.DeserializeObject<ProjectConfig>(json);
+                return File.ReadAllText(path);
             }
             catch (Exception e)
             {
                 Trace.Write(e);
+                return string.Empty;
             }
             finally
             {

@@ -14,7 +14,6 @@ namespace LauncherFinal.ViewModels
 {
     class LauncherSettings : BindableBase
     {
-
         #region Fields
 
         private readonly ISettings _settings;
