@@ -86,7 +86,8 @@ namespace LauncherFinal.Models
         /// <returns></returns>
         public string GetRandomSalt()
         {
-            var rand = new Random();
+            var seed = (int) DateTime.Now.ToFileTime();
+            var rand = new Random(seed);
             var length = rand.Next(8, 16);
             var buffer = new byte[length];
             rand.NextBytes(buffer);
