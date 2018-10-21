@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,6 +9,14 @@ namespace LauncherFinal.Models
 {
     public class CryptoWorker
     {
+        private static readonly string DeviceName = "Win32_Processor";
+        private static readonly string[] Identifiers = {
+            "UniqueId",
+            "ProcessorId",
+            "Name",
+            "Manufacturer"
+        };
+
         /// <summary>
         ///     Шифруем пароль
         /// </summary>
@@ -100,24 +109,29 @@ namespace LauncherFinal.Models
         /// <returns></returns>
         public string GetUniqueSalt()
         {
-            var identifiers = new[]
-            {
-                "UniqueId",
-                "ProcessorId",
-                "Name",
-                "Manufacturer"
-            };
+            return GetNextUniqueSalt(null);
+        }
 
-            var mbs = new ManagementClass("Win32_Processor");
+        /// <summary>
+        /// Возвращает уник. характеристику компа, исключая передаваемые значения
+        /// </summary>
+        /// <param name="toSkip"></param>
+        /// <returns></returns>
+        public string GetNextUniqueSalt(params string[] toSkip)
+        {
+            var mbs = new ManagementClass(DeviceName);
             var mbsList = mbs.GetInstances();
 
             foreach (var mo in mbsList)
             {
-                foreach (var identifier in identifiers)
+                foreach (var identifier in Identifiers)
                 {
                     var unique = mo[identifier]?.ToString();
                     if (unique != null)
                     {
+                        if (toSkip?.Contains(unique) == true)
+                            continue;
+
                         return unique;
                     }
                 }

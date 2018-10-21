@@ -1,10 +1,12 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,12 +27,14 @@ namespace LauncherFinal.ViewModels
 
         private readonly ISettings _settings;
         private readonly AuthModuleFactory _factory = new AuthModuleFactory();
+        private readonly CryptoWorker _crypter = new CryptoWorker();
 
         private ObservableCollection<ServerViewModel> _servers;
         private ServerViewModel _choosenServer;
         private ModuleTypes _authModule;
         private string _login;
         private SecureString _password;
+        private bool _rememberPassword;
 
         #endregion
 
@@ -66,6 +70,12 @@ namespace LauncherFinal.ViewModels
             set { SetProperty(ref _password, value); }
         }
 
+        public bool RememberPassword
+        {
+            get => _rememberPassword;
+            set => SetProperty(ref _rememberPassword, value);
+        }
+
         public ICommand LaunchCommand { get; }
         public ICommand RefreshCommand { get; }
 
@@ -92,6 +102,8 @@ namespace LauncherFinal.ViewModels
 
         private async void OnLaunch()
         {
+            SaveSettings();
+
             var folder = Path.Combine(_settings.ClientFolder, ChoosenServer.Name);
 
             // todo придумать как назвать хост
@@ -163,6 +175,10 @@ namespace LauncherFinal.ViewModels
 
         private void Refresh(IProjectConfig config)
         {
+            PassFromSettings();
+            Login = _settings.Login;
+            RememberPassword = _settings.SavePass;
+
             var choosen = ChoosenServer;
 
             var servers = config
@@ -174,6 +190,13 @@ namespace LauncherFinal.ViewModels
             ChoosenServer = Servers.FirstOrDefault(x => Equals(choosen, x));
 
             Servers.ForEach(async x => await x.Ping());
+        }
+
+        private void SaveSettings()
+        {
+            SavePassToSettings();
+            _settings.Login = Login;
+            _settings.SavePass = RememberPassword;
         }
 
         private async Task<bool> CheckAndDownload(string url, string folder)
@@ -210,6 +233,25 @@ namespace LauncherFinal.ViewModels
             }
 
             return true;
+        }
+
+        private void PassFromSettings()
+        {
+            var unique = _crypter.GetUniqueSalt();
+            var unique2 = _crypter.GetNextUniqueSalt(unique);
+            var pass = _crypter.Decrypt<AesManaged>(_settings.Password, unique, unique2);
+
+            var secure = new SecureString();
+            pass.ForEach(x => secure.AppendChar(x));
+            Password = secure;
+        }
+
+        private void SavePassToSettings()
+        {
+            var unique = _crypter.GetUniqueSalt();
+            var unique2 = _crypter.GetNextUniqueSalt(unique);
+
+            _settings.Password = _crypter.Encrypt<AesManaged>(Password.ConvertToString(), unique, unique2);
         }
 
         #endregion
