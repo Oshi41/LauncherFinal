@@ -81,13 +81,18 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\PassworBinderBehavior.cs" />
     <Compile Include="Converters\SwitchConverter.cs" />
+    <Compile Include="Models\AuthModules\AuthModuleFactory.cs" />
     <Compile Include="Models\AuthModules\ElyAuthModule.cs" />
     <Compile Include="Models\AuthModules\IAuthModule.cs" />
     <Compile Include="Models\ForgeLaunchWorker.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
+    <Compile Include="ViewModels\PopupViewModels\CompressionViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModels\DownloadViewModel.cs" />
     <Compile Include="ViewModels\LauncherSettings.cs" />
+    <Compile Include="ViewModels\PopupViewModels\MessageService.cs" />
     <Compile Include="ViewModels\PopupViewModels\PopupHostViewModelBase.cs" />
+    <Compile Include="ViewModels\ServerViewModel.cs" />
+    <Compile Include="ViewModels\StartViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

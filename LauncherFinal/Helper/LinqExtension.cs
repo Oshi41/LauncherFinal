@@ -60,5 +60,16 @@ namespace LauncherFinal.Helper
         {
             return sequence == null || !sequence.GetEnumerator().MoveNext();
         }
+
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+        {
+            if (source.IsNullOrEmpty() || action == null)
+                return;
+
+            foreach (var item in source)
+            {
+                action(item);
+            }
+        }
     }
 }

@@ -24,12 +24,12 @@ namespace LauncherFinal.ViewModels.PopupViewModels
 
         public void ClosePopup()
         {
-            DialogHost.Show(this, DialogHostName);
+            CloseCommand.Execute(this);
         }
 
         public void ShowPopup()
         {
-            CloseCommand.Execute(this);
+            DialogHost.Show(this, DialogHostName);
         }
     }
 }

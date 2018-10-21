@@ -158,7 +158,31 @@ namespace LauncherFinal.Models
 
         #region Public methods
 
-        public string GetLauncArgs()
+        public void RegularLaunch(EventHandler onExit)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = _javaPath,
+                CreateNoWindow = true,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                WorkingDirectory = MinecraftFolder,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                Arguments = GetLauncArgs(),
+                UseShellExecute = false
+            };
+
+            var process = new Process { StartInfo = startInfo };
+            process.Exited += onExit;
+
+            process.Start();
+        }
+
+        #endregion
+
+        #region Public methods
+
+        private string GetLauncArgs()
         {
             var result = $"-Xmn{_minMemory}M -Xmx{_maxMemory}M -Djava.library.path=\"{_natives}\"";
             result += $" -cp \"{_forgeLibPath};{_libArgs};{_versionForgePath}\"";
@@ -182,7 +206,7 @@ namespace LauncherFinal.Models
             return result;
         }
 
-        public string GetCmdArgs()
+        private string GetCmdArgs()
         {
             return $"\"{_javaPath}\" " + GetLauncArgs();
         }
