@@ -88,12 +88,16 @@
     <Compile Include="Models\ForgeLaunchWorker.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
     <Compile Include="ViewModels\PopupViewModels\CompressionViewModel.cs" />
+    <Compile Include="ViewModels\PopupViewModels\DialogHostNames.cs" />
     <Compile Include="ViewModels\PopupViewModels\DownloadViewModel.cs" />
     <Compile Include="ViewModels\LauncherSettings.cs" />
     <Compile Include="ViewModels\PopupViewModels\MessageService.cs" />
     <Compile Include="ViewModels\PopupViewModels\PopupHostViewModelBase.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="Views\InfoHostView.xaml.cs">
+      <DependentUpon>InfoHostView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +117,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\DataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InfoHostView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MessageView.xaml">

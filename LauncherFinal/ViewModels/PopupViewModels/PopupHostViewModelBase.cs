@@ -15,12 +15,15 @@ namespace LauncherFinal.ViewModels.PopupViewModels
     {
         protected readonly string DialogHostName;
 
-        protected PopupHostViewModelBase(string dialogHostName)
+        protected PopupHostViewModelBase(string dialogHostName, bool canClickAway)
         {
             DialogHostName = dialogHostName;
+            CanClickAway = canClickAway;
         }
 
         public ICommand CloseCommand => DialogHost.CloseDialogCommand;
+
+        public bool CanClickAway { get; }
 
         public void ClosePopup()
         {

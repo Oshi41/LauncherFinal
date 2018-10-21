@@ -51,7 +51,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
             string url,
             string filename = null,
             bool autoClose = true)
-            : base(dialogHostName)
+            : base(dialogHostName, autoClose)
         {
             Url = url;
             Filename = filename;

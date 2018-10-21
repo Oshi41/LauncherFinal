@@ -15,7 +15,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
             bool autoClose,
             bool deleteZip = false,
             bool clearDestFolder = false) 
-            : base(dialogHostName)
+            : base(dialogHostName, autoClose)
         {
             _autoClose = autoClose;
             _manager = new CompressionManager(zip, folder, deleteZip, clearDestFolder);
