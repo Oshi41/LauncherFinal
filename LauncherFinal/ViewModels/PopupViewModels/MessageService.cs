@@ -11,7 +11,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
         public static async Task ShowMessage(string hostName, string message)
         {
             var vm = new MessageViewModel(message);
-            await DialogHost.Show(hostName, vm);
+            await DialogHost.Show(vm, hostName);
         }
 
         public static async Task<bool?> ShowDialog(string hostName, string question, bool isCancable)

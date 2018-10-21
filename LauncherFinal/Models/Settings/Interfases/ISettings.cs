@@ -1,6 +1,7 @@
 ﻿using System;
 using LauncherFinal.JsonSerializer;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace LauncherFinal.Models.Settings.Interfases
 {
@@ -21,7 +22,7 @@ namespace LauncherFinal.Models.Settings.Interfases
         [JsonConverter(typeof(ConcreteTypeConverter<ProjectConfig>))]
         IProjectConfig ProjectConfig { get; set; }
 
-        [JsonConverter(typeof(UpdateConfig))]
+        [JsonConverter(typeof(ConcreteTypeConverter<UpdateConfig>))]
         IUpdateConfig UpdateConfig { get; set; }
 
         event EventHandler OnSettingsChanged;

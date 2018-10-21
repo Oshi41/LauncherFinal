@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using LauncherFinal.JsonSerializer;
 using LauncherFinal.Models.Settings.Interfases;
 using Newtonsoft.Json;
 
@@ -76,14 +77,14 @@ namespace LauncherFinal.Models.Settings
             set => SetProperty(ref _savePass, value);
         }
 
-        [JsonConverter(typeof(ProjectConfig))]
+        [JsonConverter(typeof(ConcreteTypeConverter<ProjectConfig>))]
         public IProjectConfig ProjectConfig
         {
             get => _projectConfig;
             set => SetProperty(ref _projectConfig, value);
         }
 
-        [JsonConverter(typeof(UpdateConfig))]
+        [JsonConverter(typeof(ConcreteTypeConverter<UpdateConfig>))]
         public IUpdateConfig UpdateConfig
         {
             get => _updateConfig;
