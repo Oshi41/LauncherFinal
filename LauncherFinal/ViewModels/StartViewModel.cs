@@ -105,8 +105,6 @@ namespace LauncherFinal.ViewModels
 
             if (!CheckHash(folder, ChoosenServer.DirHashCheck))
             {
-                // todo notify user
-
                 var canReinstall = await MessageService.ShowDialog(messageHostName,
                     "Хэш-сумма папки не совпдает, требуется переустановка.\nПродолжить?",
                     false);

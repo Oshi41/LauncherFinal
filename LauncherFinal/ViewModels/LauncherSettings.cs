@@ -123,7 +123,7 @@ namespace LauncherFinal.ViewModels
             if (!File.Exists(updatePath))
             {
                 Trace.WriteLine("Can't find updator. Check or reinstall");
-                //todo show error for user
+                await MessageService.ShowMessage(hostName, "Отсутствует файл обновлений - " + updatePath);
                 return;
             }
 
@@ -139,9 +139,17 @@ namespace LauncherFinal.ViewModels
             _settings.ClientFolder = ClientFolder;
         }
 
-        private void OnClearCommand()
+        private async void OnClearCommand()
         {
-            // todo ask user
+            // todo map name
+            var hostName = "host";
+            var result = await MessageService.ShowDialog(
+                hostName,
+                "Файлы будут удалены навсегда (что значит очень долго).\nПродолжить?",
+                false);
+
+            if (result != true)
+                return;
 
             try
             {
@@ -153,7 +161,7 @@ namespace LauncherFinal.ViewModels
             catch (Exception e)
             {
                 Trace.Write(e);
-                // todo show to user
+                await MessageService.ShowMessage(hostName, e.Message);
             }
         }
 
