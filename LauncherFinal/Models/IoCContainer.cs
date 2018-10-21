@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using LauncherFinal.Models.Settings;
 using LauncherFinal.Models.Settings.Interfases;
 using Unity;

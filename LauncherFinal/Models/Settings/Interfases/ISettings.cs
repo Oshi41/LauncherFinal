@@ -1,7 +1,6 @@
 ﻿using System;
 using LauncherFinal.JsonSerializer;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace LauncherFinal.Models.Settings.Interfases
 {

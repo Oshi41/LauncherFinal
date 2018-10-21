@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Security;
-using System.Text;
 using System.Threading.Tasks;
 using LauncherFinal.Helper;
-using LauncherFinal.Properties;
 using Newtonsoft.Json.Linq;
 
 namespace LauncherFinal.Models.AuthModules

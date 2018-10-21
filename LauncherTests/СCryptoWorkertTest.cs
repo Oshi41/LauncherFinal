@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using LauncherFinal.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
