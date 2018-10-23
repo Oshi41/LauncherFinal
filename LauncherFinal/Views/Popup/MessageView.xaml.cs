@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace LauncherFinal.Views
+namespace LauncherFinal.Views.Popup
 {
     /// <summary>
     /// Interaction logic for MessageView.xaml

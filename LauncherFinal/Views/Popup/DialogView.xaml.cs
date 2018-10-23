@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LauncherFinal.Views
+namespace LauncherFinal.Views.Popup
 {
     /// <summary>
-    /// Interaction logic for InfoHostView.xaml
+    /// Interaction logic for DialogView.xaml
     /// </summary>
-    public partial class InfoHostView : UserControl
+    public partial class DialogView : UserControl
     {
-        public InfoHostView()
+        public DialogView()
         {
             InitializeComponent();
         }

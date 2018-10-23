@@ -141,10 +141,8 @@ namespace LauncherFinal.ViewModels
 
         private async void OnClearCommand()
         {
-            // todo map name
             var hostName = "host";
             var result = await MessageService.ShowDialog(
-                hostName,
                 "Файлы будут удалены навсегда (что значит очень долго).\nПродолжить?",
                 false);
 

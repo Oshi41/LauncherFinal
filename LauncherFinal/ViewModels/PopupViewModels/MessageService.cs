@@ -7,16 +7,16 @@ namespace LauncherFinal.ViewModels.PopupViewModels
 {
     public static class MessageService
     {
-        public static async Task ShowMessage(string hostName, string message)
+        public static async Task ShowMessage(string message, string hostName = DialogHostNames.MessagesDialogName)
         {
             var vm = new MessageViewModel(message);
             await DialogHost.Show(vm, hostName);
         }
 
-        public static async Task<bool?> ShowDialog(string hostName, string question, bool isCancable)
+        public static async Task<bool?> ShowDialog(string question, bool isCancable, string hostName = DialogHostNames.MessagesDialogName)
         {
             var vm = new DialogViewModel(question, isCancable);
-            await DialogHost.Show(hostName, vm);
+            await DialogHost.Show(vm, hostName);
             return vm.DialodResult;
         }
     }

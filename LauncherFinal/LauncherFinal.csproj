@@ -95,10 +95,10 @@
     <Compile Include="ViewModels\PopupViewModels\PopupHostViewModelBase.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
-    <Compile Include="Views\InfoHostView.xaml.cs">
-      <DependentUpon>InfoHostView.xaml</DependentUpon>
+    <Compile Include="Views\Popup\DialogView.xaml.cs">
+      <DependentUpon>DialogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MessageView.xaml.cs">
+    <Compile Include="Views\Popup\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -119,10 +119,10 @@
     <Page Include="Views\DataTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\InfoHostView.xaml">
+    <Page Include="Views\Popup\DialogView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MessageView.xaml">
+    <Page Include="Views\Popup\MessageView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

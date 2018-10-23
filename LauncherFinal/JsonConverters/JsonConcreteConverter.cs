@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace LauncherFinal.JsonSerializer
+namespace LauncherFinal.JsonConverters
 {
     /// <summary>
     /// Конвертирует интерфейс в конкретный тип

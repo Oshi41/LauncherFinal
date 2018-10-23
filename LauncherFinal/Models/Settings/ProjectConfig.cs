@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LauncherFinal.JsonSerializer;
+using LauncherFinal.JsonConverters;
 using LauncherFinal.Models.Settings.Interfases;
 using Newtonsoft.Json;
 

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LauncherFinal.JsonSerializer;
+using LauncherFinal.JsonConverters;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings.Interfases

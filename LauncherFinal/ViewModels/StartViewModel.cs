@@ -104,18 +104,15 @@ namespace LauncherFinal.ViewModels
 
             var folder = Path.Combine(_settings.ClientFolder, ChoosenServer.Name);
 
-            // todo придумать как назвать хост
-            var messageHostName = "MessageHost";
-
             if (!await CheckAndDownload(ChoosenServer.DownloadLink, folder))
             {
-                await MessageService.ShowMessage(messageHostName, "Ошибка в скачивании клиентских файлов");
+                await MessageService.ShowMessage( "Ошибка в скачивании клиентских файлов");
                 return;
             }
 
             if (!CheckHash(folder, ChoosenServer.DirHashCheck))
             {
-                var canReinstall = await MessageService.ShowDialog(messageHostName,
+                var canReinstall = await MessageService.ShowDialog(
                     "Хэш-сумма папки не совпдает, требуется переустановка.\nПродолжить?",
                     false);
 
@@ -133,7 +130,7 @@ namespace LauncherFinal.ViewModels
             var result = await module.GenerateToken(Login, Password);
             if (!result.Key)
             {
-                await MessageService.ShowMessage(messageHostName, "Ошибка в регистрации");
+                await MessageService.ShowMessage( "Ошибка в регистрации");
                 return;
             }
 
@@ -152,7 +149,7 @@ namespace LauncherFinal.ViewModels
             catch (Exception e)
             {
                 Trace.Write(e);
-                await MessageService.ShowMessage(messageHostName, e.Message);
+                await MessageService.ShowMessage(e.Message);
             }
         }
 
