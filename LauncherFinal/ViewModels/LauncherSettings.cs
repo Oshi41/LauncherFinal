@@ -123,7 +123,7 @@ namespace LauncherFinal.ViewModels
             if (!File.Exists(updatePath))
             {
                 Trace.WriteLine("Can't find updator. Check or reinstall");
-                await MessageService.ShowMessage(hostName, "Отсутствует файл обновлений - " + updatePath);
+                await MessageService.ShowMessage("Отсутствует файл обновлений - " + updatePath);
                 return;
             }
 
@@ -141,7 +141,6 @@ namespace LauncherFinal.ViewModels
 
         private async void OnClearCommand()
         {
-            var hostName = "host";
             var result = await MessageService.ShowDialog(
                 "Файлы будут удалены навсегда (что значит очень долго).\nПродолжить?",
                 false);
@@ -159,7 +158,7 @@ namespace LauncherFinal.ViewModels
             catch (Exception e)
             {
                 Trace.Write(e);
-                await MessageService.ShowMessage(hostName, e.Message);
+                await MessageService.ShowMessage(e.Message);
             }
         }
 

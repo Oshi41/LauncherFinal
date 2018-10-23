@@ -18,10 +18,10 @@ namespace LauncherFinal
 
         protected override void OnExit(ExitEventArgs e)
         {
-            base.OnExit(e);
-
             var settingsWorker = IoCContainer.Instance.Resolve<ISettingsWorker>();
             settingsWorker.Save();
+
+            base.OnExit(e);
         }
     }
 }

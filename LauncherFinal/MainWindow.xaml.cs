@@ -18,7 +18,7 @@ namespace LauncherFinal
         {
             var text = string.Join("\n", Enumerable.Repeat("Since one of StringEnumConverter's constructors takes a boolean for", 100));
 
-            MessageService.ShowMessage("1", text);
+            MessageService.ShowMessage(text);
         }
     }
 }

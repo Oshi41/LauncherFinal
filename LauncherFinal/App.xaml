@@ -31,6 +31,12 @@
                 <Setter Property="VerticalAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <!-- IPopup -->
+                <Setter Property="CloseOnClickAway"
+                        Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=DialogContent.CanClickAway,
+                    FallbackValue=true}">
+                </Setter>
                 
                 <Setter Property="DialogContentTemplate">
                     <Setter.Value>
@@ -57,9 +63,7 @@
                         <ControlTemplate TargetType="ContentControl">
                             <!-- Для ошибок, макс приоритет -->
                             <materialDesign:DialogHost Style="{StaticResource DialogStyle}"
-                                                       Identifier="{x:Static popupViewModels:DialogHostNames.MessagesDialogName}"
-                                                       CloseOnClickAway="{Binding RelativeSource={RelativeSource Self},
-                                 Path=DialogContent.IsCancable, FallbackValue=true}">
+                                                       Identifier="{x:Static popupViewModels:DialogHostNames.MessagesDialogName}">
 
                                 <!-- Для отображения работ -->
                                 <materialDesign:DialogHost Style="{StaticResource DialogStyle}"

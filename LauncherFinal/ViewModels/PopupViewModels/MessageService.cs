@@ -5,15 +5,24 @@ using Mvvm.Commands;
 
 namespace LauncherFinal.ViewModels.PopupViewModels
 {
+    public interface IPopupHost
+    {
+        bool CanClickAway { get; }
+    }
+
     public static class MessageService
     {
-        public static async Task ShowMessage(string message, string hostName = DialogHostNames.MessagesDialogName)
+        public static async Task ShowMessage(string message, 
+            bool canClickAway = true,
+            string hostName = DialogHostNames.MessagesDialogName)
         {
-            var vm = new MessageViewModel(message);
+            var vm = new MessageViewModel(message, canClickAway);
             await DialogHost.Show(vm, hostName);
         }
 
-        public static async Task<bool?> ShowDialog(string question, bool isCancable, string hostName = DialogHostNames.MessagesDialogName)
+        public static async Task<bool?> ShowDialog(string question, 
+            bool isCancable, 
+            string hostName = DialogHostNames.MessagesDialogName)
         {
             var vm = new DialogViewModel(question, isCancable);
             await DialogHost.Show(vm, hostName);
@@ -21,29 +30,30 @@ namespace LauncherFinal.ViewModels.PopupViewModels
         }
     }
 
-    class MessageViewModel
+    class MessageViewModel : IPopupHost
     {
-        public MessageViewModel(string message)
+        public MessageViewModel(string message, bool canClickAway = true)
         {
             Message = message;
+            CanClickAway = canClickAway;
         }
 
         public string Message { get; }
         public ICommand CloseCommand => DialogHost.CloseDialogCommand;
+        public bool CanClickAway { get; }
     }
 
-    class DialogViewModel
+    class DialogViewModel : IPopupHost
     {
         public DialogViewModel(string question, bool isCancable)
         {
             Question = question;
-            IsCancable = isCancable;
+            CanClickAway = isCancable;
             YesCommand = new DelegateCommand(() => SetResult(true));
             NoCommand = new DelegateCommand(() => SetResult(false));
         }
 
         public string Question { get; }
-        public bool IsCancable { get; }
         public bool? DialodResult { get; private set; }
         public ICommand YesCommand { get; private set; }
         public ICommand NoCommand { get; private set; }
@@ -54,5 +64,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
             DialodResult = result;
             CancelCommand.Execute(this);
         }
+
+        public bool CanClickAway {get;}
     }
 }

@@ -13,7 +13,6 @@ namespace LauncherFinal.ViewModels.PopupViewModels
     {
         #region Fields
 
-        private readonly bool _autoClose;
         private int _speed;
         private int _percantage;
         private bool _isError;
@@ -49,13 +48,11 @@ namespace LauncherFinal.ViewModels.PopupViewModels
 
         public DownloadViewModel(string dialogHostName,
             string url,
-            string filename = null,
-            bool autoClose = true)
-            : base(dialogHostName, autoClose)
+            string filename = null)
+            : base(dialogHostName, true)
         {
             Url = url;
             Filename = filename;
-            _autoClose = autoClose;
 
             _manager = new DownloadManager(url, filename);
 
@@ -76,8 +73,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
         {
             IsError = _manager.IsError;
 
-            if (_autoClose)
-                ClosePopup();
+            ClosePopup();
         }
 
         #endregion
