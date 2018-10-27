@@ -43,6 +43,10 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MojangSharp, Version=0.45.6678.1621, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hawezo.MojangSharp.0.5.1\lib\MojangSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Mvvm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvvm.1.0.4\lib\Mvvm.dll</HintPath>
     </Reference>
@@ -80,11 +84,13 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="Behaviors\PassworBinderBehavior.cs" />
+    <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\SwitchConverter.cs" />
     <Compile Include="Models\AuthModules\AuthModuleFactory.cs" />
     <Compile Include="Models\AuthModules\ElyAuthModule.cs" />
     <Compile Include="Models\AuthModules\IAuthModule.cs" />
+    <Compile Include="Models\AuthModules\YggdrasilAuthModule.cs" />
     <Compile Include="Models\ForgeLaunchWorker.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
     <Compile Include="ViewModels\PopupViewModels\CompressionViewModel.cs" />
@@ -103,6 +109,15 @@
     </Compile>
     <Compile Include="Views\Popup\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ServerView.xaml.cs">
+      <DependentUpon>ServerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartView.xaml.cs">
+      <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +144,15 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Popup\MessageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ServerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StartView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

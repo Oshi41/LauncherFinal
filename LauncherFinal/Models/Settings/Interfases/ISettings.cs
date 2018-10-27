@@ -7,7 +7,7 @@ namespace LauncherFinal.Models.Settings.Interfases
     public interface ISettings
     {
         string JavaPath { get; set; }
-        int Megobytes { get; set; }
+        int Megabytes { get; set; }
         bool OptimizeJava { get; set; }
 
         string ProjectConfigUrl { get; set; }

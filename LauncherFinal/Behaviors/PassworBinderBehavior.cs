@@ -43,7 +43,7 @@ namespace LauncherFinal.Behaviors
 
         private static void OnBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is PassworBinderBehavior behavior))
+            if (!(d is PassworBinderBehavior behavior) || behavior.AssociatedObject == null)
                 return;
 
             behavior._actionArbiter.Do(() =>

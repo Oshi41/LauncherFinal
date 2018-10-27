@@ -1,8 +1,16 @@
-﻿namespace LauncherFinal.Models.AuthModules
+﻿using System.ComponentModel;
+
+namespace LauncherFinal.Models.AuthModules
 {
     public enum ModuleTypes
     {
+        [Description("Отсутствует")]
         None,
+
+        [Description("Официальная Mojang")]
+        Default,
+
+        [Description("Ely.by")]
         Ely,
     }
 
@@ -14,6 +22,9 @@
             {
                 case ModuleTypes.Ely:
                     return new ElyAuthModule();
+
+                case ModuleTypes.Default:
+                    return new YggdrasilAuthModule("https://authserver.mojang.com/authenticate");
 
                 default:
                     return new EmptyModule();

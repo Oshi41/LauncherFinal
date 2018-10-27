@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="LauncherFinal.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LauncherFinal.Views"
+             xmlns:viewModels="clr-namespace:LauncherFinal.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:LauncherFinal.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:LauncherSettings}}">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textblock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.slider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.checkbox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:SwitchConverter x:Key="UpdateTextConverter"
+                                        Default="Обновлений не требуется">
+                <converters:Case When="True"
+                                 Then="Обновить"/>
+            </converters:SwitchConverter>
+            
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <Style x:Key="ButtonStyle" 
+                   TargetType="Button"
+                   BasedOn="{StaticResource MaterialDesignFlatButton}">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="0,0,0,5"/>
+            </Style>
+            
+            <Style x:Key="IconStyle"
+                   TargetType="materialDesign:PackIcon">
+                <Setter Property="Margin" Value="0,0,5,0"/>
+                <Setter Property="Foreground" Value="{DynamicResource SecondaryAccentBrush}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical"
+                Margin="5">
+        
+        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Text="{Binding Path=CurrentVersion, StringFormat={}Версия: {0}}"/>
+        
+        <TextBlock Text="Выделение памяти:"
+                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                   Margin="0,5"/>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Slider Style="{StaticResource MaterialDesignSlider}"
+                    Minimum="512"
+                    Value="{Binding Path=Megobytes}"
+                    IsSnapToTickEnabled="True"
+                    TickFrequency="64"
+                    IsMoveToPointEnabled="True"
+                    AutoToolTipPlacement="TopLeft"
+                    Loaded="FindMaxMemory"/>
+
+            <TextBlock Grid.Column="1"
+                       Text="{Binding Path=Megobytes, StringFormat={}{0} Мб}"
+                       TextAlignment="Center"
+                       Width="70"/>
+        </Grid>
+        
+        <CheckBox Style="{StaticResource MaterialDesignCheckBox}"
+                  IsChecked="{Binding Path=OptimizeJava}"
+                  Margin="0,5"
+                  Content="Использовать экспериментальную оптимизацию"/>
+
+        <TextBlock Text="Путь к Java:"
+                   Margin="0,0,0,5"
+                   Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                     VerticalAlignment="Stretch"
+                     Text="{Binding Path=JavaPath, UpdateSourceTrigger=PropertyChanged}"
+                     IsReadOnly="True"/>
+            
+            <Button Grid.Column="1"
+                    Command="{Binding Path=FindJavaCommand}"
+                    Content="..."
+                    VerticalAlignment="Stretch"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource PrimaryHueDarkBrush}"/>
+        </Grid>
+
+        <Separator Margin="0,10"/>
+
+        <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                Margin="0,0,0,5"
+                Command="{Binding Path=SaveCommand}"
+                IsDefault="True">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Style="{StaticResource IconStyle}"
+                                         Kind="ContentSave"/>
+                <TextBlock Text="Сохранить"/>
+                <materialDesign:PackIcon Style="{StaticResource IconStyle}"
+                                         Margin="5,0,0,0"
+                                         Kind="ContentSave"/>
+            </StackPanel>
+        </Button>
+
+        <Separator Margin="0,15,0,20"/>
+
+        <Button Style="{StaticResource ButtonStyle}"
+                Command="{Binding Path=UpdateLauncherCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Style="{StaticResource IconStyle}"
+                                         Kind="Update"/>
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                    Path=IsEnabled, Converter={StaticResource UpdateTextConverter}}"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{StaticResource ButtonStyle}"
+                Command="{Binding Path=OpenBaseFolderCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Style="{StaticResource IconStyle}"
+                                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                         Kind="Folder"/>
+                <TextBlock Text="Открыть корневую папку"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{StaticResource ButtonStyle}"
+                Command="{Binding Path=ClearFolderCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Style="{StaticResource IconStyle}"
+                                         Foreground="DarkRed"
+                                         Kind="Folder"/>
+                <TextBlock Text="Очистить все файлы"
+                           Foreground="{DynamicResource SecondaryAccentBrush}"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{StaticResource ButtonStyle}"
+                Command="{Binding Path=OpenProjectSiteCommand}"
+                Visibility="{Binding RelativeSource={RelativeSource Self},
+            Path=IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Style="{StaticResource IconStyle}"
+                                         Kind="Web"/>
+                <TextBlock Text="Открыть сайт проекта"/>
+            </StackPanel>
+        </Button>
+            
+    </StackPanel>
+</UserControl>
+

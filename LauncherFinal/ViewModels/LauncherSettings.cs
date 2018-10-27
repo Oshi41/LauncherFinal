@@ -7,6 +7,7 @@ using System.Threading;
 using System.Windows.Input;
 using LauncherFinal.Models.Settings.Interfases;
 using LauncherFinal.ViewModels.PopupViewModels;
+using Microsoft.Win32;
 using Mvvm;
 using Mvvm.Commands;
 
@@ -54,6 +55,8 @@ namespace LauncherFinal.ViewModels
             set => SetProperty(ref _clientFolder, value);
         }
 
+        public Version CurrentVersion { get;  }
+
         #endregion
 
         #region Commands
@@ -63,6 +66,7 @@ namespace LauncherFinal.ViewModels
         public ICommand ClearFolderCommand { get; private set; }
         public ICommand OpenProjectSiteCommand { get; private set; }
         public ICommand OpenBaseFolderCommand { get; private set; }
+        public ICommand FindJavaCommand { get; private set; }
 
         #endregion
 
@@ -84,6 +88,12 @@ namespace LauncherFinal.ViewModels
             SaveCommand = new DelegateCommand(OnSave);
 
             UpdateLauncherCommand = new DelegateCommand(OnUpdate, () => _needToUpdate);
+
+            FindJavaCommand = new DelegateCommand(OnFindJavaPath);
+
+            CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            Refresh();
         }
 
         #region Event handlers
@@ -134,7 +144,7 @@ namespace LauncherFinal.ViewModels
         private void OnSave()
         {
             _settings.JavaPath = JavaPath;
-            _settings.Megobytes = Megobytes;
+            _settings.Megabytes = Megobytes;
             _settings.OptimizeJava = OptimizeJava;
             _settings.ClientFolder = ClientFolder;
         }
@@ -162,6 +172,22 @@ namespace LauncherFinal.ViewModels
             }
         }
 
+        private void OnFindJavaPath()
+        {
+            var dlg = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                InitialDirectory = JavaPath,
+                Filter = "Исполняемые файлы|*.exe",
+                Multiselect = false
+            };
+
+            if (dlg.ShowDialog() == true)
+            {
+                JavaPath = dlg.FileName;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -169,14 +195,13 @@ namespace LauncherFinal.ViewModels
         private void Refresh()
         {
             JavaPath = _settings.JavaPath;
-            Megobytes = _settings.Megobytes;
+            Megobytes = _settings.Megabytes;
             OptimizeJava = _settings.OptimizeJava;
             ClientFolder = _settings.ClientFolder;
 
-            var current = Assembly.GetExecutingAssembly().GetName().Version;
             var latest = _settings.UpdateConfig.Version;
 
-            _needToUpdate = latest > current;
+            _needToUpdate = latest > CurrentVersion;
             _emptyFolder = !Directory.GetFiles(_settings.ClientFolder).Any();
         }
 

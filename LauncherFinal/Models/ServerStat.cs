@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,8 +89,8 @@ namespace LauncherFinal.Models
                 ServerUp = true;
                 Version = serverData[2];
                 Motd = serverData[3];
-                CurrentPlayers = serverData[4];
-                MaximumPlayers = serverData[5];
+                CurrentPlayers = GetNuber(serverData[4]);
+                MaximumPlayers = GetNuber(serverData[5]);
             }
             else
             {
@@ -120,6 +121,14 @@ namespace LauncherFinal.Models
                 : -1;
         }
 
+        private int GetNuber(string s)
+        {
+            if (double.TryParse(s, NumberStyles.Any, NumberFormatInfo.InvariantInfo, out var result))
+                return (int) result;
+
+            return -1;
+        }
+
         #endregion
 
         #region Properties
@@ -144,12 +153,12 @@ namespace LauncherFinal.Models
         /// <summary>
         ///     Кол-во игроков онлайн
         /// </summary>
-        public string CurrentPlayers { get; set; }
+        public int CurrentPlayers { get; set; }
 
         /// <summary>
         ///     Макс. кол-во слотов
         /// </summary>
-        public string MaximumPlayers { get; set; }
+        public int MaximumPlayers { get; set; }
 
         /// <summary>
         ///     Включен ли сервер

@@ -7,7 +7,7 @@
              xmlns:popupViewModels="clr-namespace:LauncherFinal.ViewModels.PopupViewModels"
              xmlns:converters="clr-namespace:LauncherFinal.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="150" d:DesignWidth="350"
              d:DataContext="{d:DesignInstance Type={x:Type popupViewModels:DownloadViewModel}}">
     
     <UserControl.Resources>
@@ -23,9 +23,12 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <TextBlock Text="Ожидайте окончания загрузки..."
+                   HorizontalAlignment="Center"/>
         
         <ProgressBar Grid.Row="1"
                      Style="{StaticResource MaterialDesignCircularProgressBar}"

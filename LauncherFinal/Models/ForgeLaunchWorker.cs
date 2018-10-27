@@ -180,7 +180,7 @@ namespace LauncherFinal.Models
 
         #endregion
 
-        #region Public methods
+        #region methods
 
         private string GetLauncArgs()
         {

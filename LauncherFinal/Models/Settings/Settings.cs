@@ -12,7 +12,7 @@ namespace LauncherFinal.Models.Settings
     public class Settings : ISettings
     {
         private string _javaPath;
-        private int _megobytes;
+        private int _megabytes;
         private IUpdateConfig _updateConfig;
         private IProjectConfig _projectConfig;
         private bool _savePass;
@@ -29,10 +29,10 @@ namespace LauncherFinal.Models.Settings
             set => SetProperty(ref _javaPath, value);
         }
 
-        public int Megobytes
+        public int Megabytes
         {
-            get => _megobytes;
-            set => SetProperty(ref _megobytes, value);
+            get => _megabytes;
+            set => SetProperty(ref _megabytes, value);
         }
 
         public bool OptimizeJava
@@ -117,7 +117,7 @@ namespace LauncherFinal.Models.Settings
 
             var settings = new Settings(basePath)
             {
-                Megobytes = 1024 + 512
+                Megabytes = 1024 + 512
             };
 
             settings.JavaPath = settings.Find64Java();
