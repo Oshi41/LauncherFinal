@@ -16,7 +16,7 @@ namespace LauncherFinal.Models.Settings
         private IUpdateConfig _updateConfig;
         private IProjectConfig _projectConfig;
         private bool _savePass;
-        private string _password;
+        private IPasswordSettings _password;
         private string _login;
         private string _clientFolder;
         private string _configUrl;
@@ -65,7 +65,8 @@ namespace LauncherFinal.Models.Settings
             set => SetProperty(ref _login, value);
         }
 
-        public string Password
+        [JsonConverter(typeof(ConcreteTypeConverter<PasswordSettings>))]
+        public IPasswordSettings Password
         {
             get => _password;
             set => SetProperty(ref _password, value);

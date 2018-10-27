@@ -11,8 +11,8 @@ namespace LauncherFinal.Converters
 
         public double Divide
         {
-            get { return _divide; }
-            set { _divide = value; }
+            get => _divide;
+            set => _divide = value;
         }
 
         public double Add { get; set; }

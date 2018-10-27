@@ -31,6 +31,13 @@ namespace LauncherFinal.Models
         public string Encrypt<T>(string value, string password, string salt)
             where T : SymmetricAlgorithm, new()
         {
+            if (string.IsNullOrEmpty(value)
+                || string.IsNullOrEmpty(password)
+                || string.IsNullOrEmpty(salt))
+            {
+                return string.Empty;
+            }
+
             DeriveBytes rgb = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(salt));
 
             SymmetricAlgorithm algorithm = new T();
@@ -68,6 +75,13 @@ namespace LauncherFinal.Models
         public string Decrypt<T>(string text, string password, string salt)
             where T : SymmetricAlgorithm, new()
         {
+            if (string.IsNullOrEmpty(text)
+                || string.IsNullOrEmpty(password)
+                || string.IsNullOrEmpty(salt))
+            {
+                return string.Empty;
+            }
+
             DeriveBytes rgb = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(salt));
 
             SymmetricAlgorithm algorithm = new T();
@@ -93,11 +107,10 @@ namespace LauncherFinal.Models
         ///     Генерирует случайное зерно для шифрования
         /// </summary>
         /// <returns></returns>
-        public string GetRandomSalt()
+        public string GetRandomSalt(int length = 32)
         {
             var seed = (int) DateTime.Now.ToFileTime();
             var rand = new Random(seed);
-            var length = rand.Next(8, 16);
             var buffer = new byte[length];
             rand.NextBytes(buffer);
             return Convert.ToBase64String(buffer);

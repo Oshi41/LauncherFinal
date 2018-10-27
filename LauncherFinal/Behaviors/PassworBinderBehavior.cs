@@ -33,12 +33,14 @@ namespace LauncherFinal.Behaviors
 
         public static readonly DependencyProperty PasswordProperty = DependencyProperty.Register(
             "Password", typeof(SecureString), typeof(PassworBinderBehavior),
-            new PropertyMetadata(default(SecureString), OnBindingChanged));
+            new FrameworkPropertyMetadata(null,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                OnBindingChanged));
 
         public SecureString Password
         {
-            get { return (SecureString) GetValue(PasswordProperty); }
-            set { SetValue(PasswordProperty, value); }
+            get => (SecureString) GetValue(PasswordProperty);
+            set => SetValue(PasswordProperty, value);
         }
 
         private static void OnBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -26,7 +26,9 @@
 
             <Style x:Key="IconStyle"
                    TargetType="materialDesign:PackIcon">
-                <Setter Property="Margin" Value="5,0,5,5"/>
+                <Setter Property="Width" Value="24"/>
+                <Setter Property="Height" Value="24"/>
+                <Setter Property="Margin" Value="5,0"/>
                 <Setter Property="Foreground" Value="{DynamicResource SecondaryAccentBrush}"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
             </Style>
@@ -85,7 +87,7 @@
 
                 <PasswordBox Grid.Column="1"
                              Style="{StaticResource MaterialDesignPasswordBox}"
-                             materialDesign:HintAssist.Hint="Введите логин"
+                             materialDesign:HintAssist.Hint="Введите пароль"
                              materialDesign:HintAssist.IsFloating="True">
 
                     <i:Interaction.Behaviors>
@@ -146,13 +148,17 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             
-            <ToggleButton Grid.Column="1"
-                          Command="{Binding Path=RefreshCommand}"
-                          Style="{StaticResource MaterialDesignActionToggleButton}"
-                          Margin="10,0,5,0"
-                          VerticalAlignment="Center">
-                <materialDesign:PackIcon Kind="Update"/>
-            </ToggleButton>
+            <Button Grid.Column="1"
+                    Command="{Binding Path=RefreshCommand}"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Width="32"
+                    Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"
+                    Margin="10,0,5,0"
+                    VerticalAlignment="Center">
+                <Viewbox Margin="3">
+                    <materialDesign:PackIcon Kind="Update"/>
+                </Viewbox>
+            </Button>
         </Grid>
         
         <Button Grid.Row="3"

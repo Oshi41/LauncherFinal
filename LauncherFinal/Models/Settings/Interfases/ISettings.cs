@@ -13,7 +13,7 @@ namespace LauncherFinal.Models.Settings.Interfases
         string ClientFolder { get; set; }
 
         string Login { get; set; }
-        string Password { get; set; }
+        IPasswordSettings Password { get; set; }
         bool SavePass { get; set; }
 
         //[JsonConverter(typeof(ConcreteTypeConverter<ProjectConfig>))]

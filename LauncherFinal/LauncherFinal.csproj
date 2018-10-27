@@ -94,6 +94,8 @@
     <Compile Include="Models\ForgeLaunchWorker.cs" />
     <Compile Include="Models\Settings\AuthModuleSettings.cs" />
     <Compile Include="Models\Settings\Interfases\IAuthModuleSettings.cs" />
+    <Compile Include="Models\Settings\Interfases\IPasswordSettings.cs" />
+    <Compile Include="Models\Settings\PasswordSettings.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
     <Compile Include="ViewModels\PopupViewModels\CompressionViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModels\DialogHostNames.cs" />

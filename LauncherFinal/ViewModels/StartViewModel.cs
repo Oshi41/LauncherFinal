@@ -12,6 +12,7 @@ using System.Windows.Input;
 using LauncherFinal.Helper;
 using LauncherFinal.Models;
 using LauncherFinal.Models.AuthModules;
+using LauncherFinal.Models.Settings;
 using LauncherFinal.Models.Settings.Interfases;
 using LauncherFinal.ViewModels.PopupViewModels;
 using Mvvm;
@@ -27,7 +28,7 @@ namespace LauncherFinal.ViewModels
         private readonly AuthModuleFactory _factory = new AuthModuleFactory();
         private readonly CryptoWorker _crypter = new CryptoWorker();
 
-        private ObservableCollection<ServerViewModel> _servers;
+        private ObservableCollection<ServerViewModel> _servers = new ObservableCollection<ServerViewModel>();
         private ServerViewModel _choosenServer;
         private ModuleTypes _selectedAuthModule;
         private string _login;
@@ -41,8 +42,8 @@ namespace LauncherFinal.ViewModels
 
         public ObservableCollection<ServerViewModel> Servers
         {
-            get { return _servers; }
-            set { SetProperty(ref _servers, value); }
+            get => _servers;
+            set => SetProperty(ref _servers, value);
         }
 
         public ServerViewModel ChoosenServer
@@ -59,20 +60,20 @@ namespace LauncherFinal.ViewModels
 
         public ModuleTypes SelectedAuthModule
         {
-            get { return _selectedAuthModule; }
-            set { SetProperty(ref _selectedAuthModule, value); }
+            get => _selectedAuthModule;
+            set => SetProperty(ref _selectedAuthModule, value);
         }
 
         public string Login
         {
-            get { return _login; }
-            set { SetProperty(ref _login, value); }
+            get => _login;
+            set => SetProperty(ref _login, value);
         }
 
         public SecureString Password
         {
-            get { return _password; }
-            set { SetProperty(ref _password, value); }
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
 
         public bool RememberPassword
@@ -91,6 +92,9 @@ namespace LauncherFinal.ViewModels
             _settings = IoCContainer.Instance.Resolve<ISettings>();
 
             _settings.OnSettingsChanged += AfterSettingsChanged;
+
+            if (Application.Current.MainWindow != null)
+                Application.Current.MainWindow.Closing += OnSaveChanges;
 
             Refresh(_settings.ProjectConfig);
 
@@ -173,28 +177,37 @@ namespace LauncherFinal.ViewModels
                 Refresh(config);
         }
 
+        private void OnSaveChanges(object sender, EventArgs e)
+        {
+            SaveSettings();
+        }
+
         #region Methods
 
         private void Refresh(IProjectConfig config)
         {
+            Servers.Clear();
+            SetModules(config);
             PassFromSettings();
             Login = _settings.Login;
             RememberPassword = _settings.SavePass;
 
             var choosen = ChoosenServer;
 
-            var servers = config
-                .Servers
-                .Select(x => new ServerViewModel(x));
+            if (config?.Servers?.Any() == true)
+            {
+                var servers = config
+                    .Servers
+                    .Select(x => new ServerViewModel(x));
 
-            Servers = new ObservableCollection<ServerViewModel>(servers);
+                Servers = new ObservableCollection<ServerViewModel>(servers);
 
-            ChoosenServer = Servers.FirstOrDefault(x => Equals(choosen, x));
+                if (choosen != null)
+                    ChoosenServer = Servers.FirstOrDefault(x => Equals(choosen, x));
 
-            SetModules(config);
-
-            // запускаем в самом конце
-            Servers.ForEach(async x => await x.Ping());
+                // запускаем в самом конце
+                Servers.ForEach(async x => await x.Ping());
+            }
         }
 
         private void SaveSettings()
@@ -242,9 +255,11 @@ namespace LauncherFinal.ViewModels
 
         private void PassFromSettings()
         {
-            var unique = _crypter.GetUniqueSalt();
-            var unique2 = _crypter.GetNextUniqueSalt(unique);
-            var pass = _crypter.Decrypt<AesManaged>(_settings.Password, unique, unique2);
+            if (_settings.Password == null)
+                return;
+
+            var pass = _crypter.Decrypt<AesManaged>(_settings.Password.Encrypted,
+                _settings.Password.Password, _settings.Password.Salt);
 
             var secure = new SecureString();
             pass.ForEach(x => secure.AppendChar(x));
@@ -253,10 +268,18 @@ namespace LauncherFinal.ViewModels
 
         private void SavePassToSettings()
         {
-            var unique = _crypter.GetUniqueSalt();
-            var unique2 = _crypter.GetNextUniqueSalt(unique);
+            var password = new PasswordSettings();
 
-            _settings.Password = _crypter.Encrypt<AesManaged>(Password.ConvertToString(), unique, unique2);
+            if (RememberPassword)
+            {
+                password.Password = _crypter.GetRandomSalt();
+                password.Salt = _crypter.GetRandomSalt();
+                password.Encrypted = _crypter.Encrypt<AesManaged>(Password.ConvertToString(),
+                    password.Password,
+                    password.Salt);
+            }
+
+            _settings.Password = password;
         }
 
         private void SetModules(IProjectConfig config)

@@ -5,11 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LauncherFinal"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:views="clr-namespace:LauncherFinal.Views"
+        xmlns:viewModels="clr-namespace:LauncherFinal.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Universal Launcher" 
+        Height="400" Width="320">
 
-    <materialDesign:DialogHost Identifier="1"
-                               Loaded="AfterLoaded"
-                               CloseOnClickAway="{Binding Path=IsCancable, FallbackValue=true}"/>
+    <ContentControl Style="{StaticResource HostContent}">
+        <views:StartView>
+            <views:StartView.DataContext>
+                <viewModels:StartViewModel/>
+            </views:StartView.DataContext>
+        </views:StartView>
+    </ContentControl>
         
 </Window>
