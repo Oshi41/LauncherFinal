@@ -36,10 +36,14 @@ namespace LauncherFinal.Models.Settings
 
         public void Save()
         {
-            var jsonSettings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-            };
+            var jsonSettings = new JsonSerializerSettings();
+
+#if DEBUG
+            _settings.ProjectConfig = new ProjectConfig();
+            _settings.UpdateConfig = new UpdateConfig();
+#else
+            jsonSettings.NullValueHandling = NullValueHandling.Ignore;
+#endif
 
             var json = JsonConvert.SerializeObject(_settings, Formatting.Indented, jsonSettings);
 

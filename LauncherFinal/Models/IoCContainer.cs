@@ -24,7 +24,7 @@ namespace LauncherFinal
         private IoCContainer()
         {
             var settings = Settings.CreateDefault();
-            var worker = new SettingsWorker(Path.Combine(settings.ClientFolder, "settings.txt"),
+            var worker = new SettingsWorker(Path.Combine(settings.ClientFolder, "config", "settings.txt"),
                 settings);
 
             RegisterAsSigleton<ISettings>(settings);
