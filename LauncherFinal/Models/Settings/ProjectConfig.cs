@@ -11,5 +11,8 @@ namespace LauncherFinal.Models.Settings
 
         [JsonConverter(typeof(ConcreteTypeConverter<List<Server>>))]
         public IList<IServer> Servers { get; set; }
+
+        [JsonConverter(typeof(ConcreteTypeConverter<AuthModuleSettings>))]
+        public IAuthModuleSettings AuthModuleSettings { get; set; }
     }
 }

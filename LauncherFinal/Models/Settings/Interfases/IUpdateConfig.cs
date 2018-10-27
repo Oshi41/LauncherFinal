@@ -8,7 +8,7 @@ namespace LauncherFinal.Models.Settings.Interfases
     {
         string ExeUrl { get; set; }
 
-        [JsonConverter(typeof(VersionConverter))]
+        //[JsonConverter(typeof(VersionConverter))]
         Version Version { get; set; }
     }
 }

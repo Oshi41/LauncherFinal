@@ -25,7 +25,7 @@ namespace LauncherFinal.Models.Settings.Interfases
         /// Хэш-суммы папки сервера
         /// <para>Путь к папке -> Хэш</para>
         /// </summary>
-        [JsonConverter(typeof(ConcreteTypeConverter<Dictionary<string, string>>))]
+        //[JsonConverter(typeof(ConcreteTypeConverter<Dictionary<string, string>>))]
         IDictionary<string, string> DirHashCheck { get; }
     }
 }

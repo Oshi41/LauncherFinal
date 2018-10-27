@@ -18,10 +18,10 @@ namespace LauncherFinal.Models.Settings.Interfases
         string Password { get; set; }
         bool SavePass { get; set; }
 
-        [JsonConverter(typeof(ConcreteTypeConverter<ProjectConfig>))]
+        //[JsonConverter(typeof(ConcreteTypeConverter<ProjectConfig>))]
         IProjectConfig ProjectConfig { get; set; }
 
-        [JsonConverter(typeof(ConcreteTypeConverter<UpdateConfig>))]
+        //[JsonConverter(typeof(ConcreteTypeConverter<UpdateConfig>))]
         IUpdateConfig UpdateConfig { get; set; }
 
         event EventHandler OnSettingsChanged;

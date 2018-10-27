@@ -29,10 +29,11 @@ namespace LauncherFinal.ViewModels
 
         private ObservableCollection<ServerViewModel> _servers;
         private ServerViewModel _choosenServer;
-        private ModuleTypes _authModule;
+        private ModuleTypes _selectedAuthModule;
         private string _login;
         private SecureString _password;
         private bool _rememberPassword;
+        private List<ModuleTypes> _modules = new List<ModuleTypes>();
 
         #endregion
 
@@ -50,10 +51,16 @@ namespace LauncherFinal.ViewModels
             set => SetProperty(ref _choosenServer, value);
         }
 
-        public ModuleTypes AuthModule
+        public List<ModuleTypes> Modules
         {
-            get { return _authModule; }
-            set { SetProperty(ref _authModule, value); }
+            get => _modules;
+            set => SetProperty(ref _modules, value);
+        }
+
+        public ModuleTypes SelectedAuthModule
+        {
+            get { return _selectedAuthModule; }
+            set { SetProperty(ref _selectedAuthModule, value); }
         }
 
         public string Login
@@ -106,7 +113,7 @@ namespace LauncherFinal.ViewModels
 
             if (!await CheckAndDownload(ChoosenServer.DownloadLink, folder))
             {
-                await MessageService.ShowMessage( "Ошибка в скачивании клиентских файлов");
+                await MessageService.ShowMessage("Ошибка в скачивании клиентских файлов");
                 return;
             }
 
@@ -126,11 +133,11 @@ namespace LauncherFinal.ViewModels
                 return;
             }
 
-            var module = _factory.GetByType(AuthModule);
+            var module = _factory.GetByType(SelectedAuthModule);
             var result = await module.GenerateToken(Login, Password);
             if (!result.Key)
             {
-                await MessageService.ShowMessage( "Ошибка в регистрации");
+                await MessageService.ShowMessage("Ошибка в регистрации");
                 return;
             }
 
@@ -184,6 +191,9 @@ namespace LauncherFinal.ViewModels
 
             ChoosenServer = Servers.FirstOrDefault(x => Equals(choosen, x));
 
+            SetModules(config);
+
+            // запускаем в самом конце
             Servers.ForEach(async x => await x.Ping());
         }
 
@@ -247,6 +257,27 @@ namespace LauncherFinal.ViewModels
             var unique2 = _crypter.GetNextUniqueSalt(unique);
 
             _settings.Password = _crypter.Encrypt<AesManaged>(Password.ConvertToString(), unique, unique2);
+        }
+
+        private void SetModules(IProjectConfig config)
+        {
+            Modules.Clear();
+            var modules = new List<ModuleTypes>();
+            modules.AddRange(Enum.GetValues(typeof(ModuleTypes)).OfType<ModuleTypes>());
+
+            if (config?.AuthModuleSettings == null)
+            {
+                modules.Remove(ModuleTypes.Custom);
+            }
+            else
+            {
+                if (config.AuthModuleSettings.StrictUsage)
+                {
+                    modules.RemoveAll(x => x != ModuleTypes.Custom);
+                }
+            }
+
+            Modules = modules;
         }
 
         #endregion

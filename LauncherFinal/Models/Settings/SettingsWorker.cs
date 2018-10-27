@@ -39,7 +39,10 @@ namespace LauncherFinal.Models.Settings
             var jsonSettings = new JsonSerializerSettings();
 
 #if DEBUG
-            _settings.ProjectConfig = new ProjectConfig();
+            _settings.ProjectConfig = new ProjectConfig
+            {
+                AuthModuleSettings = new AuthModuleSettings()
+            };
             _settings.UpdateConfig = new UpdateConfig();
 #else
             jsonSettings.NullValueHandling = NullValueHandling.Ignore;

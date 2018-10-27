@@ -33,14 +33,20 @@
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
             </Style>
 
-            <ObjectDataProvider x:Key="ModuleTypes" MethodName="GetValues"
+            <!--<ObjectDataProvider x:Key="ModuleTypes" MethodName="GetValues"
                                 ObjectType="{x:Type sys:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="authModules:ModuleTypes"/>
                 </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
+            </ObjectDataProvider>-->
 
             <converters:EnumDescriptionConverter x:Key="DescriptionConverter"/>
+
+            <converters:SwitchConverter x:Key="NumberToVisConverter"
+                                        Default="Visible">
+                <converters:Case When="1"
+                                 Then="Collapsed"/>
+            </converters:SwitchConverter>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -98,7 +104,8 @@
         </StackPanel>
 
         <Grid Grid.Row="1"
-              Margin="0,20,0,0">
+              Margin="0,20,0,0"
+              Visibility="{Binding Path=Modules.Count, Converter={StaticResource NumberToVisConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition />
@@ -111,8 +118,8 @@
             <ComboBox Grid.Column="1"
                       VerticalAlignment="Center"
                       Style="{StaticResource MaterialDesignComboBox}"
-                      SelectedValue="{Binding Path=AuthModule}"
-                      ItemsSource="{Binding Source={StaticResource ModuleTypes}}">
+                      SelectedValue="{Binding Path=SelectedAuthModule}"
+                      ItemsSource="{Binding Modules}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource DescriptionConverter}}"/>

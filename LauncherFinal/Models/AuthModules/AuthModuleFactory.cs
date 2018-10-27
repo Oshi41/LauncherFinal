@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using LauncherFinal.Models.Settings.Interfases;
 
 namespace LauncherFinal.Models.AuthModules
 {
@@ -12,6 +13,9 @@ namespace LauncherFinal.Models.AuthModules
 
         [Description("Ely.by")]
         Ely,
+
+        [Description("Модуль проекта")]
+        Custom,
     }
 
     public class AuthModuleFactory
@@ -25,6 +29,11 @@ namespace LauncherFinal.Models.AuthModules
 
                 case ModuleTypes.Default:
                     return new YggdrasilAuthModule("https://authserver.mojang.com/authenticate");
+
+                case ModuleTypes.Custom:
+                    var settings = IoCContainer.Instance.Resolve<ISettings>();
+                    var uri = settings?.ProjectConfig?.AuthModuleSettings?.AuthUri;
+                    return new YggdrasilAuthModule(uri);
 
                 default:
                     return new EmptyModule();

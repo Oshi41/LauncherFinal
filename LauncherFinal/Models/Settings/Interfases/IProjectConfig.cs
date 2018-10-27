@@ -8,7 +8,10 @@ namespace LauncherFinal.Models.Settings.Interfases
     {
         string ProjectSite { get; set; }
 
-        [JsonConverter(typeof(ConcreteTypeConverter<List<Server>>))]
+        //[JsonConverter(typeof(ConcreteTypeConverter<List<Server>>))]
         IList<IServer> Servers { get; set; }
+
+        //[JsonConverter(typeof(ConcreteTypeConverter<AuthModuleSettings>))]
+        IAuthModuleSettings AuthModuleSettings { get; set; }
     }
 }
