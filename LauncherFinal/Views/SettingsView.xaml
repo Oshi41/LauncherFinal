@@ -8,7 +8,7 @@
              xmlns:converters="clr-namespace:LauncherFinal.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400"
-             d:DataContext="{d:DesignInstance Type={x:Type viewModels:LauncherSettings}}">
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:LauncherSettingsViewModel}}">
     
     <UserControl.Resources>
         <ResourceDictionary>
@@ -33,6 +33,9 @@
                    BasedOn="{StaticResource MaterialDesignFlatButton}">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Margin" Value="0,0,0,5"/>
+                <Setter Property="Visibility"
+                        Value="{Binding RelativeSource={RelativeSource Self},
+            Path=IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             </Style>
             
             <Style x:Key="IconStyle"

@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using System.Windows;
-using LauncherFinal.ViewModels.PopupViewModels;
+﻿using System.Windows;
+using MaterialDesignThemes.Wpf;
 
 namespace LauncherFinal
 {
@@ -14,11 +13,19 @@ namespace LauncherFinal
             InitializeComponent();
         }
 
-        private void AfterLoaded(object sender, RoutedEventArgs e)
+        private void OnClose(object sender, RoutedEventArgs e)
         {
-            var text = string.Join("\n", Enumerable.Repeat("Since one of StringEnumConverter's constructors takes a boolean for", 100));
+            Close();
+        }
 
-            MessageService.ShowMessage(text);
+        private void OnMinimize(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void Flip(object sender, RoutedEventArgs e)
+        {
+            //Flipper.IsFlipped = !Flipper.IsFlipped;
         }
     }
 }

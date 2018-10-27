@@ -50,7 +50,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="10">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -156,7 +156,7 @@
                     Margin="10,0,5,0"
                     VerticalAlignment="Center">
                 <Viewbox Margin="3">
-                    <materialDesign:PackIcon Kind="Update"/>
+                    <materialDesign:PackIcon Kind="Refresh"/>
                 </Viewbox>
             </Button>
         </Grid>

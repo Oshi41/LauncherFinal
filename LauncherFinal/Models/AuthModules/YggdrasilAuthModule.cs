@@ -35,7 +35,6 @@ namespace LauncherFinal.Models.AuthModules
                 return default(KeyValuePair<bool, string>);
 
             return new KeyValuePair<bool, string>(true, result.AccessToken);
-
         }
     }
 }

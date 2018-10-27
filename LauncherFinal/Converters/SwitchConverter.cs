@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
@@ -10,7 +11,7 @@ namespace LauncherFinal.Converters
     /// Then property of the case.
     /// </summary>
     [ContentProperty("Cases")]
-    public class SwitchConverter : IValueConverter
+    public class SwitchConverter : DependencyObject, IValueConverter
     {
         // Converter instances.
         List<Case> _cases;
@@ -26,10 +27,17 @@ namespace LauncherFinal.Converters
             set => _cases = value;
         }
 
+        public static readonly DependencyProperty DefaultProperty = DependencyProperty.Register(
+            "Default", typeof(object), typeof(SwitchConverter), new PropertyMetadata(default(object)));
+
         /// <summary>
         /// Default value if no one cases was accepted
         /// </summary>
-        public object Default { get; set; }
+        public object Default
+        {
+            get => (object) GetValue(DefaultProperty);
+            set => SetValue(DefaultProperty, value);
+        }
 
         #endregion
 
@@ -95,7 +103,7 @@ namespace LauncherFinal.Converters
     /// Represents a case for a switch converter.
     /// </summary>
     [ContentProperty("Then")]
-    public class Case
+    public class Case : DependencyObject
     {
         // case instances.
         string _when;
@@ -112,13 +120,16 @@ namespace LauncherFinal.Converters
             set => _when = value;
         }
 
+        public static readonly DependencyProperty ThenProperty = DependencyProperty.Register(
+            "Then", typeof(object), typeof(Case), new PropertyMetadata(default(object)));
+
         /// <summary>
         /// Gets or sets the results of this case when run through a <see cref="SwitchConverter"/>
         /// </summary>
         public object Then
         {
-            get => _then;
-            set => _then = value;
+            get => (object) GetValue(ThenProperty);
+            set => SetValue(ThenProperty, value);
         }
 
         #endregion

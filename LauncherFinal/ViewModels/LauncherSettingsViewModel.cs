@@ -13,7 +13,7 @@ using Mvvm.Commands;
 
 namespace LauncherFinal.ViewModels
 {
-    class LauncherSettings : BindableBase
+    class LauncherSettingsViewModel : BindableBase
     {
         #region Fields
 
@@ -71,7 +71,7 @@ namespace LauncherFinal.ViewModels
 
         #endregion
 
-        public LauncherSettings(ISettings settings)
+        public LauncherSettingsViewModel(ISettings settings)
         {
             _settings = settings;
             _settings.OnSettingsChanged += OnSettingChanged;
@@ -113,7 +113,7 @@ namespace LauncherFinal.ViewModels
         private async void OnUpdate()
         {
             // todo map DialogHostNames
-            var hostName = "LauncherSettings";
+            var hostName = "LauncherSettingsViewModel";
             DownloadViewModel vm = null;
 
             try

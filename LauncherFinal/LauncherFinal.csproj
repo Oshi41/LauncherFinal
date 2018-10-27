@@ -83,6 +83,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="Behaviors\PassworBinderBehavior.cs" />
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
@@ -97,10 +98,11 @@
     <Compile Include="Models\Settings\Interfases\IPasswordSettings.cs" />
     <Compile Include="Models\Settings\PasswordSettings.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModels\CompressionViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModels\DialogHostNames.cs" />
     <Compile Include="ViewModels\PopupViewModels\DownloadViewModel.cs" />
-    <Compile Include="ViewModels\LauncherSettings.cs" />
+    <Compile Include="ViewModels\LauncherSettingsViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModels\MessageService.cs" />
     <Compile Include="ViewModels\PopupViewModels\PopupHostViewModelBase.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
