@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using LauncherFinal.JsonConverters;
-using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings.Interfases
 {

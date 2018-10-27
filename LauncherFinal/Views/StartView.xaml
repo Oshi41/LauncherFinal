@@ -8,8 +8,6 @@
              xmlns:viewModels="clr-namespace:LauncherFinal.ViewModels"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:LauncherFinal.Behaviors"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:authModules="clr-namespace:LauncherFinal.Models.AuthModules"
              xmlns:converters="clr-namespace:LauncherFinal.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400"
