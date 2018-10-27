@@ -166,7 +166,18 @@
                 <TextBlock Text="Открыть сайт проекта"/>
             </StackPanel>
         </Button>
-            
+
+        <Button Style="{StaticResource ButtonStyle}"
+                Command="{Binding Path=DefaultSettingsCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Style="{StaticResource IconStyle}"
+                                         Kind="Clear"/>
+                <TextBlock Text="Сбросить настройки"
+                           Foreground="DarkGreen"
+                           TextDecorations="Underline"/>
+            </StackPanel>
+        </Button>
+
     </StackPanel>
 </UserControl>
 

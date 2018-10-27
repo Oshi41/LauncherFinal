@@ -4,7 +4,7 @@
     {
         void Read();
         void Save();
-
         void DownloadAsync();
+        void BackToDefaults();
     }
 }

@@ -73,6 +73,13 @@ namespace LauncherFinal.Models.Settings
             }
         }
 
+        public void BackToDefaults()
+        {
+            var json = JsonConvert.SerializeObject(Settings.CreateDefault(), Formatting.Indented);
+            JsonConvert.PopulateObject(json, _settings);
+            DownloadAsync();
+        }
+
         public async void DownloadAsync()
         {
             var projectJson = await DownloadAndRead(_settings.ProjectConfigUrl);

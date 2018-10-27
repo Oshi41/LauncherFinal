@@ -67,6 +67,7 @@ namespace LauncherFinal.ViewModels
         public ICommand OpenProjectSiteCommand { get; private set; }
         public ICommand OpenBaseFolderCommand { get; private set; }
         public ICommand FindJavaCommand { get; private set; }
+        public ICommand DefaultSettingsCommand { get; private set; }
 
         #endregion
 
@@ -90,6 +91,8 @@ namespace LauncherFinal.ViewModels
             UpdateLauncherCommand = new DelegateCommand(OnUpdate, () => _needToUpdate);
 
             FindJavaCommand = new DelegateCommand(OnFindJavaPath);
+
+            DefaultSettingsCommand = new DelegateCommand(BackToDefaultsCommand);
 
             CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -188,6 +191,18 @@ namespace LauncherFinal.ViewModels
             }
         }
 
+        private async void BackToDefaultsCommand()
+        {
+            var result = await MessageService.ShowDialog(
+                "Вернуться к настройка по умолчанию?", true);
+
+            if (result != true)
+                return;
+
+            var worker = IoCContainer.Instance.Resolve<ISettingsWorker>();
+            worker.BackToDefaults();
+        }
+
         #endregion
 
         #region Methods
@@ -199,7 +214,7 @@ namespace LauncherFinal.ViewModels
             OptimizeJava = _settings.OptimizeJava;
             ClientFolder = _settings.ClientFolder;
 
-            var latest = _settings.UpdateConfig.Version;
+            var latest = _settings?.UpdateConfig?.Version ?? new Version();
 
             _needToUpdate = latest > CurrentVersion;
             _emptyFolder = !Directory.GetFiles(_settings.ClientFolder).Any();
