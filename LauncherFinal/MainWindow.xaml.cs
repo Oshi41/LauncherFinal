@@ -25,7 +25,7 @@ namespace LauncherFinal
 
         private void Flip(object sender, RoutedEventArgs e)
         {
-            //Flipper.IsFlipped = !Flipper.IsFlipped;
+            Flipper.IsFlipped = !Flipper.IsFlipped;
         }
     }
 }

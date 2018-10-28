@@ -16,6 +16,7 @@
         Width="320"
         MinWidth="320"
         MinHeight="400"
+        Background="{DynamicResource MaterialDesignCardBackground}"
         d:DataContext="{d:DesignInstance Type={x:Type viewModels:MainViewModel}}">
 
     <Window.Resources>
@@ -112,9 +113,9 @@
                 </Button>
 
                 <TextBlock Grid.Column="1"
-                       Margin="5,0"
-                       Style="{StaticResource MaterialDesignTitleTextBlock}"
-                       Text="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                           Margin="5,0"
+                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                           Text="{Binding RelativeSource={RelativeSource AncestorType=Window},
                 Path=Title}"/>
 
                 <Button Grid.Column="2"
@@ -136,35 +137,10 @@
 
         </materialDesign:Card>
 
-        <ContentControl Style="{StaticResource HostContent}">
-            <ContentControl Content="{Binding Front}"
-                            RenderTransformOrigin="0.5,0.5">
-                <ContentControl.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform  />
-                        <SkewTransform/>
-                    </TransformGroup>
-                </ContentControl.RenderTransform>
-
-                <ContentControl.Triggers>
-                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard Storyboard="{StaticResource FlipStoryboard}"/>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </ContentControl.Triggers>
-            </ContentControl>
-            <!--<materialDesign:Flipper x:Name="Flipper"
-                                    Style="{StaticResource {x:Type materialDesign:Flipper}}"
-                                    IsFlipped="{Binding IsFlipped}"
-                                    BackContent="{Binding Path=Back}"
-                                    FrontContent="{Binding Path=Front}"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalContentAlignment="Stretch"
-                                    VerticalContentAlignment="Stretch"
-                                    Margin="10"/>-->
-        </ContentControl>
+        <views:FlipPanel x:Name="Flipper"
+                         IsFlipped="{Binding Path=IsFlipped}"
+                         Back="{Binding Path=Back}"
+                         Front="{Binding Path=Front}"/>
     </DockPanel>
 
 </Window>

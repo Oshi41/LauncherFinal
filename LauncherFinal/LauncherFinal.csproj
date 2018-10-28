@@ -86,6 +86,7 @@
     <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="Behaviors\PassworBinderBehavior.cs" />
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Converters\InvertBool2VisConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\SwitchConverter.cs" />
     <Compile Include="Models\AuthModules\AuthModuleFactory.cs" />
@@ -107,6 +108,9 @@
     <Compile Include="ViewModels\PopupViewModels\PopupHostViewModelBase.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="Views\FlipPanel.xaml.cs">
+      <DependentUpon>FlipPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Popup\DialogView.xaml.cs">
       <DependentUpon>DialogView.xaml</DependentUpon>
     </Compile>
@@ -141,6 +145,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\DataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FlipPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Popup\DialogView.xaml">

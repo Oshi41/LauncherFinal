@@ -50,7 +50,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid >
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

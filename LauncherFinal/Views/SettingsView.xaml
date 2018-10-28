@@ -49,7 +49,7 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical"
-                Margin="5">
+                Margin="10">
         
         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}"
                    HorizontalAlignment="Center"
