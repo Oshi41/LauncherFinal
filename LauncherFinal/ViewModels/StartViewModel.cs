@@ -113,49 +113,14 @@ namespace LauncherFinal.ViewModels
         {
             SaveSettings();
 
-            var folder = Path.Combine(_settings.ClientFolder, ChoosenServer.Name);
-
-            if (!await CheckAndDownload(ChoosenServer.DownloadLink, folder))
-            {
-                await MessageService.ShowMessage("Ошибка в скачивании клиентских файлов");
-                return;
-            }
-
-            if (!CheckHash(folder, ChoosenServer.DirHashCheck))
-            {
-                var canReinstall = await MessageService.ShowDialog(
-                    "Хэш-сумма папки не совпдает, требуется переустановка.\nПродолжить?",
-                    false);
-
-                if (canReinstall == true)
-                {
-                    Directory.Delete(folder, true);
-                    // заного запускаю метод
-                    OnLaunch();
-                }
-
-                return;
-            }
-
-            var module = _factory.GetByType(SelectedAuthModule);
-            var result = await module.GenerateToken(Login, Password);
-            if (!result.Key)
-            {
-                await MessageService.ShowMessage("Ошибка в регистрации");
-                return;
-            }
-
             try
             {
-                var launcher = new ForgeLaunchWorker(folder,
-                    result.Value,
-                    _settings.JavaPath,
-                    Login,
-                    _settings.OptimizeJava);
+                var launcher = new LaunchWorker(_settings, ChoosenServer,
+                    SelectedAuthModule, Login, Password);
 
-                launcher.RegularLaunch(OnExit);
-
-                Application.Current.MainWindow?.Hide();
+                var message = await launcher.Launch(OnExit);
+                if (!string.IsNullOrEmpty(message))
+                    throw new Exception(message);
             }
             catch (Exception e)
             {
@@ -217,42 +182,6 @@ namespace LauncherFinal.ViewModels
             _settings.SavePass = RememberPassword;
         }
 
-        private async Task<bool> CheckAndDownload(string url, string folder)
-        {
-            if (Directory.Exists(folder) && Directory.GetFiles(folder).Any())
-                return true;
-
-            // todo Вставить нормальное имя хоста
-            var hostName = "StartViewModel";
-
-            var vm = new DownloadViewModel(hostName, url);
-            var filePath = await vm.Start();
-
-            if (vm.IsError)
-                return false;
-
-            var compress = new CompressionViewModel(hostName, filePath, folder, true, true, true);
-            return await compress.Extract();
-        }
-
-        private bool CheckHash(string folder, IDictionary<string, string> md5)
-        {
-            if (!Directory.Exists(folder) || md5.IsNullOrEmpty())
-                return true;
-
-            var worker = new HashChecker();
-
-            foreach (var hash in md5)
-            {
-                var path = Path.GetFullPath(Path.Combine(folder, hash.Key));
-                var folderHash = worker.CreateMd5ForFolder(path);
-                if (!string.Equals(hash.Value, folderHash))
-                    return false;
-            }
-
-            return true;
-        }
-
         private void PassFromSettings()
         {
             if (_settings.Password == null)
@@ -268,18 +197,24 @@ namespace LauncherFinal.ViewModels
 
         private void SavePassToSettings()
         {
-            var password = new PasswordSettings();
-
             if (RememberPassword)
             {
-                password.Password = _crypter.GetRandomSalt();
-                password.Salt = _crypter.GetRandomSalt();
+                var password = new PasswordSettings
+                {
+                    Password = _crypter.GetRandomSalt(),
+                    Salt = _crypter.GetRandomSalt()
+                };
+
                 password.Encrypted = _crypter.Encrypt<AesManaged>(Password.ConvertToString(),
                     password.Password,
                     password.Salt);
-            }
 
-            _settings.Password = password;
+                _settings.Password = password;
+            }
+            else
+            {
+                _settings.Password = null;
+            }
         }
 
         private void SetModules(IProjectConfig config)

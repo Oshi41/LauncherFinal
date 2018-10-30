@@ -84,7 +84,7 @@
         <CheckBox Style="{StaticResource MaterialDesignCheckBox}"
                   IsChecked="{Binding Path=OptimizeJava}"
                   Margin="0,5"
-                  Content="Использовать экспериментальную оптимизацию"/>
+                  Content="Оптимизация Java (experimantal)"/>
 
         <TextBlock Text="Путь к Java:"
                    Margin="0,0,0,5"
@@ -99,11 +99,13 @@
             <TextBox Style="{StaticResource MaterialDesignTextBox}"
                      VerticalAlignment="Stretch"
                      Text="{Binding Path=JavaPath, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="True"/>
+                     IsReadOnly="True"
+                     ToolTip="{Binding Path=JavaPath}"/>
             
             <Button Grid.Column="1"
                     Command="{Binding Path=FindJavaCommand}"
                     Content="..."
+                    Margin="5,0,0,0"
                     VerticalAlignment="Stretch"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     BorderThickness="1"

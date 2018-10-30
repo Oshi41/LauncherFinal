@@ -94,6 +94,7 @@
     <Compile Include="Models\AuthModules\IAuthModule.cs" />
     <Compile Include="Models\AuthModules\YggdrasilAuthModule.cs" />
     <Compile Include="Models\ForgeLaunchWorker.cs" />
+    <Compile Include="Models\LaunchWorker.cs" />
     <Compile Include="Models\Settings\AuthModuleSettings.cs" />
     <Compile Include="Models\Settings\Interfases\IAuthModuleSettings.cs" />
     <Compile Include="Models\Settings\Interfases\IPasswordSettings.cs" />

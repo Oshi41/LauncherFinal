@@ -38,12 +38,6 @@
                 <Setter Property="Padding" Value="2"/>
             </Style>
 
-            <!--<converters:SwitchConverter x:Key="CommandConverter"
-                                        Default="{Binding Path=SwitchToSettingsCommand}">
-                <converters:Case When="True"
-                                 Then="{Binding Path=SwitchToStartCommand}"/>
-            </converters:SwitchConverter>-->
-
             <Storyboard x:Key="FlipStoryboard"
                         x:Name="ImageFlip"
                         RepeatBehavior="Forever">
@@ -88,6 +82,7 @@
     <DockPanel LastChildFill="True">
 
         <materialDesign:Card DockPanel.Dock="Top"
+                             Background="{DynamicResource PrimaryHueLightBrush}"
                              Padding="0,0,0,2"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
                              materialDesign:ShadowAssist.ShadowEdges="All"
@@ -114,6 +109,9 @@
 
                 <TextBlock Grid.Column="1"
                            Margin="5,0"
+                           FontFamily="Times New Roman"
+                           FontSize="20"
+                           VerticalAlignment="Center"
                            Style="{StaticResource MaterialDesignBody1TextBlock}"
                            Text="{Binding RelativeSource={RelativeSource AncestorType=Window},
                 Path=Title}"/>
