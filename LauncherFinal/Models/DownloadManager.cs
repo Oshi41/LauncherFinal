@@ -112,6 +112,8 @@ namespace LauncherFinal.Models
             catch (Exception e)
             {
                 Trace.Write(e);
+                LastError = e;
+                DownloadComplited?.Invoke(this, _file);
             }
 
             return _file;

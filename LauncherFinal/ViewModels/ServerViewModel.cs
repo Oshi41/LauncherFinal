@@ -38,6 +38,7 @@ namespace LauncherFinal.ViewModels
         public async Task Ping()
         {
             await StateInfo.GetInfoAsync();
+            OnPropertyChanged(nameof(StateInfo));
         }
     }
 }

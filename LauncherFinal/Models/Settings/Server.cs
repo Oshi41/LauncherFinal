@@ -5,10 +5,10 @@ namespace LauncherFinal.Models.Settings
 {
     public class Server : IServer
     {
-        public string Address { get; private set; }
-        public string Name { get; private set; }
-        public string DownloadLink { get; private set; }
-        public IDictionary<string, string> DirHashCheck { get; } = new Dictionary<string, string>();
+        public string Address { get; set; }
+        public string Name { get; set; }
+        public string DownloadLink { get;  set; }
+        public IDictionary<string, string> DirHashCheck { get; set; } = new Dictionary<string, string>();
 
         #region Equals
 

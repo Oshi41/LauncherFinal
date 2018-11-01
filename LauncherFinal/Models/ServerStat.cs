@@ -18,7 +18,7 @@ namespace LauncherFinal.Models
         public ServerStat(string address)
         {
             // Указан порт
-            if (address.Contains(":"))
+            if (!string.IsNullOrWhiteSpace(address) && address.Contains(":"))
             {
                 Address = address.Substring(0, address.IndexOf(':'));
                 ushort port;

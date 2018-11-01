@@ -140,7 +140,8 @@
             <ComboBox Style="{StaticResource MaterialDesignComboBox}"
                       ItemsSource="{Binding Path=Servers}"
                       SelectedValue="{Binding Path=ChoosenServer}"
-                      IsSynchronizedWithCurrentItem="True">
+                      IsSynchronizedWithCurrentItem="True"
+                      Grid.IsSharedSizeScope="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <local:ServerView/>

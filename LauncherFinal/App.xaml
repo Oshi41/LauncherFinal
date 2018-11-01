@@ -26,6 +26,9 @@
             <converters:MathConverter x:Key="MaxWidthConverter"
                                       Divide="2"/>
 
+            <converters:MathConverter x:Key="GoldenConverter"
+                                      Divide="1.25"/>
+
             <Style x:Key="DialogStyle"
                    TargetType="materialDesign:DialogHost"
                    BasedOn="{StaticResource {x:Type materialDesign:DialogHost}}">
@@ -44,9 +47,12 @@
                     <Setter.Value>
                         <DataTemplate DataType="materialDesign:DialogHost">
                             <ContentControl Content="{Binding}"
-                                            MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=Window}, 
+                                            MinWidth="180"
+                                            MaxHeight="{Binding RelativeSource={RelativeSource Self},
+                                Path=ActualWidth, Converter={StaticResource GoldenConverter}}"
+                                            Width="{Binding RelativeSource={RelativeSource AncestorType=Window}, 
                                 Path=ActualWidth, Converter={StaticResource MaxWidthConverter}}"
-                                            MaxHeight="{Binding RelativeSource={RelativeSource AncestorType=Window}, 
+                                            Height="{Binding RelativeSource={RelativeSource AncestorType=Window}, 
                                 Path=ActualHeight, Converter={StaticResource MaxWidthConverter}}"/>
                         </DataTemplate>
                     </Setter.Value>

@@ -9,7 +9,7 @@ namespace LauncherFinal.Models.Settings
     {
         public string ProjectSite { get; set; }
 
-        [JsonConverter(typeof(ConcreteTypeConverter<List<Server>>))]
+        [JsonConverter(typeof(JsonListCoverter<IServer, Server>))]
         public IList<IServer> Servers { get; set; }
 
         [JsonConverter(typeof(ConcreteTypeConverter<AuthModuleSettings>))]

@@ -21,4 +21,8 @@
         <views:SettingsView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type popupViewModels:DownloadViewModel}">
+        <popup:DownloadView/>
+    </DataTemplate>
+
 </ResourceDictionary>

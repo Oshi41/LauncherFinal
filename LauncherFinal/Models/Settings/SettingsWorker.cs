@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -41,7 +42,11 @@ namespace LauncherFinal.Models.Settings
 #if DEBUG
             _settings.ProjectConfig = new ProjectConfig
             {
-                AuthModuleSettings = new AuthModuleSettings()
+                AuthModuleSettings = new AuthModuleSettings(),
+                Servers = new List<IServer>
+                {
+                    new Server()
+                }
             };
             _settings.UpdateConfig = new UpdateConfig();
 #else
@@ -83,10 +88,13 @@ namespace LauncherFinal.Models.Settings
         public async void DownloadAsync()
         {
             var projectJson = await DownloadAndRead(_settings.ProjectConfigUrl);
-            _settings.ProjectConfig = JsonConvert.DeserializeObject<ProjectConfig>(projectJson);
+            if (JsonConvert.DeserializeObject<ProjectConfig>(projectJson) is ProjectConfig conf)
+                _settings.ProjectConfig = conf;
+
 
             var updateJson = await DownloadAndRead(_settings.UpdateConfigUrl);
-            _settings.UpdateConfig = JsonConvert.DeserializeObject<UpdateConfig>(updateJson);
+            if (JsonConvert.DeserializeObject<UpdateConfig>(updateJson) is UpdateConfig upd)
+                _settings.UpdateConfig = upd;
         }
 
         private async Task<string> DownloadAndRead(string url)
