@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using LauncherFinal.Models.Settings.Interfases;
+using LauncherCore.Settings;
 using Mvvm;
 using Mvvm.Commands;
 

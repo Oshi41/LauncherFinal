@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LauncherFinal.Models.Settings.Interfases
+namespace LauncherCore.Settings
 {
     public interface IProjectConfig
     {

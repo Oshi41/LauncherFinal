@@ -3,8 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using LauncherCore;
+using LauncherCore.Settings;
 using LauncherFinal.JsonConverters;
-using LauncherFinal.Models.Settings.Interfases;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings
@@ -112,9 +113,7 @@ namespace LauncherFinal.Models.Settings
 
         public static Settings CreateDefault()
         {
-            var basePath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "Universal Launcher");
+            var basePath = PropertyNames.BaseLauncherPath;
 
             var settings = new Settings(basePath)
             {

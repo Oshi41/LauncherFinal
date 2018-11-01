@@ -1,23 +1,8 @@
-﻿using System.ComponentModel;
-using LauncherFinal.Models.Settings.Interfases;
+﻿using LauncherCore.Settings;
+
 
 namespace LauncherFinal.Models.AuthModules
 {
-    public enum ModuleTypes
-    {
-        [Description("Отсутствует")]
-        None,
-
-        [Description("Официальная Mojang")]
-        Default,
-
-        [Description("Ely.by")]
-        Ely,
-
-        [Description("Модуль проекта")]
-        Custom,
-    }
-
     public class AuthModuleFactory
     {
         public IAuthModule GetByType(ModuleTypes type)

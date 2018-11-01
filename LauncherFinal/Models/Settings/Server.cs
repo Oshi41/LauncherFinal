@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LauncherFinal.Models.Settings.Interfases;
+using LauncherCore.Settings;
 
 namespace LauncherFinal.Models.Settings
 {

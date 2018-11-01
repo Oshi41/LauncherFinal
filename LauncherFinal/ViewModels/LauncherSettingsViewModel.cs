@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Input;
-using LauncherFinal.Models.Settings.Interfases;
+using LauncherCore.Settings;
 using LauncherFinal.ViewModels.PopupViewModels;
 using Microsoft.Win32;
 using Mvvm;

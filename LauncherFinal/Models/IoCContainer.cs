@@ -1,6 +1,7 @@
 ﻿using System.IO;
+using LauncherCore;
+using LauncherCore.Settings;
 using LauncherFinal.Models.Settings;
-using LauncherFinal.Models.Settings.Interfases;
 using Unity;
 
 // ReSharper disable once CheckNamespace
@@ -24,7 +25,7 @@ namespace LauncherFinal
         private IoCContainer()
         {
             var settings = Settings.CreateDefault();
-            var worker = new SettingsWorker(Path.Combine(settings.ClientFolder, "config", "settings.txt"),
+            var worker = new SettingsWorker(PropertyNames.GetConfigPath(settings.ClientFolder),
                 settings);
 
             RegisterAsSigleton<ISettings>(settings);

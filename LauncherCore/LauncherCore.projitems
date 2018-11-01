@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>7b935b66-5eef-4afe-b34b-723fce2d3750</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>LauncherCore</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyNames.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\IAuthModuleSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\IPasswordSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\IProjectConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\IServer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\ISettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\ISettingsWorker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\IUpdateConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\ModuleTypes.cs" />
+  </ItemGroup>
+</Project>

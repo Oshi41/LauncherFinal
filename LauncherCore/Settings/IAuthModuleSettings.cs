@@ -1,4 +1,4 @@
-﻿namespace LauncherFinal.Models.Settings.Interfases
+﻿namespace LauncherCore.Settings
 {
     public interface IAuthModuleSettings
     {
@@ -11,5 +11,10 @@
         /// Использовать только этот тип аутентификации
         /// </summary>
         bool StrictUsage { get; set; }
+
+        /// <summary>
+        /// Тип аутентификации
+        /// </summary>
+        ModuleTypes Type { get; set; }
     }
 }

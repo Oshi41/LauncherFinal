@@ -60,7 +60,7 @@
 
         <StackPanel Orientation="Vertical">
 
-            <Grid>
+            <Grid Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
@@ -76,7 +76,7 @@
                          materialDesign:HintAssist.IsFloating="True"/>
             </Grid>
 
-            <Grid>
+            <Grid Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>

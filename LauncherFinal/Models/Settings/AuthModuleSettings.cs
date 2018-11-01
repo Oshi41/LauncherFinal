@@ -1,4 +1,4 @@
-﻿using LauncherFinal.Models.Settings.Interfases;
+﻿using LauncherCore.Settings;
 
 namespace LauncherFinal.Models.Settings
 {
@@ -6,5 +6,6 @@ namespace LauncherFinal.Models.Settings
     {
         public string AuthUri { get; set; }
         public bool StrictUsage { get; set; }
+        public ModuleTypes Type { get; set; }
     }
 }

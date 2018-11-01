@@ -1,4 +1,4 @@
-﻿using LauncherFinal.Models.Settings.Interfases;
+﻿using LauncherCore.Settings;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings

@@ -1,5 +1,5 @@
 ﻿using System;
-using LauncherFinal.Models.Settings.Interfases;
+using LauncherCore.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

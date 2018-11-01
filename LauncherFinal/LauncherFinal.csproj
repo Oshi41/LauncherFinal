@@ -96,8 +96,6 @@
     <Compile Include="Models\ForgeLaunchWorker.cs" />
     <Compile Include="Models\LaunchWorker.cs" />
     <Compile Include="Models\Settings\AuthModuleSettings.cs" />
-    <Compile Include="Models\Settings\Interfases\IAuthModuleSettings.cs" />
-    <Compile Include="Models\Settings\Interfases\IPasswordSettings.cs" />
     <Compile Include="Models\Settings\PasswordSettings.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -178,12 +176,7 @@
     <Compile Include="Models\HashChecker.cs" />
     <Compile Include="Models\IoCContainer.cs" />
     <Compile Include="Models\ServerStat.cs" />
-    <Compile Include="Models\Settings\Interfases\IProjectConfig.cs" />
-    <Compile Include="Models\Settings\Interfases\IServer.cs" />
-    <Compile Include="Models\Settings\Interfases\ISettings.cs" />
-    <Compile Include="Models\Settings\Interfases\IUpdateConfig.cs" />
     <Compile Include="Models\Settings\ProjectConfig.cs" />
-    <Compile Include="Models\Settings\Interfases\ISettingsWorker.cs" />
     <Compile Include="Models\Settings\Server.cs" />
     <Compile Include="Models\Settings\SettingsWorker.cs" />
     <Compile Include="Models\Settings\Settings.cs" />
@@ -214,5 +207,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\LauncherCore\LauncherCore.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

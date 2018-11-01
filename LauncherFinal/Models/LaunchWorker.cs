@@ -7,8 +7,8 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using LauncherCore.Settings;
 using LauncherFinal.Models.AuthModules;
-using LauncherFinal.Models.Settings.Interfases;
 using LauncherFinal.ViewModels.PopupViewModels;
 
 namespace LauncherFinal.Models

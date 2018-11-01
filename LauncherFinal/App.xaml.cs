@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using LauncherFinal.Models.Settings.Interfases;
+using LauncherCore.Settings;
 
 namespace LauncherFinal
 {

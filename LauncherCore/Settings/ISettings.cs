@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LauncherFinal.Models.Settings.Interfases
+namespace LauncherCore.Settings
 {
     public interface ISettings
     {

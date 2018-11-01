@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using LauncherCore.Settings;
 using LauncherFinal.JsonConverters;
-using LauncherFinal.Models.Settings.Interfases;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings
