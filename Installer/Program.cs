@@ -16,6 +16,7 @@ namespace Installer
     {
         private static readonly string LauncherLink;
         private static readonly string ConfigLink;
+        private static readonly string UpdateLink;
 
         static void Main(string[] args)
         {
@@ -74,20 +75,19 @@ namespace Installer
                 return;
             }
 
-            var projectPath = Path.GetTempPath();
-            var projectConfig = DownloadFile(ConfigLink, projectPath, "Загружаем конфигурацию").Result;
-            if (projectConfig != null)
-            {
-                Console.WriteLine(projectConfig.Message);
-                return;
-            }
+            var project = DownloadAndParse(ConfigLink, Path.GetTempPath(), "Загружаем конфигурацию").Result;
+            var update = DownloadAndParse(UpdateLink, Path.GetTempPath(), "Проверяем обновления").Result;
 
-            var isWritten = WriteToSettings(projectPath);
-            if (isWritten != null)
+            ISettings set;
+            var settings = new JObject
             {
-                Console.WriteLine(isWritten.Message);
-                return;
-            }
+                { nameof(set.ProjectConfig).Substring(1), project},
+                { nameof(set.UpdateConfig).Substring(1), update},
+                { nameof(set.UpdateConfigUrl), UpdateLink }
+            };
+
+            var result = JsonConvert.SerializeObject(settings);
+            File.WriteAllText(PropertyNames.GetConfigPath(PropertyNames.BaseLauncherPath), result);
         }
 
         static async Task<Exception> DownloadFile(string link, string filePath, string beginText)
@@ -128,26 +128,30 @@ namespace Installer
             }
         }
 
-        static Exception WriteToSettings(string filePath)
+        static async Task<JObject> DownloadAndParse(string link, string filePath, string beginText)
         {
-            try
+            var e = await DownloadFile(link, filePath, beginText);
+            if (e != null)
             {
-                var config = JObject.Parse(File.ReadAllText(filePath));
-                var total = new JObject
-                {
-                    { nameof(IProjectConfig), config}
-                };
-
-                var outJson = JsonConvert.SerializeObject(total);
-                File.WriteAllText(PropertyNames.GetConfigPath(PropertyNames.BaseLauncherPath), outJson);
-
-                File.Delete(filePath);
+                Console.WriteLine(e.Message);
                 return null;
             }
-            catch (Exception e)
+
+            try
             {
-                return e;
+                return JObject.Parse(File.ReadAllText(filePath));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                return null;
+            }
+            finally
+            {
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
             }
         }
     }
 }
+
