@@ -27,9 +27,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition MinWidth="80"
-                              MaxWidth="150"
-                              Width="Auto"
+            <ColumnDefinition Width="Auto"
                               SharedSizeGroup="G1"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
