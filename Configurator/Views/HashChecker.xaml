@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="Configurator.Views.HashChecker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Configurator.Views"
+             xmlns:viewModels="clr-namespace:Configurator.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="520" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:HashCheckerViewModel}}">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.datagrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textblock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox IsReadOnly="True"
+                     Text="{Binding Root}"
+                     ToolTip="Путь к корневой папке сборки"
+                     Style="{StaticResource MaterialDesignTextBox}"
+                     materialDesign:HintAssist.Hint="Корневая папка"
+                     materialDesign:HintAssist.IsFloating="True"/>
+            <Button Grid.Column="1"
+                    Content="..."
+                    Margin="5,0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    ToolTip="Выбрать корневую папку"
+                    Command="{Binding Path=SelectRootCommand}"/>
+        </Grid>
+
+        <DataGrid IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  CanUserSortColumns="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  ItemsSource="{Binding Hashes}"
+                  Margin="0,10,0,0"
+                  SelectionUnit="FullRow"
+                  SelectionMode="Single"
+                  Style="{StaticResource MaterialDesignDataGrid}"
+                  RowStyle="{StaticResource MaterialDesignDataGridRow}"
+                  ColumnHeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"
+                  CellStyle="{StaticResource MaterialDesignDataGridCell}"
+                  RowHeaderStyle="{StaticResource MaterialDesignDataGridRowHeader}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Path}"
+                                    IsReadOnly="True"
+                                    Header="Относительный путь"/>
+
+                <DataGridTextColumn Binding="{Binding Path=Hash}"
+                                    IsReadOnly="True"
+                                    Header="Рассчитанный хэш"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Margin="0,10,10,0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Command="{Binding Path=CalculateCommand}"
+                    ToolTip="Рассчитать хэш"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Width="32"
+                    Height="32"
+                    Padding="5">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Add"/>
+                </Viewbox>
+            </Button>
+            <Button Command="{Binding Path=DeleteCommand}"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Margin="5,0"
+                    ToolTip="Удалить"
+                    Width="32"
+                    Height="32"
+                    Padding="5">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Delete"/>
+                </Viewbox>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

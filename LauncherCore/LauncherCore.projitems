@@ -9,6 +9,7 @@
     <Import_RootNamespace>LauncherCore</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HashChecker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertyNames.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\IAuthModuleSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\IPasswordSettings.cs" />

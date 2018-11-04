@@ -11,9 +11,12 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LauncherCore", "LauncherCor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.csproj", "{844233ED-CCE4-4F6A-9A6A-DFCE57DB3E03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configurator", "Configurator\Configurator.csproj", "{8B0C21E9-C8EC-4536-97AD-F40D0DA8CEC9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		LauncherCore\LauncherCore.projitems*{7b935b66-5eef-4afe-b34b-723fce2d3750}*SharedItemsImports = 13
+		LauncherCore\LauncherCore.projitems*{8b0c21e9-c8ec-4536-97ad-f40d0da8cec9}*SharedItemsImports = 4
 		LauncherCore\LauncherCore.projitems*{8c1ddc37-417a-4cde-af04-ded05e93ed58}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +36,10 @@ Global
 		{844233ED-CCE4-4F6A-9A6A-DFCE57DB3E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{844233ED-CCE4-4F6A-9A6A-DFCE57DB3E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{844233ED-CCE4-4F6A-9A6A-DFCE57DB3E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B0C21E9-C8EC-4536-97AD-F40D0DA8CEC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B0C21E9-C8EC-4536-97AD-F40D0DA8CEC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B0C21E9-C8EC-4536-97AD-F40D0DA8CEC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B0C21E9-C8EC-4536-97AD-F40D0DA8CEC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

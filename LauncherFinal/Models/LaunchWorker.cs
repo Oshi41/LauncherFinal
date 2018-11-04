@@ -7,6 +7,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using LauncherCore.Models;
 using LauncherCore.Settings;
 using LauncherFinal.Models.AuthModules;
 using LauncherFinal.ViewModels.PopupViewModels;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using LauncherCore.Models;
 using LauncherFinal.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
