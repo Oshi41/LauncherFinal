@@ -9,10 +9,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <views:HashChecker>
-            <views:HashChecker.DataContext>
-                <viewModels:HashCheckerViewModel/>
-            </views:HashChecker.DataContext>
-        </views:HashChecker>
+        <views:AuthSettingsView>
+            <views:AuthSettingsView.DataContext>
+                <viewModels:AuthViewModule/>
+            </views:AuthSettingsView.DataContext>
+        </views:AuthSettingsView>
     </Grid>
 </Window>

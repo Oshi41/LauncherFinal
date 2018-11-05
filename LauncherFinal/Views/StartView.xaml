@@ -9,6 +9,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:LauncherFinal.Behaviors"
              xmlns:converters="clr-namespace:LauncherFinal.Converters"
+             xmlns:converters1="clr-namespace:LauncherCore.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:StartViewModel}}">
@@ -42,11 +43,11 @@
 
             <converters:EnumDescriptionConverter x:Key="DescriptionConverter"/>
 
-            <converters:SwitchConverter x:Key="NumberToVisConverter"
+            <converters1:SwitchConverter x:Key="NumberToVisConverter"
                                         Default="Visible">
-                <converters:Case When="1"
+                <converters1:Case When="1"
                                  Then="Collapsed"/>
-            </converters:SwitchConverter>
+            </converters1:SwitchConverter>
         </ResourceDictionary>
     </UserControl.Resources>
 

@@ -30,6 +30,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox IsReadOnly="True"
+                     Margin="0,10,0,0"
                      Text="{Binding Root}"
                      ToolTip="Путь к корневой папке сборки"
                      Style="{StaticResource MaterialDesignTextBox}"
@@ -40,7 +41,8 @@
                     Margin="5,0"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Выбрать корневую папку"
-                    Command="{Binding Path=SelectRootCommand}"/>
+                    Command="{Binding Path=SelectRootCommand}"
+                    VerticalAlignment="Bottom"/>
         </Grid>
 
         <DataGrid IsReadOnly="True"

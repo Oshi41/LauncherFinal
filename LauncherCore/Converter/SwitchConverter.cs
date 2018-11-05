@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace LauncherFinal.Converters
+namespace LauncherCore.Converters
 {
     /// <summary>
     /// A converter that accepts <see cref="Case"/>s and converts them to the 
@@ -35,7 +35,7 @@ namespace LauncherFinal.Converters
         /// </summary>
         public object Default
         {
-            get => (object) GetValue(DefaultProperty);
+            get => GetValue(DefaultProperty);
             set => SetValue(DefaultProperty, value);
         }
 
@@ -105,19 +105,16 @@ namespace LauncherFinal.Converters
     [ContentProperty("Then")]
     public class Case : DependencyObject
     {
-        // case instances.
-        string _when;
-        object _then;
-
-        #region Public Properties.
+        public static readonly DependencyProperty WhenProperty = DependencyProperty.Register(
+            "When", typeof(string), typeof(Case), new PropertyMetadata(default(string)));
 
         /// <summary>
         /// Gets or sets the condition of the case.
         /// </summary>
         public string When
         {
-            get => _when;
-            set => _when = value;
+            get { return (string) GetValue(WhenProperty); }
+            set { SetValue(WhenProperty, value); }
         }
 
         public static readonly DependencyProperty ThenProperty = DependencyProperty.Register(
@@ -128,11 +125,9 @@ namespace LauncherFinal.Converters
         /// </summary>
         public object Then
         {
-            get => (object) GetValue(ThenProperty);
+            get => GetValue(ThenProperty);
             set => SetValue(ThenProperty, value);
         }
-
-        #endregion
 
         #region Construction.
 
@@ -151,8 +146,8 @@ namespace LauncherFinal.Converters
         public Case(string when, object then)
         {
             // Hook up the instances.
-            this._then = then;
-            this._when = when;
+            Then = then;
+            When = when;
         }
 
         #endregion
@@ -165,7 +160,7 @@ namespace LauncherFinal.Converters
         /// </returns>
         public override string ToString()
         {
-            return string.Format("When={0}; Then={1}", When.ToString(), Then.ToString());
+            return $"When={When}; Then={Then}";
         }
     }
 }

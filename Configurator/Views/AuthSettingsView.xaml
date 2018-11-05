@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Configurator.Views.AuthSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:LauncherCore.Converter"
+             xmlns:settings="clr-namespace:LauncherCore.Settings"
+             xmlns:viewModels="clr-namespace:Configurator.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:LauncherCore.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:AuthViewModule}}">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.checkbox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.radiobutton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.combobox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+            
+            <Style x:Key="RadioStyle"
+                   TargetType="RadioButton"
+                   BasedOn="{StaticResource MaterialDesignRadioButton}">
+                <Setter Property="Margin" Value="0,5"/>
+                <Setter Property="GroupName" Value="G1"/>
+            </Style>
+
+            <converter:BindingEqualsParamConverter x:Key="EqualsParamConverter"/>
+
+            <converters:SwitchConverter x:Key="SwitchConverter"
+                                        Default="Black">
+                <converters:Case When="True"
+                                 Then="DarkGreen"/>
+                <converters:Case When="False"
+                                 Then="DarkRed"/>
+            </converters:SwitchConverter>
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical">
+
+        <RadioButton Style="{StaticResource RadioStyle}"
+                     IsChecked="{Binding Path=Module, Converter={StaticResource EqualsParamConverter},
+            ConverterParameter={x:Static settings:ModuleTypes.None}}"
+                     Content="Отключена"/>
+
+        
+
+        <RadioButton x:Name="StandartRdb"
+                     Style="{StaticResource RadioStyle}"
+                     Content="Стандартные"/>
+
+        <StackPanel Margin="15,0,5,0"
+                    IsEnabled="{Binding ElementName=StandartRdb, Path=IsChecked, FallbackValue=False}">
+            <ComboBox Style="{StaticResource MaterialDesignComboBox}"
+                      ItemsSource="{Binding Path=DefaultModules}"
+                      SelectedValue="{Binding Module}"/>
+        </StackPanel>
+
+        <RadioButton x:Name="CustomRdb"
+                     Style="{StaticResource RadioStyle}"
+                     Content="Настраиваемый"
+                     ToolTip="Иcпользует Yggdrasil схему аутентификации"
+                     IsChecked="{Binding Path=Module, Converter={StaticResource EqualsParamConverter},
+            ConverterParameter={x:Static settings:ModuleTypes.Custom}}"/>
+
+        <DockPanel Margin="15,0,5,0"
+                    IsEnabled="{Binding ElementName=CustomRdb, Path=IsChecked, FallbackValue=False}">
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    DockPanel.Dock="Right"
+                    Margin="5,0"
+                    Command="{Binding Path=PingCommand}"
+                    Foreground="{Binding Path=Checked, Converter={StaticResource SwitchConverter}}">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Web"/>
+                </Viewbox>
+            </Button>
+
+            <TextBox Text="{Binding Path=Uri, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignTextBox}"
+                     materialDesign:HintAssist.IsFloating="True"
+                     materialDesign:HintAssist.Hint="Путь к сервису авторизации"/>
+        </DockPanel>
+    </StackPanel>
+
+</UserControl>

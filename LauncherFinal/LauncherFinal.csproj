@@ -88,7 +88,6 @@
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\InvertBool2VisConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
-    <Compile Include="Converters\SwitchConverter.cs" />
     <Compile Include="JsonConverters\JsonListCoverter.cs" />
     <Compile Include="Models\AuthModules\AuthModuleFactory.cs" />
     <Compile Include="Models\AuthModules\ElyAuthModule.cs" />
