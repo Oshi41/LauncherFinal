@@ -54,7 +54,7 @@ namespace Configurator.ViewModels
 
             DefaultModules = Enum.GetValues(typeof(ModuleTypes))
                 .OfType<ModuleTypes>()
-                .Except(new[] {Custom, Module})
+                .Except(new[] {Custom, None})
                 .ToList();
         }
     }
