@@ -73,6 +73,7 @@
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\AuthViewModule.cs" />
     <Compile Include="ViewModels\HashCheckerViewModel.cs" />
+    <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="Views\AuthSettingsView.xaml.cs">
       <DependentUpon>AuthSettingsView.xaml</DependentUpon>

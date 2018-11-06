@@ -88,7 +88,7 @@ namespace Configurator.ViewModels
                 _hashes = vm.Hashes.ToDictionary(x => x.Path, x => x.Hash);
         }
 
-        public string ToJson()
+        public JObject ToJson()
         {
             IServer server;
 
@@ -110,7 +110,7 @@ namespace Configurator.ViewModels
 
             writer.Close();
 
-            return obj.ToString(Formatting.Indented);
+            return obj;
         }
     }
 }

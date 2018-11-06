@@ -32,18 +32,17 @@
 
             <converter:BindingEqualsParamConverter x:Key="EqualsParamConverter"/>
 
-            <converters:SwitchConverter x:Key="SwitchConverter"
-                                        Default="Black">
-                <converters:Case When="True"
-                                 Then="DarkGreen"/>
-                <converters:Case When="False"
-                                 Then="DarkRed"/>
-            </converters:SwitchConverter>
-            
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical">
+
+        <CheckBox IsChecked="{Binding Path=StrictUsage}"
+                  Style="{StaticResource MaterialDesignCheckBox}"
+                  Content="Строгое использование выбранного модуля"
+                  Margin="0,0,0,10"/>
+        
+        <Separator/>
 
         <RadioButton Style="{StaticResource RadioStyle}"
                      IsChecked="{Binding Path=Module, Converter={StaticResource EqualsParamConverter},
@@ -76,7 +75,7 @@
                     DockPanel.Dock="Right"
                     Margin="5,0"
                     Command="{Binding Path=PingCommand}"
-                    Foreground="{Binding Path=Checked, Converter={StaticResource SwitchConverter}}">
+                    Foreground="{Binding Path=Checked, Converter={StaticResource PingColorConverter}}">
                 <Viewbox>
                     <materialDesign:PackIcon Kind="Web"/>
                 </Viewbox>
