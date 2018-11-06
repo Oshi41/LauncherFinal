@@ -55,12 +55,18 @@ namespace Configurator.ViewModels
 
         #endregion
 
-        public HashCheckerViewModel()
+        public HashCheckerViewModel(Dictionary<string, string> hashes = null)
         {
             CalculateCommand = new DelegateCommand(OnCalculateCommand, OnCanCalculateCommand);
             DeleteCommand = new DelegateCommand(() => Hashes.Remove(Selected),
                 () => Selected != null && Hashes.Contains(Selected));
             SelectRootCommand = new DelegateCommand(OnSelectRootCommand);
+
+            if (hashes == null || !hashes.Any())
+                return;
+
+            var list = hashes.Select(x => new HashItemViewModel(x.Key, x.Value));
+            Hashes = new ObservableCollection<HashItemViewModel>(list);
         }
 
         #region Command Handlers

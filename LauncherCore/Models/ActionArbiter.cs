@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LauncherFinal.Models
+namespace LauncherCore.Models
 {
     public class ActionArbiter
     {
-        protected bool IsExecuting;
+        public bool IsExecuting { get; protected set; };
 
         public void Do(Action action)
         {

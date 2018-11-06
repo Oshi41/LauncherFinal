@@ -169,12 +169,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ActionArbiter.cs" />
     <Compile Include="Models\CompressionManager.cs" />
     <Compile Include="Models\CryptoWorker.cs" />
     <Compile Include="Models\DownloadManager.cs" />
     <Compile Include="Models\IoCContainer.cs" />
-    <Compile Include="Models\ServerStat.cs" />
     <Compile Include="Models\Settings\ProjectConfig.cs" />
     <Compile Include="Models\Settings\Server.cs" />
     <Compile Include="Models\Settings\SettingsWorker.cs" />

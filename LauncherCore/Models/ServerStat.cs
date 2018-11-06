@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LauncherFinal.Models
+namespace LauncherCore.Models
 {
     /// <summary>
     ///     Статистика свойств работы сервера

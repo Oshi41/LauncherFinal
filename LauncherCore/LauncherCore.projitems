@@ -10,7 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Converter\BindingEqualsParamConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ActionArbiter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HashChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ServerStat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertyNames.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\IAuthModuleSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\IPasswordSettings.cs" />
