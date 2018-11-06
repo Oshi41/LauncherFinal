@@ -1,0 +1,44 @@
+﻿<Window x:Class="Configurator.Views.Base.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="600" Width="400">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Content="{Binding ElementName=Window, Path=DataContext}"
+                        Margin="5"/>
+        
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    Content="Оk"
+                    Margin="5,0"
+                    MinWidth="{Binding ElementName=CloseBtn, Path=ActualWidth}"
+                    Command="Save"
+                    Click="OnSave"/>
+
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    Content="Закрыть"
+                    x:Name="CloseBtn"
+                    Click="OnClose"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

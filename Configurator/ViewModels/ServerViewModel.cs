@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Configurator.Models;
+using Configurator.Services;
 using LauncherCore.Models;
 using Mvvm;
 using Mvvm.Commands;
@@ -52,7 +54,7 @@ namespace Configurator.ViewModels
             set => SetProperty(ref _isServerUp, value);
         }
 
-        public BindableBase HashViewModel { get; } = new HashCheckerViewModel();
+        private Dictionary<string, string> _hashes;
 
         public ICommand PingFiles { get; private set; }
         public ICommand CheckServer { get; private set; }
@@ -76,7 +78,10 @@ namespace Configurator.ViewModels
 
         private void OnEditHash()
         {
-            //todo shoe dialog
+            var vm = new HashCheckerViewModel(_hashes);
+            if (WindowService.ShowDialog(vm, new Size(400, 400 * 1.25)) == true)
+                _hashes = vm.Hashes.ToDictionary(x => x.Path, x => x.Hash);
+
         }
     }
 }

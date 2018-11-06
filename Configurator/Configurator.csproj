@@ -70,11 +70,15 @@
     </ApplicationDefinition>
     <Compile Include="Models\PathWorker.cs" />
     <Compile Include="Models\Pinger.cs" />
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\AuthViewModule.cs" />
     <Compile Include="ViewModels\HashCheckerViewModel.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="Views\AuthSettingsView.xaml.cs">
       <DependentUpon>AuthSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Base\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HashChecker.xaml.cs">
       <DependentUpon>HashChecker.xaml</DependentUpon>
@@ -91,7 +95,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resourses\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AuthSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Base\DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
