@@ -7,7 +7,7 @@ namespace LauncherCore.Models
 {
     public class ActionArbiter
     {
-        public bool IsExecuting { get; protected set; };
+        public bool IsExecuting { get; protected set; }
 
         public void Do(Action action)
         {
