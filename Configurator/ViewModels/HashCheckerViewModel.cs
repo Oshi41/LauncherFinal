@@ -48,7 +48,8 @@ namespace Configurator.ViewModels
             set { SetProperty(ref _selected, value); }
         }
 
-        public ICommand CalculateCommand { get; private set; }
+        public ICommand AddCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public ICommand SelectRootCommand { get; private set; }
 
@@ -57,9 +58,28 @@ namespace Configurator.ViewModels
 
         public HashCheckerViewModel()
         {
-            CalculateCommand = new DelegateCommand(OnCalculateCommand, OnCanCalculateCommand);
+            AddCommand = new DelegateCommand(async () =>
+            {
+                var vm = await CreateHash();
+                if (vm != null)
+                    Hashes.Add(vm);
+
+            }, () => Directory.Exists(Root));
+
             DeleteCommand = new DelegateCommand(() => Hashes.Remove(Selected),
                 () => Selected != null && Hashes.Contains(Selected));
+
+            EditCommand = new DelegateCommand(async () =>
+            {
+                var vm = await CreateHash();
+                if (vm == null)
+                    return;
+
+                Hashes.Remove(Selected);
+                Hashes.Add(vm);
+                Selected = vm;
+            }, () => Selected != null);
+
             SelectRootCommand = new DelegateCommand(OnSelectRootCommand);
 
         }
@@ -76,12 +96,7 @@ namespace Configurator.ViewModels
 
         #region Command Handlers
 
-        private bool OnCanCalculateCommand()
-        {
-            return Directory.Exists(Root);
-        }
-
-        private async void OnCalculateCommand()
+        private async Task<HashItemViewModel> CreateHash()
         {
             var dlg = new FolderBrowserDialog
             {
@@ -90,13 +105,13 @@ namespace Configurator.ViewModels
             };
 
             if (dlg.ShowDialog() != DialogResult.OK)
-                return;
+                return null;
 
             if (!Uri.TryCreate(Root, UriKind.Absolute, out var baseUri))
-                return;
+                return null;
 
             if (!Uri.TryCreate(dlg.SelectedPath, UriKind.Absolute, out var selected))
-                return;
+                return null;
 
             string path = null;
 
@@ -107,23 +122,14 @@ namespace Configurator.ViewModels
             catch (Exception e)
             {
                 Trace.Write(e);
-                
+
                 // todo Make notification to user
+                return null;
             }
 
             var hash = await Task.Run(() => _checker.CreateMd5ForFolder(dlg.SelectedPath));
+            return new HashItemViewModel(path, hash);
 
-            if (Selected == null)
-            {
-                var vm = new HashItemViewModel(path, hash);
-                Hashes.Add(vm);
-                Selected = vm;
-            }
-            else
-            {
-                Selected.Hash = hash;
-                Selected.Path = path;
-            }
         }
 
         private void OnSelectRootCommand()

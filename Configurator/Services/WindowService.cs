@@ -15,14 +15,18 @@ namespace Configurator.Services
             var dlg = new DialogWindow
             {
                 DataContext = vm,
+
                 MinHeight = minsize.Height,
                 MinWidth = minsize.Width,
+
+                Width = minsize.Width,
+                Height = minsize.Height,
             };
 
             var cmd = new CommandBinding(
                 ApplicationCommands.Save,
                 (sender, args) => {},
-                (sender, args) => args.CanExecute = canSave?.Invoke(args.Parameter) == true);
+                (sender, args) => args.CanExecute = canSave == null || canSave(args.Parameter));
 
             dlg.CommandBindings.Add(cmd);
 

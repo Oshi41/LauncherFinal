@@ -7,12 +7,12 @@
         xmlns:views="clr-namespace:Configurator.Views"
         xmlns:viewModels="clr-namespace:Configurator.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="400">
     <Grid>
-        <views:AuthSettingsView>
-            <views:AuthSettingsView.DataContext>
-                <viewModels:AuthViewModule/>
-            </views:AuthSettingsView.DataContext>
-        </views:AuthSettingsView>
+        <views:ServerView>
+            <views:ServerView.DataContext>
+                <viewModels:ServerViewModel/>
+            </views:ServerView.DataContext>
+        </views:ServerView>
     </Grid>
 </Window>

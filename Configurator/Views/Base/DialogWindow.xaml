@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ContentControl Content="{Binding ElementName=Window, Path=DataContext}"
+        <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext}"
                         Margin="5"/>
         
         <StackPanel Grid.Row="1"

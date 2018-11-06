@@ -8,8 +8,11 @@ using System.Windows.Input;
 using Configurator.Models;
 using Configurator.Services;
 using LauncherCore.Models;
+using LauncherCore.Settings;
 using Mvvm;
 using Mvvm.Commands;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Configurator.ViewModels
 {
@@ -78,10 +81,36 @@ namespace Configurator.ViewModels
 
         private void OnEditHash()
         {
-            var vm = new HashCheckerViewModel(_hashes);
-            if (WindowService.ShowDialog(vm, new Size(400, 400 * 1.25)) == true)
-                _hashes = vm.Hashes.ToDictionary(x => x.Path, x => x.Hash);
+            var y = 420;
 
+            var vm = new HashCheckerViewModel(_hashes);
+            if (WindowService.ShowDialog(vm, new Size(y * 1.25, y)) == true)
+                _hashes = vm.Hashes.ToDictionary(x => x.Path, x => x.Hash);
+        }
+
+        public string ToJson()
+        {
+            IServer server;
+
+            var obj = new JObject();
+
+            var writer = obj.CreateWriter();
+
+            writer.WritePropertyName(nameof(server.Address));
+            writer.WriteValue(Address);
+
+            writer.WritePropertyName(nameof(server.DownloadLink));
+            writer.WriteValue(ClientUri);
+
+            writer.WritePropertyName(nameof(server.Name));
+            writer.WriteValue(Name);
+
+            writer.WritePropertyName(nameof(server.DirHashCheck));
+            writer.WriteValue(_hashes);
+
+            writer.Close();
+
+            return obj.ToString(Formatting.Indented);
         }
     }
 }

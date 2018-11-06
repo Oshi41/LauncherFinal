@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="Configurator.Views.ServerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Configurator.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:Configurator.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="350"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:ServerViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical">
+        
+        <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                 materialDesign:HintAssist.Hint="Имя сервера"
+                 materialDesign:HintAssist.IsFloating="True"
+                 Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <DockPanel Margin="0,5">
+            
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    DockPanel.Dock="Right"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding Path=CheckServer}"
+                    Foreground="{Binding Path=IsServerUp, Converter={StaticResource PingColorConverter}}"
+                    Margin="5,0,5,0">
+                <materialDesign:PackIcon Kind="Wifi"/>
+            </Button>
+
+        <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                 materialDesign:HintAssist.Hint="Адрес сервера"
+                 materialDesign:HintAssist.IsFloating="True"
+                 Text="{Binding Path=Address, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </DockPanel>
+
+        <DockPanel>
+
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    DockPanel.Dock="Right"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding Path=PingFiles}"
+                    Foreground="{Binding Path=IsClientChecked, Converter={StaticResource PingColorConverter}}"
+                    Margin="5,0,5,0">
+                <materialDesign:PackIcon Kind="Wifi"/>
+            </Button>
+
+            <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                     materialDesign:HintAssist.Hint="Ссылка на файлы клиента"
+                     materialDesign:HintAssist.IsFloating="True"
+                     Text="{Binding Path=ClientUri, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </DockPanel>
+
+        <Button Margin="20"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                HorizontalAlignment="Stretch"
+                Content="Хэш-сумма папок"
+                Command="{Binding Path=EditHashes}"
+                MinWidth="{Binding ElementName=AuthBtn, Path=ActualWidth}"/>
+    </StackPanel>
+</UserControl>
+
+
+    

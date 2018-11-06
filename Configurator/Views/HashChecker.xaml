@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="520" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:HashCheckerViewModel}}">
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -45,36 +45,42 @@
                     VerticalAlignment="Bottom"/>
         </Grid>
 
-        <DataGrid IsReadOnly="True"
-                  AutoGenerateColumns="False"
-                  CanUserSortColumns="True"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  CanUserReorderColumns="False"
-                  ItemsSource="{Binding Hashes}"
-                  Margin="0,10,0,0"
-                  SelectionUnit="FullRow"
-                  SelectionMode="Single"
-                  Style="{StaticResource MaterialDesignDataGrid}"
-                  RowStyle="{StaticResource MaterialDesignDataGridRow}"
-                  ColumnHeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"
-                  CellStyle="{StaticResource MaterialDesignDataGridCell}"
-                  RowHeaderStyle="{StaticResource MaterialDesignDataGridRowHeader}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Path}"
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden">
+
+            <DataGrid IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      CanUserSortColumns="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="False"
+                      ItemsSource="{Binding Hashes}"
+                      SelectedValue="{Binding Path=Selected}"
+                      Margin="0,10,0,0"
+                      SelectionUnit="FullRow"
+                      SelectionMode="Single"
+                      Style="{StaticResource MaterialDesignDataGrid}"
+                      RowStyle="{StaticResource MaterialDesignDataGridRow}"
+                      ColumnHeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"
+                      CellStyle="{StaticResource MaterialDesignDataGridCell}"
+                      RowHeaderStyle="{StaticResource MaterialDesignDataGridRowHeader}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Path}"
                                     IsReadOnly="True"
                                     Header="Относительный путь"/>
 
-                <DataGridTextColumn Binding="{Binding Path=Hash}"
+                    <DataGridTextColumn Binding="{Binding Path=Hash}"
                                     IsReadOnly="True"
                                     Header="Рассчитанный хэш"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </ScrollViewer>
+
         <StackPanel Margin="0,10,10,0"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
-            <Button Command="{Binding Path=CalculateCommand}"
+            <Button Command="{Binding Path=AddCommand}"
                     ToolTip="Рассчитать хэш"
                     Style="{StaticResource MaterialDesignFloatingActionButton}"
                     Width="32"
@@ -84,9 +90,19 @@
                     <materialDesign:PackIcon Kind="Add"/>
                 </Viewbox>
             </Button>
+            <Button Command="{Binding Path=EditCommand}"
+                    Margin="5,0"
+                    ToolTip="Редактировать"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Width="32"
+                    Height="32"
+                    Padding="5">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Edit"/>
+                </Viewbox>
+            </Button>
             <Button Command="{Binding Path=DeleteCommand}"
                     Style="{StaticResource MaterialDesignFloatingActionButton}"
-                    Margin="5,0"
                     ToolTip="Удалить"
                     Width="32"
                     Height="32"
