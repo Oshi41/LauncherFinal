@@ -1,7 +1,5 @@
-﻿using System.Windows.Input;
-using LauncherCore.Settings;
+﻿using LauncherCore.Settings;
 using Mvvm;
-using Mvvm.Commands;
 
 namespace LauncherFinal.ViewModels
 {
@@ -14,8 +12,8 @@ namespace LauncherFinal.ViewModels
 
         public bool IsFlipped
         {
-            get { return _isFlipped; }
-            set { SetProperty(ref _isFlipped, value); }
+            get => _isFlipped;
+            set => SetProperty(ref _isFlipped, value);
         }
 
         public MainViewModel()

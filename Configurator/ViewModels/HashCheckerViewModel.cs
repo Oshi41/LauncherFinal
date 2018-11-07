@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -32,20 +31,20 @@ namespace Configurator.ViewModels
 
         public string Root
         {
-            get { return _root; }
-            set { SetProperty(ref _root, value); }
+            get => _root;
+            set => SetProperty(ref _root, value);
         }
 
         public ObservableCollection<HashItemViewModel> Hashes
         {
-            get { return _hashes; }
-            set { SetProperty(ref _hashes, value); }
+            get => _hashes;
+            set => SetProperty(ref _hashes, value);
         }
 
         public HashItemViewModel Selected
         {
-            get { return _selected; }
-            set { SetProperty(ref _selected, value); }
+            get => _selected;
+            set => SetProperty(ref _selected, value);
         }
 
         public ICommand AddCommand { get; private set; }
@@ -158,14 +157,14 @@ namespace Configurator.ViewModels
 
         public string Path
         {
-            get { return _path; }
-            set { SetProperty(ref _path, value); }
+            get => _path;
+            set => SetProperty(ref _path, value);
         }
 
         public string Hash
         {
-            get { return _hash; }
-            set { SetProperty(ref _hash, value); }
+            get => _hash;
+            set => SetProperty(ref _hash, value);
         }
 
         public HashItemViewModel(string path, string hash)

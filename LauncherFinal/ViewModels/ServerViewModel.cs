@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using LauncherCore.Models;
 using LauncherCore.Settings;
-using LauncherFinal.Models;
 using Mvvm;
 
 namespace LauncherFinal.ViewModels

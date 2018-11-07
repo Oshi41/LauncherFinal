@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Configurator.Models;
@@ -11,7 +8,6 @@ using LauncherCore.Models;
 using LauncherCore.Settings;
 using Mvvm;
 using Mvvm.Commands;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Configurator.ViewModels

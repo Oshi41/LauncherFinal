@@ -1,5 +1,4 @@
-﻿using System.IO;
-using LauncherCore;
+﻿using LauncherCore;
 using LauncherCore.Settings;
 using LauncherFinal.Models.Settings;
 using Unity;

@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 using LauncherCore.Models;
 using LauncherFinal.Helper;
-using LauncherFinal.Models;
 
 namespace LauncherFinal.Behaviors
 {

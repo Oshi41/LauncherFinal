@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Configurator.Models;
 using LauncherCore.Settings;
@@ -31,26 +25,26 @@ namespace Configurator.ViewModels
 
         public ModuleTypes Module
         {
-            get { return _module; }
-            set { SetProperty(ref _module, value); }
+            get => _module;
+            set => SetProperty(ref _module, value);
         }
 
         public string Uri
         {
-            get { return _uri; }
-            set { SetProperty(ref _uri, value); }
+            get => _uri;
+            set => SetProperty(ref _uri, value);
         }
 
         public bool? Checked
         {
-            get { return _checked; }
-            set { SetProperty(ref _checked, value); }
+            get => _checked;
+            set => SetProperty(ref _checked, value);
         }
 
         public bool StrictUsage
         {
-            get { return _strictUsage; }
-            set { SetProperty(ref _strictUsage, value); }
+            get => _strictUsage;
+            set => SetProperty(ref _strictUsage, value);
         }
 
         public ICommand PingCommand { get; private set; }

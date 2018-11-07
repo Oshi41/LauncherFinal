@@ -113,8 +113,8 @@ namespace LauncherCore.Converters
         /// </summary>
         public string When
         {
-            get { return (string) GetValue(WhenProperty); }
-            set { SetValue(WhenProperty, value); }
+            get => (string) GetValue(WhenProperty);
+            set => SetValue(WhenProperty, value);
         }
 
         public static readonly DependencyProperty ThenProperty = DependencyProperty.Register(

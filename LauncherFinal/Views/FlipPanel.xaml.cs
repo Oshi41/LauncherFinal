@@ -19,8 +19,8 @@ namespace LauncherFinal.Views
 
         public bool IsFlipped
         {
-            get { return (bool) GetValue(IsFlippedProperty); }
-            set { SetValue(IsFlippedProperty, value); }
+            get => (bool) GetValue(IsFlippedProperty);
+            set => SetValue(IsFlippedProperty, value);
         }
 
         public static readonly DependencyProperty FrontProperty = DependencyProperty.Register(
@@ -28,8 +28,8 @@ namespace LauncherFinal.Views
 
         public object Front
         {
-            get { return (object) GetValue(FrontProperty); }
-            set { SetValue(FrontProperty, value); }
+            get => (object) GetValue(FrontProperty);
+            set => SetValue(FrontProperty, value);
         }
 
         public static readonly DependencyProperty BackProperty = DependencyProperty.Register(
@@ -37,8 +37,8 @@ namespace LauncherFinal.Views
 
         public object Back
         {
-            get { return (object) GetValue(BackProperty); }
-            set { SetValue(BackProperty, value); }
+            get => (object) GetValue(BackProperty);
+            set => SetValue(BackProperty, value);
         }
     }
 }

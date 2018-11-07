@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LauncherCore.Settings;
+﻿using System.Collections.Generic;
 using Mvvm;
-using Newtonsoft.Json.Linq;
 
 namespace Configurator.ViewModels
 {
@@ -18,14 +12,14 @@ namespace Configurator.ViewModels
 
         public bool HasSite
         {
-            get { return _hasSite; }
-            set { SetProperty(ref _hasSite, value); }
+            get => _hasSite;
+            set => SetProperty(ref _hasSite, value);
         }
 
         public string ProjectSite
         {
-            get { return _projectSite; }
-            set { SetProperty(ref _projectSite, value); }
+            get => _projectSite;
+            set => SetProperty(ref _projectSite, value);
         }
     }
 }
