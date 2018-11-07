@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="Configurator.Views.ProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Configurator.Views"
+             xmlns:viewModels="clr-namespace:Configurator.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:Core.Converter;assembly=Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:ProjectViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.listbox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textblock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <converter:EnumDescriptionConverter x:Key="DescConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <DockPanel >
+            <Button DockPanel.Dock="Right"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Foreground="{Binding Path=SiteChecked, Converter={StaticResource PingColorConverter}}"
+                    Command="{Binding Path=CheckSite}"
+                    VerticalAlignment="Bottom"
+                    Margin="5,0,0,5">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Wifi"/>
+                </Viewbox>
+            </Button>
+
+            <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                     Text="{Binding Path=ProjectSite, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Адрес сайта проекта"
+                     ToolTip="Оставь пустым, если проект не имеет сайта"
+                     materialDesign:HintAssist.IsFloating="True"/>
+        </DockPanel>
+
+        <DockPanel Margin="0,5">
+            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       DockPanel.Dock="Left"
+                       Text="{Binding Path=Auth.Module, Converter={StaticResource DescConverter}}"/>
+            
+            <Button Margin="10,0,0,0"
+                    Content="Изменить"
+                    />
+        </DockPanel>
+
+    </StackPanel>
+
+</UserControl>

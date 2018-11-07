@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\BindingEqualsParamConverter.cs" />
+    <Compile Include="Converter\EnumDescriptionConverter.cs" />
     <Compile Include="Converter\SwitchConverter.cs" />
     <Compile Include="Models\ActionArbiter.cs" />
     <Compile Include="Models\HashCalculator.cs" />

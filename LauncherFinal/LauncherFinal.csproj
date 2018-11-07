@@ -85,7 +85,6 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\DragAndDropBehavior.cs" />
     <Compile Include="Behaviors\PassworBinderBehavior.cs" />
-    <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\InvertBool2VisConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="JsonConverters\JsonListCoverter.cs" />

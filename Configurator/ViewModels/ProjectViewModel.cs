@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Configurator.Models;
 using Configurator.Services;
 using Core.Settings;
 using Mvvm;
@@ -12,14 +13,16 @@ namespace Configurator.ViewModels
 {
     public class ProjectViewModel : BindableBase
     {
-        private bool _siteChecked;
+        private readonly Pinger _pinger = new Pinger();
+
+        private bool? _siteChecked;
         private string _projectSite;
 
         private AuthViewModule _auth;
         private ObservableCollection<ServerViewModel> _servers = new ObservableCollection<ServerViewModel>();
         private ServerViewModel _current;
 
-        public bool SiteChecked
+        public bool? SiteChecked
         {
             get => _siteChecked;
             set => SetProperty(ref _siteChecked, value);
@@ -43,10 +46,18 @@ namespace Configurator.ViewModels
             set => SetProperty(ref _current, value);
         }
 
+        public AuthViewModule Auth
+        {
+            get => _auth;
+            private set => SetProperty(ref _auth, value);
+        }
+
         public ICommand AddServer { get; private set; }
         public ICommand EditServer { get; private set; }
         public ICommand DeleteServer { get; private set; }
         public ICommand EditAuthSettings { get; private set; }
+        public ICommand CheckSite { get; private set; }
+
 
         public ProjectViewModel()
         {
@@ -54,17 +65,20 @@ namespace Configurator.ViewModels
 
             AddServer = new DelegateCommand(OnAddServer);
 
-            EditServer = new DelegateCommand(() => WindowService.ShowDialog(Current, 420), 
+            EditServer = new DelegateCommand(() => WindowService.ShowDialog(Current, 420),
                 () => Current != null);
 
             DeleteServer = new DelegateCommand(() => Servers.Remove(Current),
                 () => Servers.Contains(Current));
+
+            CheckSite = new DelegateCommand(async () => SiteChecked = await _pinger.CheckPing(ProjectSite),
+                () => _pinger.CanPing(ProjectSite));
         }
 
         public ProjectViewModel(AuthViewModule auth)
             : this()
         {
-            _auth = auth;
+            Auth = auth;
         }
 
         private void OnAddServer()
@@ -81,7 +95,7 @@ namespace Configurator.ViewModels
             var vm = new AuthViewModule();
             if (WindowService.ShowDialog(vm, 400) == true)
             {
-                _auth = vm;
+                Auth = vm;
             }
         }
 
@@ -93,8 +107,11 @@ namespace Configurator.ViewModels
             var serializer = JsonSerializer.CreateDefault();
             var writer = obj.CreateWriter();
 
-            writer.WritePropertyName(nameof(conf.ProjectSite));
-            writer.WriteValue(ProjectSite);
+            if (!string.IsNullOrWhiteSpace(ProjectSite))
+            {
+                writer.WritePropertyName(nameof(conf.ProjectSite));
+                writer.WriteValue(ProjectSite);
+            }
 
             if (Servers.Any())
             {
@@ -110,7 +127,7 @@ namespace Configurator.ViewModels
             }
 
             writer.WritePropertyName(nameof(conf.AuthModuleSettings));
-            serializer.Serialize(writer, _auth?.ToJson());
+            serializer.Serialize(writer, Auth?.ToJson());
 
             writer.Close();
 

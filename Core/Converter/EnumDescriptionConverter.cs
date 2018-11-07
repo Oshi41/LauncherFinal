@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 
-namespace LauncherFinal.Converters
+namespace Core.Converter
 {
-    class EnumDescriptionConverter : IValueConverter
+    public class EnumDescriptionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

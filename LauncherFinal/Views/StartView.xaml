@@ -41,7 +41,7 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>-->
 
-            <converters:EnumDescriptionConverter x:Key="DescriptionConverter"/>
+            <converter:EnumDescriptionConverter x:Key="DescriptionConverter"/>
 
             <converter:SwitchConverter x:Key="NumberToVisConverter"
                                         Default="Visible">
