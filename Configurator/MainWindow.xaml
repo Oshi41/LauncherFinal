@@ -7,14 +7,44 @@
         xmlns:views="clr-namespace:Configurator.Views"
         xmlns:viewModels="clr-namespace:Configurator.ViewModels"
         xmlns:controls="clr-namespace:Configurator.Views.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="625" Width="500"
-        Background="{DynamicResource MaterialDesignToolBarBackground}">
-    <Grid>
-        <views:ProjectView Margin="5">
-            <views:ProjectView.DataContext>
-                <viewModels:ProjectViewModel/>
-            </views:ProjectView.DataContext>
-        </views:ProjectView>
-    </Grid>
+        Background="{DynamicResource MaterialDesignToolBarBackground}"
+        d:DataContext="{d:DesignInstance Type={x:Type viewModels:MainViewModel}}">
+    
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+
+    <StackPanel>
+        
+        <DockPanel Margin="0,10">
+            
+            <Button Style="{StaticResource PingBtnStyle}"
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=PingConfCommand}"
+                    Foreground="{Binding Path=IsConfigValid, Converter={StaticResource PingColorConverter}}">
+            </Button>
+
+            <TextBox materialDesign:HintAssist.Hint="Ссылка на файл конфигурации проекта"
+                     Text="{Binding Path=ConfigUri, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </DockPanel>
+        
+        
+        <Button HorizontalAlignment="Stretch"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Content="Настройки проекта"
+                Command="{Binding Path=EditProjectCommand}"
+                Margin="20,10"/>
+        
+        <Button HorizontalAlignment="Stretch"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Content="Настройки обновления"
+                Command="{Binding Path=EditUpdateCommand}"
+                Margin="20,10"/>
+
+    </StackPanel>
+
 </Window>

@@ -116,8 +116,11 @@ namespace Core.Json
             writer.WritePropertyName(nameof(conf.ProjectConfig));
             _serializer.Serialize(writer, projectSettings);
 
-            writer.WritePropertyName(nameof(conf.UpdateConfig));
-            _serializer.Serialize(writer, updateSettings);
+            if (!string.IsNullOrWhiteSpace(updateLink))
+            {
+                writer.WritePropertyName(nameof(conf.UpdateConfig));
+                _serializer.Serialize(writer, updateSettings);
+            }
 
             writer.Close();
             return obj;

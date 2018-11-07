@@ -14,5 +14,13 @@
     <DataTemplate DataType="{x:Type viewModels:ServerViewModel}">
         <views:ServerView/>
     </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type viewModels:ProjectViewModel}">
+        <views:ProjectView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type viewModels:UpdateViewModel}">
+        <views:UpdateView/>
+    </DataTemplate>
 
 </ResourceDictionary>

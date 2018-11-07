@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Configurator.ViewModels;
+using Core.Json;
 using Core.Settings;
 using LauncherFinal.Models.Settings;
 using LauncherFinal.ViewModels;
@@ -188,6 +189,26 @@ namespace LauncherTests
             var copy = JsonConvert.SerializeObject(model);
 
             Assert.AreEqual(text, copy);
+        }
+
+        [TestMethod]
+        public void DynamicProxyTest()
+        {
+            var project = new ProjectConfig
+            {
+                AuthModuleSettings = new AuthModuleSettings
+                {
+                    Type = ModuleTypes.Default,
+                    AuthUri = "123",
+                    StrictUsage = true
+                }
+            };
+
+            var json = JsonConvert.SerializeObject(project, Formatting.Indented);
+
+            var jsonObj = JObject.Parse(json);
+            var imp = jsonObj.ToProxy<IProjectConfig>();
+            
         }
     }
 }
