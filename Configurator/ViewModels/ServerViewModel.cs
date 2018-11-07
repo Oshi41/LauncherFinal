@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Configurator.Models;
 using Configurator.Services;
@@ -16,12 +17,15 @@ namespace Configurator.ViewModels
     {
         private readonly Pinger _pinger = new Pinger();
 
-        private readonly ActionArbiter _actionArbiter = new ActionArbiter();
         private string _name;
         private string _clientUri;
         private string _address;
         private bool? _isClientChecked;
         private bool? _isServerUp;
+
+        private bool _isCheckingServer;
+        private HashCheckerViewModel _hashCheckerViewModel = new HashCheckerViewModel();
+        private bool _saveHashes = true;
 
         public string Name
         {
@@ -53,7 +57,17 @@ namespace Configurator.ViewModels
             set => SetProperty(ref _isServerUp, value);
         }
 
-        private Dictionary<string, string> _hashes;
+        public bool SaveHashes
+        {
+            get => _saveHashes;
+            set => SetProperty(ref _saveHashes, value);
+        }
+
+        public HashCheckerViewModel HashCheckerViewModel
+        {
+            get => _hashCheckerViewModel;
+            set => SetProperty(ref _hashCheckerViewModel, value);
+        }
 
         public ICommand PingFiles { get; private set; }
         public ICommand CheckServer { get; private set; }
@@ -65,32 +79,45 @@ namespace Configurator.ViewModels
             PingFiles = new DelegateCommand(async () => IsClientChecked = await _pinger.CheckPing(ClientUri),
                 () => _pinger.CanPing(ClientUri));
 
-            CheckServer = new DelegateCommand(() => _actionArbiter.Do(async () =>
-            {
-                var stat = new ServerStat(Address);
-                await stat.GetInfoAsync();
-                IsServerUp = stat.ServerUp;
-            }), () => !_actionArbiter.IsExecuting );
+            CheckServer = new DelegateCommand(OnCheckServer, OnCanCheckServer);
 
             EditHashes = new DelegateCommand(OnEditHash);
+        }
+
+        private bool OnCanCheckServer()
+        {
+            return !_isCheckingServer && !string.IsNullOrWhiteSpace(Address);
+        }
+
+        private async void OnCheckServer()
+        {
+            _isCheckingServer = true;
+
+            var stat = new ServerStat(Address);
+            await stat.GetInfoAsync();
+            IsServerUp = stat.ServerUp;
+
+            _isCheckingServer = false;
         }
 
         public ServerViewModel(Dictionary<string, string> hashes)
             : this()
         {
-            _hashes = hashes;
+            _hashCheckerViewModel = new HashCheckerViewModel(hashes);
         }
 
         private void OnEditHash()
         {
-            var vm = new HashCheckerViewModel(_hashes);
+            var vm = new HashCheckerViewModel(HashCheckerViewModel);
             if (WindowService.ShowDialog(vm, 420) == true)
-                _hashes = vm.Hashes.ToDictionary(x => x.Path, x => x.Hash);
+            {
+                HashCheckerViewModel = vm;
+            }
         }
 
         public JObject ToJson()
         {
-            IServer server; 
+            IServer server;
 
             var obj = new JObject();
 
@@ -105,9 +132,12 @@ namespace Configurator.ViewModels
             writer.WritePropertyName(nameof(server.DownloadLink));
             writer.WriteValue(ClientUri);
 
-            writer.WritePropertyName(nameof(server.DirHashCheck));
-            var serializer = JsonSerializer.CreateDefault();
-            serializer.Serialize(writer, _hashes);
+            if (SaveHashes && HashCheckerViewModel?.Hashes?.Any() == true)
+            {
+                writer.WritePropertyName(nameof(server.DirHashCheck));
+                var serializer = JsonSerializer.CreateDefault();
+                serializer.Serialize(writer, HashCheckerViewModel.Hashes.ToDictionary(x => x.Path, x => x.Hash));
+            }
 
             writer.Close();
 

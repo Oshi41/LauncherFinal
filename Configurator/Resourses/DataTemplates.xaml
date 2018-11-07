@@ -7,4 +7,8 @@
         <views:HashChecker/>
     </DataTemplate>
     
+    <DataTemplate DataType="{x:Type viewModels:AuthViewModule}">
+        <views:AuthSettingsView/>
+    </DataTemplate>
+    
 </ResourceDictionary>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Configurator.Models;
 using Core.Settings;
 using Mvvm;
@@ -17,11 +14,6 @@ namespace Configurator.ViewModels
         private string _uri;
         private bool? _checked;
         private bool _strictUsage;
-
-        public ModuleTypes Custom => ModuleTypes.Custom;
-        public ModuleTypes None => ModuleTypes.None;
-
-        public List<ModuleTypes> DefaultModules { get; }
 
         public ModuleTypes Module
         {
@@ -52,12 +44,7 @@ namespace Configurator.ViewModels
         public AuthViewModule()
         {
             PingCommand = new DelegateCommand(async () => Checked = await _pinger.CheckPing(Uri),
-                () => !_pinger.CanPing(Uri));
-
-            DefaultModules = Enum.GetValues(typeof(ModuleTypes))
-                .OfType<ModuleTypes>()
-                .Except(new[] { Custom, None })
-                .ToList();
+                () => _pinger.CanPing(Uri));
         }
 
         public JObject ToJson()

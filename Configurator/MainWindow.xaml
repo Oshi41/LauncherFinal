@@ -6,13 +6,15 @@
         xmlns:local="clr-namespace:Configurator"
         xmlns:views="clr-namespace:Configurator.Views"
         xmlns:viewModels="clr-namespace:Configurator.ViewModels"
+        xmlns:controls="clr-namespace:Configurator.Views.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="400">
+        Title="MainWindow" Height="625" Width="500"
+        Background="{DynamicResource MaterialDesignToolBarBackground}">
     <Grid>
-        <views:ServerView>
-            <views:ServerView.DataContext>
-                <viewModels:ServerViewModel/>
-            </views:ServerView.DataContext>
-        </views:ServerView>
+        <views:ProjectView Margin="5">
+            <views:ProjectView.DataContext>
+                <viewModels:ProjectViewModel/>
+            </views:ProjectView.DataContext>
+        </views:ProjectView>
     </Grid>
 </Window>

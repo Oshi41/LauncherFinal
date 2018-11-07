@@ -57,6 +57,28 @@ namespace Core.Models
             }
         }
 
+        public async void Do(Task action)
+        {
+            if (IsExecuting)
+                return;
+
+            try
+            {
+                IsExecuting = true;
+
+                await action.ContinueWith(task => IsExecuting = false);
+            }
+            catch (Exception e)
+            {
+                Trace.Write(e);
+                throw;
+            }
+            finally
+            {
+                IsExecuting = false;
+            }
+        }
+
         public void Cancel()
         {
             _tokenSource.Cancel();

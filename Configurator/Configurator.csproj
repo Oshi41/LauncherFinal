@@ -81,6 +81,9 @@
     <Compile Include="Views\Base\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\CheckedGroupBox.xaml.cs">
+      <DependentUpon>CheckedGroupBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HashChecker.xaml.cs">
       <DependentUpon>HashChecker.xaml</DependentUpon>
     </Compile>
@@ -106,11 +109,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resourses\Defaults.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AuthSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Base\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\CheckedGroupBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

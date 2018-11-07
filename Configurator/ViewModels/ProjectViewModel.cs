@@ -18,9 +18,10 @@ namespace Configurator.ViewModels
         private bool? _siteChecked;
         private string _projectSite;
 
-        private AuthViewModule _auth;
+        private AuthViewModule _auth = new AuthViewModule();
         private ObservableCollection<ServerViewModel> _servers = new ObservableCollection<ServerViewModel>();
         private ServerViewModel _current;
+        private bool _saveAuth = true;
 
         public bool? SiteChecked
         {
@@ -50,6 +51,12 @@ namespace Configurator.ViewModels
         {
             get => _auth;
             private set => SetProperty(ref _auth, value);
+        }
+
+        public bool SaveAuth
+        {
+            get => _saveAuth;
+            set => SetProperty(ref _saveAuth, value);
         }
 
         public ICommand AddServer { get; private set; }

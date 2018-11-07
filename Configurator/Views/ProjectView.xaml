@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:Configurator.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converter="clr-namespace:Core.Converter;assembly=Core"
+             xmlns:controls="clr-namespace:Configurator.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:ProjectViewModel}}">
@@ -26,34 +27,23 @@
 
     <StackPanel>
 
-        <DockPanel >
+        <DockPanel>
             <Button DockPanel.Dock="Right"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Style="{StaticResource PingBtnStyle}"
                     Foreground="{Binding Path=SiteChecked, Converter={StaticResource PingColorConverter}}"
-                    Command="{Binding Path=CheckSite}"
-                    VerticalAlignment="Bottom"
-                    Margin="5,0,0,5">
-                <Viewbox>
-                    <materialDesign:PackIcon Kind="Wifi"/>
-                </Viewbox>
+                    Command="{Binding Path=CheckSite}">
+
             </Button>
 
-            <TextBox Style="{StaticResource MaterialDesignTextBox}"
-                     Text="{Binding Path=ProjectSite, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding Path=ProjectSite, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="Адрес сайта проекта"
-                     ToolTip="Оставь пустым, если проект не имеет сайта"
-                     materialDesign:HintAssist.IsFloating="True"/>
+                     ToolTip="Оставь пустым, если проект не имеет сайта"/>
         </DockPanel>
 
-        <DockPanel Margin="0,5">
-            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
-                       DockPanel.Dock="Left"
-                       Text="{Binding Path=Auth.Module, Converter={StaticResource DescConverter}}"/>
-            
-            <Button Margin="10,0,0,0"
-                    Content="Изменить"
-                    />
-        </DockPanel>
+        <controls:CheckedGroupBox Header="Аутентификация"
+                                  Margin="0,5"
+                                  IsChecked="{Binding SaveAuth}"
+                                  Content="{Binding Path=Auth}"/>
 
     </StackPanel>
 

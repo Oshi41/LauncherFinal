@@ -33,9 +33,7 @@
                      Margin="0,10,0,0"
                      Text="{Binding Root}"
                      ToolTip="Путь к корневой папке сборки"
-                     Style="{StaticResource MaterialDesignTextBox}"
-                     materialDesign:HintAssist.Hint="Корневая папка"
-                     materialDesign:HintAssist.IsFloating="True"/>
+                     materialDesign:HintAssist.Hint="Корневая папка"/>
             <Button Grid.Column="1"
                     Content="..."
                     Margin="5,0"
@@ -49,6 +47,7 @@
                       VerticalScrollBarVisibility="Hidden">
 
             <DataGrid IsReadOnly="True"
+                      MinHeight="150"
                       AutoGenerateColumns="False"
                       CanUserSortColumns="True"
                       CanUserAddRows="False"

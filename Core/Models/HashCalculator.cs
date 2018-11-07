@@ -21,6 +21,9 @@ namespace Core.Models
             // assuming you want to include nested folders
             var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).ToList();
 
+            if (!files.Any())
+                return string.Empty;
+
             var md5 = MD5.Create();
 
             for (var i = 0; i < files.Count; i++)

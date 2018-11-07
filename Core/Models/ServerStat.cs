@@ -77,7 +77,7 @@ namespace Core.Models
                 if (rawServerData.Length == 0)
                     throw new IndexOutOfRangeException();
             }
-            catch
+            catch (Exception e)
             {
                 ServerUp = false;
                 return;

@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:Configurator.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:Configurator.ViewModels"
+             xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             xmlns:controls="clr-namespace:Configurator.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="350"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:ServerViewModel}}">
@@ -15,59 +17,64 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.groupbox.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <converters:MathConverter x:Key="MathConverter" Operation="Divide"/>
+                                     
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical">
         
-        <TextBox Style="{StaticResource MaterialDesignTextBox}"
-                 materialDesign:HintAssist.Hint="Имя сервера"
-                 materialDesign:HintAssist.IsFloating="True"
-                 Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <materialDesign:Card HorizontalAlignment="Center"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth4"
+                             Padding="5"
+                             Width="{Binding RelativeSource={RelativeSource AncestorType=Window}, 
+                         Path=ActualWidth, 
+                         Converter={StaticResource MathConverter}, 
+                         ConverterParameter=2}"
+                             Margin="0,0,0,10">
+            
+            <TextBox FontSize="16"
+                     Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                     materialDesign:HintAssist.Hint="Имя сервера"
+                     materialDesign:HintAssist.IsFloating="True"
+                     Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </materialDesign:Card>
         
         <DockPanel Margin="0,5">
             
-            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+            <Button Style="{StaticResource PingBtnStyle}"
                     DockPanel.Dock="Right"
-                    VerticalAlignment="Bottom"
                     Command="{Binding Path=CheckServer}"
-                    Foreground="{Binding Path=IsServerUp, Converter={StaticResource PingColorConverter}}"
-                    Margin="5,0,5,0">
-                <materialDesign:PackIcon Kind="Wifi"/>
+                    Foreground="{Binding Path=IsServerUp, Converter={StaticResource PingColorConverter}}">
             </Button>
 
-        <TextBox Style="{StaticResource MaterialDesignTextBox}"
-                 materialDesign:HintAssist.Hint="Адрес сервера"
-                 materialDesign:HintAssist.IsFloating="True"
+        <TextBox materialDesign:HintAssist.Hint="Адрес сервера"
                  Text="{Binding Path=Address, UpdateSourceTrigger=PropertyChanged}"/>
 
         </DockPanel>
 
         <DockPanel>
 
-            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+            <Button Style="{StaticResource PingBtnStyle}"
                     DockPanel.Dock="Right"
-                    VerticalAlignment="Bottom"
                     Command="{Binding Path=PingFiles}"
-                    Foreground="{Binding Path=IsClientChecked, Converter={StaticResource PingColorConverter}}"
-                    Margin="5,0,5,0">
-                <materialDesign:PackIcon Kind="Wifi"/>
+                    Foreground="{Binding Path=IsClientChecked, Converter={StaticResource PingColorConverter}}">
             </Button>
 
-            <TextBox Style="{StaticResource MaterialDesignTextBox}"
-                     materialDesign:HintAssist.Hint="Ссылка на файлы клиента"
-                     materialDesign:HintAssist.IsFloating="True"
+            <TextBox materialDesign:HintAssist.Hint="Ссылка на файлы клиента"
                      Text="{Binding Path=ClientUri, UpdateSourceTrigger=PropertyChanged}"/>
 
         </DockPanel>
-
-        <Button Margin="20"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                HorizontalAlignment="Stretch"
-                Content="Хэш-сумма папок"
-                Command="{Binding Path=EditHashes}"
-                MinWidth="{Binding ElementName=AuthBtn, Path=ActualWidth}"/>
+        
+        <controls:CheckedGroupBox Margin="0,5"
+                                  Header="Хэш-сумма"
+                                  IsChecked="{Binding Path=SaveHashes}"
+                                  Content="{Binding Path=HashCheckerViewModel}">
+        </controls:CheckedGroupBox> 
     </StackPanel>
 </UserControl>
 

@@ -14,7 +14,7 @@ using Mvvm.Commands;
 
 namespace Configurator.ViewModels
 {
-    class HashCheckerViewModel : BindableBase
+    public class HashCheckerViewModel : BindableBase
     {
         #region Fields
 
@@ -93,6 +93,13 @@ namespace Configurator.ViewModels
             Hashes = new ObservableCollection<HashItemViewModel>(list);
         }
 
+        public HashCheckerViewModel(HashCheckerViewModel vm)
+            : this(vm.Hashes.ToDictionary(x => x.Path, x => x.Hash))
+        {
+            _root = vm?._root;
+            _selected = vm?._selected;
+        }
+
         #region Command Handlers
 
         private async Task<HashItemViewModel> CreateHash()
@@ -150,7 +157,7 @@ namespace Configurator.ViewModels
         #endregion
     }
 
-    class HashItemViewModel : BindableBase
+    public class HashItemViewModel : BindableBase
     {
         private string _path;
         private string _hash;
