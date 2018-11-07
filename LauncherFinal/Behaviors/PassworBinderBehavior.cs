@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
-using LauncherCore.Models;
+using Core.Models;
 using LauncherFinal.Helper;
 
 namespace LauncherFinal.Behaviors

@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:LauncherFinal.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:converters="clr-namespace:LauncherFinal.Converters"
-             xmlns:converters1="clr-namespace:LauncherCore.Converters"
+             xmlns:converter="clr-namespace:Core.Converter;assembly=Core"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:LauncherSettingsViewModel}}">
@@ -21,11 +20,11 @@
 
             </ResourceDictionary.MergedDictionaries>
 
-            <converters1:SwitchConverter x:Key="UpdateTextConverter"
+            <converter:SwitchConverter x:Key="UpdateTextConverter"
                                         Default="Обновлений не требуется">
-                <converters1:Case When="True"
+                <converter:Case When="True"
                                  Then="Обновить"/>
-            </converters1:SwitchConverter>
+            </converter:SwitchConverter>
             
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 

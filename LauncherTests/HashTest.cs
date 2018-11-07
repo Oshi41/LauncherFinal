@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using LauncherCore.Models;
+using Core.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LauncherTests
@@ -11,7 +11,7 @@ namespace LauncherTests
         [TestMethod]
         public void TestHash_EqualsHash()
         {
-            var hashChecker = new HashChecker();
+            var hashChecker = new HashCalculator();
             var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
             Directory.CreateDirectory(path);
             var file = Path.Combine(path, "file.txt");
@@ -29,7 +29,7 @@ namespace LauncherTests
         [TestMethod]
         public void TestHash_NotEqualsHash()
         {
-            var hashChecker = new HashChecker();
+            var hashChecker = new HashCalculator();
             var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
             Directory.CreateDirectory(path);
             var file = Path.Combine(path, "file.txt");

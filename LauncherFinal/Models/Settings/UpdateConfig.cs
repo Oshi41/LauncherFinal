@@ -1,5 +1,5 @@
 ﻿using System;
-using LauncherCore.Settings;
+using Core.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

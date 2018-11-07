@@ -1,10 +1,10 @@
-﻿using LauncherCore;
-using LauncherCore.Settings;
+﻿using Core;
+using Core.Settings;
 using LauncherFinal.Models.Settings;
 using Unity;
 
 // ReSharper disable once CheckNamespace
-namespace LauncherFinal
+namespace LauncherFinal.Models
 {
     public class IoCContainer
     {
@@ -23,7 +23,7 @@ namespace LauncherFinal
 
         private IoCContainer()
         {
-            var settings = Settings.CreateDefault();
+            var settings = Settings.Settings.CreateDefault();
             var worker = new SettingsWorker(PropertyNames.GetConfigPath(settings.ClientFolder),
                 settings);
 

@@ -1,0 +1,166 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Markup;
+
+namespace Core.Converter
+{
+    /// <summary>
+    /// A converter that accepts <see cref="Case"/>s and converts them to the 
+    /// Then property of the case.
+    /// </summary>
+    [ContentProperty("Cases")]
+    public class SwitchConverter : DependencyObject, IValueConverter
+    {
+        // Converter instances.
+        List<Case> _cases;
+
+        #region Public Properties.
+
+        /// <summary>
+        /// Gets or sets an array of <see cref="Case"/>s that this converter can use to produde values from.
+        /// </summary>
+        public List<Case> Cases
+        {
+            get => _cases;
+            set => _cases = value;
+        }
+
+        public static readonly DependencyProperty DefaultProperty = DependencyProperty.Register(
+            "Default", typeof(object), typeof(SwitchConverter), new PropertyMetadata(default(object)));
+
+        /// <summary>
+        /// Default value if no one cases was accepted
+        /// </summary>
+        public object Default
+        {
+            get => GetValue(DefaultProperty);
+            set => SetValue(DefaultProperty, value);
+        }
+
+        #endregion
+
+        #region Construction.
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SwitchConverter"/> class.
+        /// </summary>
+        public SwitchConverter()
+        {
+            // Create the cases array.
+            _cases = new List<Case>();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value produced by the binding source.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            // I need to find out if the case that matches this value actually exists in this converters cases collection.
+            if (_cases != null && _cases.Count > 0)
+            {
+                foreach (var targetCase in Cases)
+                {
+                    if (Equals(value, targetCase)
+                        || string.Equals(value?.ToString(), targetCase.When, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return targetCase?.Then;
+                    }
+                }
+            }
+
+            return Default;
+        }
+
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetType">The type to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// Represents a case for a switch converter.
+    /// </summary>
+    [ContentProperty("Then")]
+    public class Case : DependencyObject
+    {
+        public static readonly DependencyProperty WhenProperty = DependencyProperty.Register(
+            "When", typeof(string), typeof(Case), new PropertyMetadata(default(string)));
+
+        /// <summary>
+        /// Gets or sets the condition of the case.
+        /// </summary>
+        public string When
+        {
+            get => (string) GetValue(WhenProperty);
+            set => SetValue(WhenProperty, value);
+        }
+
+        public static readonly DependencyProperty ThenProperty = DependencyProperty.Register(
+            "Then", typeof(object), typeof(Case), new PropertyMetadata(default(object)));
+
+        /// <summary>
+        /// Gets or sets the results of this case when run through a <see cref="SwitchConverter"/>
+        /// </summary>
+        public object Then
+        {
+            get => GetValue(ThenProperty);
+            set => SetValue(ThenProperty, value);
+        }
+
+        #region Construction.
+
+        /// <summary>
+        /// Switches the converter.
+        /// </summary>
+        public Case()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Case"/> class.
+        /// </summary>
+        /// <param name="when">The condition of the case.</param>
+        /// <param name="then">The results of this case when run through a <see cref="SwitchConverter"/>.</param>
+        public Case(string when, object then)
+        {
+            // Hook up the instances.
+            Then = then;
+            When = when;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return $"When={When}; Then={Then}";
+        }
+    }
+}

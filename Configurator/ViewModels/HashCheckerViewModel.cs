@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Configurator.Models;
-using LauncherCore.Models;
+using Core.Models;
 using Mvvm;
 using Mvvm.Commands;
 
@@ -19,7 +19,7 @@ namespace Configurator.ViewModels
         #region Fields
 
         private readonly PathWorker _pathWorker = new PathWorker();
-        private readonly HashChecker _checker = new HashChecker();
+        private readonly HashCalculator _checker = new HashCalculator();
 
         private string _root;
         private ObservableCollection<HashItemViewModel> _hashes = new ObservableCollection<HashItemViewModel>();

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LauncherFinal.Views"
              xmlns:viewModels="clr-namespace:LauncherFinal.ViewModels"
-             xmlns:converters1="clr-namespace:LauncherCore.Converters"
+             xmlns:converter="clr-namespace:Core.Converter;assembly=Core"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="250"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:ServerViewModel}}">
@@ -16,11 +16,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textblock.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <converters1:SwitchConverter x:Key="OnlineConverter" 
+            <converter:SwitchConverter x:Key="OnlineConverter" 
                                         Default="Red">
-                <converters1:Case When="True"
+                <converter:Case When="True"
                                  Then="Green"/>
-            </converters1:SwitchConverter>
+            </converter:SwitchConverter>
         </ResourceDictionary>
     </UserControl.Resources>
 

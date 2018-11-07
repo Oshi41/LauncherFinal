@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{844233ED-CCE4-4F6A-9A6A-DFCE57DB3E03}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Installer</RootNamespace>
-    <AssemblyName>Installer</AssemblyName>
+    <ProjectGuid>{52A07990-41C8-422B-88F2-3CCC6E8D4487}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,38 +31,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConsoleProgress, Version=0.1.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConsoleProgress.0.1.0.6\lib\net40\ConsoleProgress.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Converter\BindingEqualsParamConverter.cs" />
+    <Compile Include="Converter\SwitchConverter.cs" />
+    <Compile Include="Models\ActionArbiter.cs" />
+    <Compile Include="Models\HashCalculator.cs" />
+    <Compile Include="Models\ServerStat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{52A07990-41C8-422B-88F2-3CCC6E8D4487}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LauncherFinal\LauncherFinal.csproj">
-      <Project>{8C1DDC37-417A-4CDE-AF04-DED05E93ED58}</Project>
-      <Name>LauncherFinal</Name>
-    </ProjectReference>
+    <Compile Include="PropertyNames.cs" />
+    <Compile Include="Settings\IAuthModuleSettings.cs" />
+    <Compile Include="Settings\IPasswordSettings.cs" />
+    <Compile Include="Settings\IProjectConfig.cs" />
+    <Compile Include="Settings\IServer.cs" />
+    <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\ISettingsWorker.cs" />
+    <Compile Include="Settings\IUpdateConfig.cs" />
+    <Compile Include="Settings\ModuleTypes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,7 +7,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Input;
-using LauncherCore.Settings;
+using Core.Settings;
 using LauncherFinal.Helper;
 using LauncherFinal.Models;
 using LauncherFinal.Models.AuthModules;

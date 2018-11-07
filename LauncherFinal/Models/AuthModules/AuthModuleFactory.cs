@@ -1,5 +1,4 @@
-﻿using LauncherCore.Settings;
-
+﻿using Core.Settings;
 
 namespace LauncherFinal.Models.AuthModules
 {

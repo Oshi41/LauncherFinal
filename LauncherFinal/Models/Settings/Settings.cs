@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using LauncherCore;
-using LauncherCore.Settings;
+using Core;
+using Core.Settings;
 using LauncherFinal.JsonConverters;
 using Newtonsoft.Json;
 

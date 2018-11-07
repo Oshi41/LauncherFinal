@@ -1,4 +1,4 @@
-﻿using LauncherCore.Settings;
+﻿using Core.Settings;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings

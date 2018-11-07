@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using LauncherCore.Models;
-using LauncherCore.Settings;
+using Core.Models;
+using Core.Settings;
 using Mvvm;
 
 namespace LauncherFinal.ViewModels

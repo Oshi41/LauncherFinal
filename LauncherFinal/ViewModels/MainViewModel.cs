@@ -1,4 +1,5 @@
-﻿using LauncherCore.Settings;
+﻿using Core.Settings;
+using LauncherFinal.Models;
 using Mvvm;
 
 namespace LauncherFinal.ViewModels

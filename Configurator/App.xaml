@@ -1,8 +1,7 @@
 ﻿<Application x:Class="Configurator.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Configurator"
-             xmlns:converters="clr-namespace:LauncherCore.Converters"
+             xmlns:converter="clr-namespace:Core.Converter;assembly=Core"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,13 +14,13 @@
 
             </ResourceDictionary.MergedDictionaries>
 
-            <converters:SwitchConverter x:Key="PingColorConverter"
+            <converter:SwitchConverter x:Key="PingColorConverter"
                                         Default="Black">
-                <converters:Case When="True"
+                <converter:Case When="True"
                                  Then="DarkGreen"/>
-                <converters:Case When="False"
+                <converter:Case When="False"
                                  Then="DarkRed"/>
-            </converters:SwitchConverter>
+            </converter:SwitchConverter>
 
         </ResourceDictionary>
     </Application.Resources>

@@ -47,11 +47,15 @@
     <Reference Include="Mvvm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvvm.1.0.4\lib\Mvvm.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HashTest.cs" />
+    <Compile Include="ToJsonTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="СCryptoWorkertTest.cs" />
@@ -61,6 +65,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Configurator\Configurator.csproj">
+      <Project>{8b0c21e9-c8ec-4536-97ad-f40d0da8cec9}</Project>
+      <Name>Configurator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{52A07990-41C8-422B-88F2-3CCC6E8D4487}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LauncherFinal\LauncherFinal.csproj">
       <Project>{8C1DDC37-417A-4CDE-AF04-DED05E93ED58}</Project>
       <Name>LauncherFinal</Name>

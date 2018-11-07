@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LauncherCore.Settings;
+using Core.Settings;
 
 namespace LauncherFinal.Models.Settings
 {

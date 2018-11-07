@@ -5,8 +5,8 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using ConsoleProgress;
-using LauncherCore;
-using LauncherCore.Settings;
+using Core;
+using Core.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

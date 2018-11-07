@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Configurator.Models;
 using Configurator.Services;
-using LauncherCore.Models;
-using LauncherCore.Settings;
+using Core.Models;
+using Core.Settings;
 using Mvvm;
 using Mvvm.Commands;
 using Newtonsoft.Json.Linq;
@@ -77,10 +76,8 @@ namespace Configurator.ViewModels
 
         private void OnEditHash()
         {
-            var y = 420;
-
             var vm = new HashCheckerViewModel(_hashes);
-            if (WindowService.ShowDialog(vm, new Size(y * 1.25, y)) == true)
+            if (WindowService.ShowDialog(vm, 420) == true)
                 _hashes = vm.Hashes.ToDictionary(x => x.Path, x => x.Hash);
         }
 

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Configurator.Models;
-using LauncherCore.Settings;
+using Core.Settings;
 using Mvvm;
 using Mvvm.Commands;
 using Newtonsoft.Json.Linq;
 
 namespace Configurator.ViewModels
 {
-    class AuthViewModule : BindableBase
+    public class AuthViewModule : BindableBase
     {
         private readonly Pinger _pinger = new Pinger();
-        private ModuleTypes _module;
+        private ModuleTypes _module = ModuleTypes.None;
         private string _uri;
         private bool? _checked;
         private bool _strictUsage;

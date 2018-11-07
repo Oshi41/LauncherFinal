@@ -6,8 +6,8 @@ using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
-using LauncherCore.Models;
-using LauncherCore.Settings;
+using Core.Models;
+using Core.Settings;
 using LauncherFinal.Models.AuthModules;
 using LauncherFinal.ViewModels.PopupViewModels;
 
@@ -24,7 +24,7 @@ namespace LauncherFinal.Models
         private readonly string _login;
         private readonly SecureString _pass;
         private readonly string _baseFolder;
-        private readonly HashChecker _hashChecker = new HashChecker();
+        private readonly HashCalculator _hashChecker = new HashCalculator();
 
         #endregion
 

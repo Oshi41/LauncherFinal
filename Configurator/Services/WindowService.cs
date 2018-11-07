@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Input;
 using Configurator.Views.Base;
 using Mvvm;
@@ -9,18 +8,18 @@ namespace Configurator.Services
     public static class WindowService
     {
         public static bool? ShowDialog(BindableBase vm, 
-            Size minsize, 
+            int width, 
             Predicate<object> canSave = null)
         {
             var dlg = new DialogWindow
             {
                 DataContext = vm,
 
-                MinHeight = minsize.Height,
-                MinWidth = minsize.Width,
+                MinHeight = width* 1.25,
+                MinWidth = width,
 
-                Width = minsize.Width,
-                Height = minsize.Height,
+                Width = width,
+                Height = width* 1.25,
             };
 
             var cmd = new CommandBinding(

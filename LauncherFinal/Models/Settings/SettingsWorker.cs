@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using LauncherCore.Settings;
+using Core.Settings;
 using Newtonsoft.Json;
 
 namespace LauncherFinal.Models.Settings
