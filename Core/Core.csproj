@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,9 +50,11 @@
     <Compile Include="Converter\BindingEqualsParamConverter.cs" />
     <Compile Include="Converter\EnumDescriptionConverter.cs" />
     <Compile Include="Converter\SwitchConverter.cs" />
+    <Compile Include="Json\Extensions.cs" />
     <Compile Include="Models\ActionArbiter.cs" />
     <Compile Include="Models\HashCalculator.cs" />
     <Compile Include="Models\ServerStat.cs" />
+    <Compile Include="Json\SettingsSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyNames.cs" />
     <Compile Include="Settings\IAuthModuleSettings.cs" />
@@ -60,6 +65,9 @@
     <Compile Include="Settings\ISettingsWorker.cs" />
     <Compile Include="Settings\IUpdateConfig.cs" />
     <Compile Include="Settings\ModuleTypes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

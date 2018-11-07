@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Configurator.Models;
 using Configurator.Services;
+using Core.Json;
 using Core.Models;
 using Core.Settings;
 using Mvvm;
@@ -117,31 +118,13 @@ namespace Configurator.ViewModels
 
         public JObject ToJson()
         {
-            IServer server;
+            var serializer = new SettingsSerializer();
 
-            var obj = new JObject();
+            var hashes = SaveHashes
+                ? HashCheckerViewModel.Hashes.ToDictionary(x => x.Path, x => x.Hash)
+                : null;
 
-            var writer = obj.CreateWriter();
-
-            writer.WritePropertyName(nameof(server.Address));
-            writer.WriteValue(Address);
-
-            writer.WritePropertyName(nameof(server.Name));
-            writer.WriteValue(Name);
-
-            writer.WritePropertyName(nameof(server.DownloadLink));
-            writer.WriteValue(ClientUri);
-
-            if (SaveHashes && HashCheckerViewModel?.Hashes?.Any() == true)
-            {
-                writer.WritePropertyName(nameof(server.DirHashCheck));
-                var serializer = JsonSerializer.CreateDefault();
-                serializer.Serialize(writer, HashCheckerViewModel.Hashes.ToDictionary(x => x.Path, x => x.Hash));
-            }
-
-            writer.Close();
-
-            return obj;
+            return serializer.WriteServer(Name, Address, ClientUri, hashes);
         }
     }
 }

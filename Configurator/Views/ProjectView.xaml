@@ -19,8 +19,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textblock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.listview.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <converter:EnumDescriptionConverter x:Key="DescConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -32,7 +33,6 @@
                     Style="{StaticResource PingBtnStyle}"
                     Foreground="{Binding Path=SiteChecked, Converter={StaticResource PingColorConverter}}"
                     Command="{Binding Path=CheckSite}">
-
             </Button>
 
             <TextBox Text="{Binding Path=ProjectSite, UpdateSourceTrigger=PropertyChanged}"
@@ -41,9 +41,50 @@
         </DockPanel>
 
         <controls:CheckedGroupBox Header="Аутентификация"
-                                  Margin="0,5"
+                                  Margin="0,10"
                                   IsChecked="{Binding SaveAuth}"
                                   Content="{Binding Path=Auth}"/>
+
+        <ScrollViewer Style="{StaticResource NoBarsStyle}">
+
+            <DataGrid ItemsSource="{Binding Path=Servers}"
+                  SelectedValue="{Binding Path=Current}"
+                  MinHeight="150">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Name}"
+                                    Header="Имя сервера"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </ScrollViewer>
+        
+        <StackPanel Margin="0,10,10,0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Command="{Binding Path=AddServer}"
+                    ToolTip="Добавить сервер"
+                    Style="{StaticResource ToolBarBtnStyle}">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Add"/>
+                </Viewbox>
+            </Button>
+            <Button Command="{Binding Path=EditServer}"
+                    Margin="5,0"
+                    ToolTip="Редактировать"
+                    Style="{StaticResource ToolBarBtnStyle}">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Edit"/>
+                </Viewbox>
+            </Button>
+            <Button Command="{Binding Path=DeleteServer}"
+                    Style="{StaticResource ToolBarBtnStyle}"
+                    ToolTip="Удалить">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Delete"/>
+                </Viewbox>
+            </Button>
+        </StackPanel>
+
 
     </StackPanel>
 

@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ConsoleProgress;
 using Core;
+using Core.Json;
+using Core.Models;
 using Core.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -78,16 +80,10 @@ namespace Installer
             var project = DownloadAndParse(ConfigLink, Path.GetTempPath(), "Загружаем конфигурацию").Result;
             var update = DownloadAndParse(UpdateLink, Path.GetTempPath(), "Проверяем обновления").Result;
 
-            ISettings set;
-            var settings = new JObject
-            {
-                { nameof(set.ProjectConfig).Substring(1), project},
-                { nameof(set.UpdateConfig).Substring(1), update},
-                { nameof(set.UpdateConfigUrl), UpdateLink }
-            };
+            var serializer = new SettingsSerializer();
+            var settings = serializer.WriteSettings(project, update, UpdateLink);
 
-            var result = JsonConvert.SerializeObject(settings);
-            File.WriteAllText(PropertyNames.GetConfigPath(PropertyNames.BaseLauncherPath), result);
+            File.WriteAllText(PropertyNames.GetConfigPath(PropertyNames.BaseLauncherPath), settings.ToStringIgnoreNull());
         }
 
         static async Task<Exception> DownloadFile(string link, string filePath, string beginText)

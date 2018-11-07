@@ -9,9 +9,13 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.combobox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.radiobutton.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.checkbox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.datagrid.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.scrollviewer.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
     
+    <!-- DEFAULTS -->
+
     <Style TargetType="{x:Type TextBox}"
            BasedOn="{StaticResource MaterialDesignTextBox}">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
@@ -33,6 +37,38 @@
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
     </Style>
     
+    <Style TargetType="{x:Type DataGrid}"
+           BasedOn="{StaticResource MaterialDesignDataGrid}">
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserSortColumns" Value="True"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+
+        <Setter Property="RowStyle" Value="{StaticResource MaterialDesignDataGridRow}"/>
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource MaterialDesignDataGridColumnHeader}"/>
+        <Setter Property="CellStyle" Value="{StaticResource MaterialDesignDataGridCell}"/>
+        <Setter Property="RowHeaderStyle" Value="{StaticResource MaterialDesignDataGridRowHeader}"/>
+    </Style>
+    
+    
+    <!-- CUSTOM STYLES -->
+    
+    <Style x:Key="NoBarsStyle"
+           TargetType="{x:Type ScrollViewer}"
+           BasedOn="{StaticResource MaterialDesignScrollViewer}">
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
+    </Style>
+    
+    <Style x:Key="TextBlockStyle"
+           TargetType="{x:Type TextBlock}"
+           BasedOn="{StaticResource MaterialDesignBody1TextBlock}">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
+    </Style>
 
     <Style x:Key="PingBtnStyle"
            TargetType="{x:Type Button}"
@@ -49,6 +85,14 @@
         <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="ToolTip" Value="Проверить соединение"/>
         
+    </Style>
+    
+    <Style x:Key="ToolBarBtnStyle"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
+        <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Padding" Value="5"/>
     </Style>
     
 </ResourceDictionary>

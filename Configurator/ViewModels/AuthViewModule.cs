@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Configurator.Models;
+using Core.Json;
 using Core.Settings;
 using Mvvm;
 using Mvvm.Commands;
@@ -49,24 +50,8 @@ namespace Configurator.ViewModels
 
         public JObject ToJson()
         {
-            IAuthModuleSettings set;
-
-            var obj = new JObject();
-
-            var writer = obj.CreateWriter();
-
-            writer.WritePropertyName(nameof(set.AuthUri));
-            writer.WriteValue(Uri);
-
-            writer.WritePropertyName(nameof(set.StrictUsage));
-            writer.WriteValue(StrictUsage);
-
-            writer.WritePropertyName(nameof(set.Type));
-            writer.WriteValue(Module);
-
-            writer.Close();
-
-            return obj;
+            var serializer = new SettingsSerializer();
+            return serializer.WriteAuth(Uri, Module, StrictUsage);
         }
     }
 }
