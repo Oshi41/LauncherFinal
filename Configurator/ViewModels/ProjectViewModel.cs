@@ -5,11 +5,12 @@ using Configurator.Services;
 using Core.Settings;
 using Mvvm;
 using Mvvm.Commands;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Configurator.ViewModels
 {
-    class ProjectViewModel : BindableBase
+    public class ProjectViewModel : BindableBase
     {
         private bool _siteChecked;
         private string _projectSite;
@@ -60,6 +61,12 @@ namespace Configurator.ViewModels
                 () => Servers.Contains(Current));
         }
 
+        public ProjectViewModel(AuthViewModule auth)
+            : this()
+        {
+            _auth = auth;
+        }
+
         private void OnAddServer()
         {
             var vm = new ServerViewModel();
@@ -78,27 +85,32 @@ namespace Configurator.ViewModels
             }
         }
 
-        private JObject ToJson()
+        public JObject ToJson()
         {
             IProjectConfig conf;
             var obj = new JObject();
 
+            var serializer = JsonSerializer.CreateDefault();
             var writer = obj.CreateWriter();
 
             writer.WritePropertyName(nameof(conf.ProjectSite));
             writer.WriteValue(ProjectSite);
 
-            if (_auth != null)
-            {
-                writer.WritePropertyName(nameof(conf.AuthModuleSettings));
-                writer.WriteValue((_auth.ToJson()));
-            }
-
             if (Servers.Any())
             {
                 writer.WritePropertyName(nameof(conf.Servers));
-                writer.WriteValue(new JObject(Servers.Select(x => x.ToJson())));
+                writer.WriteStartArray();
+
+                foreach (var server in Servers)
+                {
+                    serializer.Serialize(writer, server.ToJson());
+                }
+
+                writer.WriteEndArray();
             }
+
+            writer.WritePropertyName(nameof(conf.AuthModuleSettings));
+            serializer.Serialize(writer, _auth?.ToJson());
 
             writer.Close();
 

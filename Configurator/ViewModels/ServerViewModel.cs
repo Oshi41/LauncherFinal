@@ -7,11 +7,12 @@ using Core.Models;
 using Core.Settings;
 using Mvvm;
 using Mvvm.Commands;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Configurator.ViewModels
 {
-    class ServerViewModel : BindableBase
+    public class ServerViewModel : BindableBase
     {
         private readonly Pinger _pinger = new Pinger();
 
@@ -74,6 +75,12 @@ namespace Configurator.ViewModels
             EditHashes = new DelegateCommand(OnEditHash);
         }
 
+        public ServerViewModel(Dictionary<string, string> hashes)
+            : this()
+        {
+            _hashes = hashes;
+        }
+
         private void OnEditHash()
         {
             var vm = new HashCheckerViewModel(_hashes);
@@ -83,7 +90,7 @@ namespace Configurator.ViewModels
 
         public JObject ToJson()
         {
-            IServer server;
+            IServer server; 
 
             var obj = new JObject();
 
@@ -92,14 +99,15 @@ namespace Configurator.ViewModels
             writer.WritePropertyName(nameof(server.Address));
             writer.WriteValue(Address);
 
-            writer.WritePropertyName(nameof(server.DownloadLink));
-            writer.WriteValue(ClientUri);
-
             writer.WritePropertyName(nameof(server.Name));
             writer.WriteValue(Name);
 
+            writer.WritePropertyName(nameof(server.DownloadLink));
+            writer.WriteValue(ClientUri);
+
             writer.WritePropertyName(nameof(server.DirHashCheck));
-            writer.WriteValue(_hashes);
+            var serializer = JsonSerializer.CreateDefault();
+            serializer.Serialize(writer, _hashes);
 
             writer.Close();
 
