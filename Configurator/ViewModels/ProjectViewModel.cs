@@ -14,20 +14,11 @@ namespace Configurator.ViewModels
 {
     public class ProjectViewModel : BindableBase
     {
-        private readonly Pinger _pinger = new Pinger();
-
-        private bool? _siteChecked;
         private string _projectSite;
 
         private ObservableCollection<ServerViewModel> _servers = new ObservableCollection<ServerViewModel>();
         private ServerViewModel _current;
         private bool _saveAuth = true;
-
-        public bool? SiteChecked
-        {
-            get => _siteChecked;
-            set => SetProperty(ref _siteChecked, value);
-        }
 
         public string ProjectSite
         {
@@ -58,21 +49,17 @@ namespace Configurator.ViewModels
         public ICommand AddServer { get; private set; }
         public ICommand EditServer { get; private set; }
         public ICommand DeleteServer { get; private set; }
-        public ICommand CheckSite { get; private set; }
 
 
         public ProjectViewModel()
         {
             AddServer = new DelegateCommand(OnAddServer);
 
-            EditServer = new DelegateCommand(() => WindowService.ShowDialog(Current, 500),
+            EditServer = new DelegateCommand(() => WindowService.ShowVerticalDialog(Current, 500),
                 () => Current != null);
 
             DeleteServer = new DelegateCommand(() => Servers.Remove(Current),
                 () => Servers.Contains(Current));
-
-            CheckSite = new DelegateCommand(async () => SiteChecked = await _pinger.CheckPing(ProjectSite),
-                () => _pinger.CanPing(ProjectSite));
         }
 
         public ProjectViewModel(AuthViewModule auth)
@@ -84,7 +71,7 @@ namespace Configurator.ViewModels
         private void OnAddServer()
         {
             var vm = new ServerViewModel();
-            if (WindowService.ShowDialog(vm, 500) == true)
+            if (WindowService.ShowVerticalDialog(vm, 500) == true)
             {
                 Servers.Add(vm);
             }

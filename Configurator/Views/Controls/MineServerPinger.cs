@@ -12,10 +12,10 @@ namespace Configurator.Views.Controls
     {
         private bool _isPinging;
 
-        protected MineServerPinger() 
+        public MineServerPinger() 
             : base(null, null)
         {
-            _action = async s =>
+            Action = async s =>
             {
                 try
                 {
@@ -36,9 +36,9 @@ namespace Configurator.Views.Controls
                 }
             };
 
-            _canPing = s => !_isPinging && !string.IsNullOrWhiteSpace(s);
+            CanPing = s => !_isPinging && !string.IsNullOrWhiteSpace(s);
 
-            ButtonToolTip = "Проверить связь с сервером";
+            ButtonHint = "Проверить связь с сервером";
         }
     }
 }

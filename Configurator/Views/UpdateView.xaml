@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:Configurator.ViewModels"
              xmlns:converters="clr-namespace:Configurator.Converters"
+             xmlns:controls="clr-namespace:Configurator.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:UpdateViewModel}}">
@@ -17,22 +18,14 @@
     </UserControl.Resources>
 
     <StackPanel>
+
+        <controls:UriPathView Path="{Binding Path=Uri}"
+                              UriHint="Ссылка на .exe лаунчера"/>
         
-        <DockPanel Margin="0,5">
-            
-            <Button Style="{StaticResource PingBtnStyle}"
-                    DockPanel.Dock="Right"
-                    Command="{Binding Path=PingUri}"
-                    Foreground="{Binding Path=CorectUri, Converter={StaticResource PingColorConverter}}">
-            </Button>
-
-            <TextBox materialDesign:HintAssist.Hint="Ссылка на .exe лаунчера"
-                     Text="{Binding Path=Uri, UpdateSourceTrigger=PropertyChanged}"/>
-
-        </DockPanel>
-        
-        <TextBox Text="{Binding Path=Version, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource VersionConverter}}"/>
-
+        <TextBox Text="{Binding Path=Version,
+            UpdateSourceTrigger=PropertyChanged, 
+            Converter={StaticResource VersionConverter}}"
+                 materialDesign:HintAssist.Hint="Версия лаунчера"/>
 
     </StackPanel>
 </UserControl>

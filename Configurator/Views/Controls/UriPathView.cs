@@ -11,13 +11,13 @@ namespace Configurator.Views.Controls
     {
         private readonly Pinger _pinger = new Pinger();
 
-        protected UriPathView() 
+        public UriPathView() 
             : base(null, null)
         {
-            _action = s => _pinger.CheckPing(s);
-            _canPing = s => _pinger.CanPing(s);
+            Action = s => _pinger.CheckPing(s);
+            CanPing = s => _pinger.CanPing(s);
 
-            ButtonToolTip = "Проверить адрес";
+            ButtonHint = "Проверить адрес";
         }
     }
 }

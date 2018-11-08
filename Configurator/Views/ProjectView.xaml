@@ -22,23 +22,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.listview.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <converter:EnumDescriptionConverter x:Key="DescConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel>
 
-        <DockPanel>
-            <Button DockPanel.Dock="Right"
-                    Style="{StaticResource PingBtnStyle}"
-                    Foreground="{Binding Path=SiteChecked, Converter={StaticResource PingColorConverter}}"
-                    Command="{Binding Path=CheckSite}">
-            </Button>
-
-            <TextBox Text="{Binding Path=ProjectSite, UpdateSourceTrigger=PropertyChanged}"
-                     materialDesign:HintAssist.Hint="Адрес сайта проекта"
-                     ToolTip="Оставь пустым, если проект не имеет сайта"/>
-        </DockPanel>
+        <controls:UriPathView Path="{Binding Path=ProjectSite, UpdateSourceTrigger=PropertyChanged}"
+                              UriHint="Адрес сайта проекта"/>
 
         <controls:CheckedGroupBox Header="Аутентификация"
                                   Margin="0,10"

@@ -15,13 +15,7 @@
 
             </ResourceDictionary.MergedDictionaries>
 
-            <converter:SwitchConverter x:Key="PingColorConverter"
-                                        Default="Black">
-                <converter:Case When="True"
-                                 Then="DarkGreen"/>
-                <converter:Case When="False"
-                                 Then="DarkRed"/>
-            </converter:SwitchConverter>
+            
 
         </ResourceDictionary>
     </Application.Resources>

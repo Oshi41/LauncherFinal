@@ -39,8 +39,8 @@ namespace Configurator.ViewModels
             SaveCommand = new DelegateCommand(OnSaveCommand);
             PingConfCommand = new DelegateCommand(async () => IsConfigValid = await _pinger.CheckPing(ConfigUri),
                 () => _pinger.CanPing(ConfigUri));
-            EditProjectCommand = new DelegateCommand(() => WindowService.ShowDialog(ProjectViewModel, 480));
-            EditUpdateCommand = new DelegateCommand(() => WindowService.ShowDialog(UpdateViewModel, 200));
+            EditProjectCommand = new DelegateCommand(() => WindowService.ShowVerticalDialog(ProjectViewModel, 480));
+            EditUpdateCommand = new DelegateCommand(() => WindowService.ShowHorizontalialog(UpdateViewModel, 300));
         }
 
         private void OnSaveCommand()

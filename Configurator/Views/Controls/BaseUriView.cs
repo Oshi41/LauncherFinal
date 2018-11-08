@@ -13,8 +13,8 @@ namespace Configurator.Views.Controls
         protected const string ButtonName = "PingButton";
         protected const string TextName = "UriBox";
 
-        protected Func<string, Task<bool>> _action;
-        protected Func<string, bool> _canPing;
+        protected Func<string, Task<bool>> Action;
+        protected Func<string, bool> CanPing;
 
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register(
             "IsCheckedPath", typeof(bool?), typeof(BaseUriView), new PropertyMetadata(default(bool?)));
@@ -25,19 +25,37 @@ namespace Configurator.Views.Controls
             set { SetValue(IsCheckedPathProperty, value); }
         }
 
-        public static readonly DependencyProperty ButtonToolTipProperty = DependencyProperty.Register(
-            "ButtonToolTip", typeof(string), typeof(BaseUriView), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty ButtonHintProperty = DependencyProperty.Register(
+            "ButtonHint", typeof(string), typeof(BaseUriView), new PropertyMetadata(default(string)));
 
-        public string ButtonToolTip
+        public string ButtonHint
         {
-            get { return (string) GetValue(ButtonToolTipProperty); }
-            set { SetValue(ButtonToolTipProperty, value); }
+            get { return (string) GetValue(ButtonHintProperty); }
+            set { SetValue(ButtonHintProperty, value); }
+        }
+
+        public static readonly DependencyProperty UriHintProperty = DependencyProperty.Register(
+            "UriHint", typeof(string), typeof(BaseUriView), new PropertyMetadata(default(string)));
+
+        public string UriHint
+        {
+            get { return (string) GetValue(UriHintProperty); }
+            set { SetValue(UriHintProperty, value); }
+        }
+
+        public static readonly DependencyProperty PathProperty = DependencyProperty.Register(
+            "Path", typeof(string), typeof(BaseUriView), new PropertyMetadata(default(string)));
+
+        public string Path
+        {
+            get { return (string) GetValue(PathProperty); }
+            set { SetValue(PathProperty, value); }
         }
 
         protected BaseUriView(Func<string, Task<bool>> action, Func<string, bool> canPing)
         {
-            _action = action ?? (s => new Task<bool>(() => true));
-            _canPing = canPing;
+            Action = action ?? (s => new Task<bool>(() => true));
+            CanPing = canPing;
         }
 
         public override void OnApplyTemplate()
@@ -46,9 +64,9 @@ namespace Configurator.Views.Controls
 
             var command = DelegateCommand.FromAsyncHandler(async () =>
                 {
-                    IsCheckedPath = await _action(Uri);
+                    IsCheckedPath = await Action(Path);
                 },
-                () => _canPing?.Invoke(Uri) ?? true);
+                () => CanPing?.Invoke(Path) ?? true);
 
             Button.Command = command;
         }
@@ -61,15 +79,6 @@ namespace Configurator.Views.Controls
                 if (button == null)
                     throw new NullReferenceException(nameof(button));
                 return button;
-            }
-        }
-
-        protected string Uri
-        {
-            get
-            {
-                var box = (TextBox)Template.FindName(TextName, this);
-                return box?.Text;
             }
         }
     }

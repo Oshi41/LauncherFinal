@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Height="600" Width="400"
         Background="{DynamicResource MaterialDesignToolBarBackground}">
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,31 +15,34 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Border Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext}"
+            <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext}"
                         Margin="5"/>
-        
-        <StackPanel Grid.Row="1"
+
+            <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
 
-            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
                     Content="Оk"
                     Margin="5,0"
                     MinWidth="{Binding ElementName=CloseBtn, Path=ActualWidth}"
                     Command="Save"
                     Click="OnSave"/>
 
-            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
                     Content="Закрыть"
                     x:Name="CloseBtn"
                     Click="OnClose"/>
 
-        </StackPanel>
-    </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
+
 </Window>
