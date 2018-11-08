@@ -68,6 +68,7 @@ namespace Configurator.Views.Controls
                 },
                 () => CanPing?.Invoke(Path) ?? true);
 
+
             Button.Command = command;
         }
 

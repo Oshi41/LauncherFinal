@@ -17,20 +17,11 @@
         <viewModels:MainViewModel/>
     </Window.DataContext>
 
-    <StackPanel>
-        
-        <DockPanel Margin="0,10">
-            
-            <Button Style="{StaticResource PingBtnStyle}"
-                    DockPanel.Dock="Right"
-                    Command="{Binding Path=PingConfCommand}"
-                    Foreground="{Binding Path=IsConfigValid, Converter={StaticResource PingColorConverter}}">
-            </Button>
+    <StackPanel Margin="10">
 
-            <TextBox materialDesign:HintAssist.Hint="Ссылка на файл конфигурации проекта"
-                     Text="{Binding Path=ConfigUri, UpdateSourceTrigger=PropertyChanged}"/>
-
-        </DockPanel>
+        <controls:UriPathView Path="{Binding Path=ConfigUri, UpdateSourceTrigger=PropertyChanged}"
+                              UriHint="Ссылка на файл конфигурации проекта"
+                              Margin="0,0,0,15"/>
         
         
         <Button HorizontalAlignment="Stretch"

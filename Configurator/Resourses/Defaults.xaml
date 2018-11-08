@@ -2,8 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:controls="clr-namespace:Configurator.Views.Controls"
-                    xmlns:converter="clr-namespace:Core.Converter;assembly=Core">
-    
+                    xmlns:converter="clr-namespace:Core.Converter;assembly=Core"
+                    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf">
+
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
@@ -15,7 +16,7 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.scrollviewer.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
-    
+
     <!-- CONVERTERS -->
     <converter:SwitchConverter x:Key="PingColorConverter"
                                Default="Black">
@@ -43,18 +44,50 @@
     <Style x:Key="PingBtnStyle"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource MaterialDesignRaisedButton}">
-        <Setter Property="Content">
+        <Setter Property="Template">
             <Setter.Value>
-                <Viewbox>
-                    <materialDesign:PackIcon Kind="Wifi"/>
-                </Viewbox>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Grid>
+                        <AdornerDecorator CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(materialDesign:ShadowAssist.CacheMode)}">
+                            <Grid>
+                                <Border Background="{TemplateBinding Background}" CornerRadius="2"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"                                    
+                                        x:Name="border"
+                                        Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(materialDesign:ShadowAssist.ShadowDepth), Converter={x:Static converters:ShadowConverter.Instance}}" />
+                            </Grid>
+                        </AdornerDecorator>
+                        <materialDesign:Ripple ContentTemplate="{TemplateBinding ContentTemplate}"
+                                               Focusable="False"     
+                                               ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               Padding="{TemplateBinding Padding}" 
+                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" >
+                            <Viewbox>
+                                <materialDesign:PackIcon Kind="Wifi"/>
+                            </Viewbox>
+                        </materialDesign:Ripple>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="materialDesign:ShadowAssist.Darken" Value="True" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter TargetName="border" Property="materialDesign:ShadowAssist.Darken" Value="True" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.23"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
 
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="ToolTip" Value="Проверить соединение"/>
-
+        <Setter Property="MinWidth" Value="56"/>
     </Style>
 
     <Style x:Key="ToolBarBtnStyle"
@@ -94,22 +127,22 @@
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
     </Style>
-    
+
     <Style TargetType="{x:Type ComboBox}"
            BasedOn="{StaticResource MaterialDesignComboBox}">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
     </Style>
-    
+
     <Style TargetType="{x:Type RadioButton}"
            BasedOn="{StaticResource MaterialDesignRadioButton}">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
     </Style>
-    
+
     <Style TargetType="{x:Type CheckBox}"
            BasedOn="{StaticResource MaterialDesignCheckBox}">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
     </Style>
-    
+
     <Style TargetType="{x:Type DataGrid}"
            BasedOn="{StaticResource MaterialDesignDataGrid}">
         <Setter Property="AutoGenerateColumns" Value="False"/>
