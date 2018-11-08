@@ -84,9 +84,12 @@
     <Compile Include="Views\Base\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\BaseUriView.cs" />
     <Compile Include="Views\Controls\CheckedGroupBox.xaml.cs">
       <DependentUpon>CheckedGroupBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\MineServerPinger.cs" />
+    <Compile Include="Views\Controls\UriPathView.cs" />
     <Compile Include="Views\HashChecker.xaml.cs">
       <DependentUpon>HashChecker.xaml</DependentUpon>
     </Compile>
