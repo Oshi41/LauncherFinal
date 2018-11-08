@@ -65,6 +65,11 @@ namespace Configurator.Views.Controls
             var command = DelegateCommand.FromAsyncHandler(async () =>
                 {
                     IsCheckedPath = await Action(Path);
+
+                    if (Button.Command is DelegateCommand c)
+                    {
+                        c.RaiseCanExecuteChanged();
+                    }
                 },
                 () => CanPing?.Invoke(Path) ?? true);
 
