@@ -11,25 +11,23 @@ namespace Configurator.ViewModels
 {
     public class MainViewModel : BindableBase
     {
-        private readonly Pinger _pinger = new Pinger();
-        private string _configUri;
-        private bool? _isConfigValid;
+        private string _projectUri;
+        private string _updateLink;
         public ProjectViewModel ProjectViewModel { get; } = new ProjectViewModel();
         public UpdateViewModel UpdateViewModel { get; } = new UpdateViewModel();
 
-        public string ConfigUri
+        public string ProjectUri
         {
-            get => _configUri;
-            set => SetProperty(ref _configUri, value);
+            get => _projectUri;
+            set => SetProperty(ref _projectUri, value);
         }
 
-        public bool? IsConfigValid
+        public string UpdateLink
         {
-            get => _isConfigValid;
-            set => SetProperty(ref _isConfigValid, value);
+            get { return _updateLink; }
+            set { SetProperty(ref _updateLink, value); }
         }
 
-        public ICommand PingConfCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         public ICommand EditProjectCommand { get; private set; }
         public ICommand EditUpdateCommand { get; private set; }
@@ -37,8 +35,6 @@ namespace Configurator.ViewModels
         public MainViewModel()
         {
             SaveCommand = new DelegateCommand(OnSaveCommand);
-            PingConfCommand = new DelegateCommand(async () => IsConfigValid = await _pinger.CheckPing(ConfigUri),
-                () => _pinger.CanPing(ConfigUri));
             EditProjectCommand = new DelegateCommand(() => WindowService.ShowVerticalDialog(ProjectViewModel, 480));
             EditUpdateCommand = new DelegateCommand(() => WindowService.ShowHorizontalialog(UpdateViewModel, 300));
         }
@@ -51,7 +47,7 @@ namespace Configurator.ViewModels
 
             var path = dlg.FileName;
             var serializer = new SettingsSerializer();
-            var settings = serializer.WriteSettings(ProjectViewModel.ToJson(), UpdateViewModel.ToJson(), ConfigUri);
+            var settings = serializer.WriteSettings(UpdateViewModel.ToJson(), UpdateLink, ProjectViewModel.ToJson(), ProjectUri);
 
             File.WriteAllText(path, settings.ToStringIgnoreNull());
         }

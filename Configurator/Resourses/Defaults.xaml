@@ -110,7 +110,10 @@
                                 Foreground="{TemplateBinding IsCheckedPath, Converter={StaticResource PingColorConverter}}"/>
 
                         <TextBox Name="UriBox"
-                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Path, UpdateSourceTrigger=PropertyChanged}"
+                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                        Path=Path,
+                                        Mode=TwoWay,                            
+                                        UpdateSourceTrigger=PropertyChanged}"
                                  materialDesign:HintAssist.Hint="{TemplateBinding UriHint}"/>
                     </DockPanel>
                 </ControlTemplate>

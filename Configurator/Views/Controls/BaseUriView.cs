@@ -44,7 +44,8 @@ namespace Configurator.Views.Controls
         }
 
         public static readonly DependencyProperty PathProperty = DependencyProperty.Register(
-            "Path", typeof(string), typeof(BaseUriView), new PropertyMetadata(default(string)));
+            "Path", typeof(string), typeof(BaseUriView), 
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public string Path
         {

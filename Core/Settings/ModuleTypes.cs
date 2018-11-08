@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -12,15 +11,15 @@ namespace Core.Settings
         [Description("Отсутствует")]
         None,
 
-        [EnumMember(Value = nameof(Default))]
+        //[EnumMember(Value = nameof(Default))]
         [Description("Официальная Mojang")]
         Default,
 
-        [EnumMember(Value = nameof(Ely))]
+        //[EnumMember(Value = nameof(Ely))]
         [Description("Ely.by")]
         Ely,
 
-        [EnumMember(Value = nameof(Custom))]
+        //[EnumMember(Value = nameof(Custom))]
         [Description("Модуль проекта")]
         Custom,
     }

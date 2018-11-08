@@ -19,22 +19,31 @@
 
     <StackPanel Margin="10">
 
-        <controls:UriPathView Path="{Binding Path=ConfigUri, UpdateSourceTrigger=PropertyChanged}"
+        <controls:UriPathView Path="{Binding Path=ProjectUri, UpdateSourceTrigger=PropertyChanged}"
                               UriHint="Ссылка на файл конфигурации проекта"
-                              Margin="0,0,0,15"/>
-        
+                              Margin="0,15,0,0"/>
         
         <Button HorizontalAlignment="Stretch"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Content="Настройки проекта"
                 Command="{Binding Path=EditProjectCommand}"
                 Margin="20,10"/>
-        
+
+        <controls:UriPathView Path="{Binding Path=UpdateLink, UpdateSourceTrigger=PropertyChanged}"
+                              UriHint="Ссылка на файл настроек обновления"
+                              Margin="0,15,0,0"/>
+
         <Button HorizontalAlignment="Stretch"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Content="Настройки обновления"
                 Command="{Binding Path=EditUpdateCommand}"
                 Margin="20,10"/>
+
+        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                Margin="20,50,20,10"
+                HorizontalAlignment="Stretch"
+                Content="Сохранить"
+                Command="{Binding Path=SaveCommand}"/>
 
     </StackPanel>
 

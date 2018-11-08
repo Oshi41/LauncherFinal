@@ -98,17 +98,20 @@ namespace Core.Json
             writer.WriteValue(uri);
 
             writer.WritePropertyName(nameof(conf.Version));
-            writer.WriteValue(version.ToString());
+            writer.WriteValue(version?.ToString());
 
             writer.Close();
             return obj;
         }
 
-        public JObject WriteSettings(JObject projectSettings, JObject updateSettings, string updateLink)
+        public JObject WriteSettings(JObject updateSettings, string updateLink, JObject projectSettings, string projLink)
         {
             ISettings conf;
             var obj = new JObject();
             var writer = obj.CreateWriter();
+
+            writer.WritePropertyName(nameof(conf.ProjectConfigUrl));
+            writer.WriteValue(projLink);
 
             writer.WritePropertyName(nameof(conf.UpdateConfigUrl));
             writer.WriteValue(updateLink);
@@ -116,11 +119,8 @@ namespace Core.Json
             writer.WritePropertyName(nameof(conf.ProjectConfig));
             _serializer.Serialize(writer, projectSettings);
 
-            if (!string.IsNullOrWhiteSpace(updateLink))
-            {
-                writer.WritePropertyName(nameof(conf.UpdateConfig));
-                _serializer.Serialize(writer, updateSettings);
-            }
+            writer.WritePropertyName(nameof(conf.UpdateConfig));
+            _serializer.Serialize(writer, updateSettings);
 
             writer.Close();
             return obj;

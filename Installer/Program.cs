@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using ConsoleProgress;
 using Core;
 using Core.Json;
-using Core.Models;
-using Core.Settings;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Installer
@@ -17,7 +14,7 @@ namespace Installer
     class Program
     {
         private static readonly string LauncherLink;
-        private static readonly string ConfigLink;
+        private static readonly string ProjectLink;
         private static readonly string UpdateLink;
 
         static void Main(string[] args)
@@ -77,11 +74,11 @@ namespace Installer
                 return;
             }
 
-            var project = DownloadAndParse(ConfigLink, Path.GetTempPath(), "Загружаем конфигурацию").Result;
+            var project = DownloadAndParse(ProjectLink, Path.GetTempPath(), "Загружаем конфигурацию").Result;
             var update = DownloadAndParse(UpdateLink, Path.GetTempPath(), "Проверяем обновления").Result;
 
             var serializer = new SettingsSerializer();
-            var settings = serializer.WriteSettings(project, update, UpdateLink);
+            var settings = serializer.WriteSettings(update, UpdateLink, project, ProjectLink);
 
             File.WriteAllText(PropertyNames.GetConfigPath(PropertyNames.BaseLauncherPath), settings.ToStringIgnoreNull());
         }
