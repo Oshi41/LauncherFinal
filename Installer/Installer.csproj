@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConsoleProgress, Version=0.1.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ConsoleProgress.0.1.0.6\lib\net40\ConsoleProgress.dll</HintPath>
@@ -64,6 +67,9 @@
       <Project>{8C1DDC37-417A-4CDE-AF04-DED05E93ED58}</Project>
       <Name>LauncherFinal</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
