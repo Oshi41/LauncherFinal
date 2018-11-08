@@ -9,29 +9,25 @@
         xmlns:controls="clr-namespace:Configurator.Views.Controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="625" Width="500"
+        Title="MainWindow"
+        Height="200"
+        MinHeight="200"
+        Width="300"
+        MinWidth="300"
         Background="{DynamicResource MaterialDesignToolBarBackground}"
         d:DataContext="{d:DesignInstance Type={x:Type viewModels:MainViewModel}}">
-    
+
     <Window.DataContext>
         <viewModels:MainViewModel/>
     </Window.DataContext>
 
     <StackPanel Margin="10">
 
-        <controls:UriPathView Path="{Binding Path=ProjectUri, UpdateSourceTrigger=PropertyChanged}"
-                              UriHint="Ссылка на файл конфигурации проекта"
-                              Margin="0,15,0,0"/>
-        
         <Button HorizontalAlignment="Stretch"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Content="Настройки проекта"
                 Command="{Binding Path=EditProjectCommand}"
                 Margin="20,10"/>
-
-        <controls:UriPathView Path="{Binding Path=UpdateLink, UpdateSourceTrigger=PropertyChanged}"
-                              UriHint="Ссылка на файл настроек обновления"
-                              Margin="0,15,0,0"/>
 
         <Button HorizontalAlignment="Stretch"
                 Style="{StaticResource MaterialDesignRaisedButton}"
@@ -39,11 +35,50 @@
                 Command="{Binding Path=EditUpdateCommand}"
                 Margin="20,10"/>
 
-        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                Margin="20,50,20,10"
-                HorizontalAlignment="Stretch"
-                Content="Сохранить"
-                Command="{Binding Path=SaveCommand}"/>
+
+        <!--<GroupBox Header="Настройки проекта">
+            <StackPanel>
+                --><!--<controls:UriPathView Path="{Binding Path=ProjectUri, UpdateSourceTrigger=PropertyChanged}"
+                                      UriHint="Ссылка на файл конфигурации проекта"
+                                      Margin="0,15,0,0"/>--><!--
+
+                <Button HorizontalAlignment="Stretch"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Content="Настройки проекта"
+                        Command="{Binding Path=EditProjectCommand}"
+                        Margin="20,10"/>
+
+                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Margin="20,0"
+                        HorizontalAlignment="Stretch"
+                        Content="Сохранить"
+                        Command="{Binding Path=SaveProjConfig}"/>
+            </StackPanel>
+
+        </GroupBox>
+
+
+        <GroupBox Header="Настройки обновления" 
+                  Margin="0,15,0,0">
+            <StackPanel>
+                --><!--<controls:UriPathView Path="{Binding Path=UpdateLink, UpdateSourceTrigger=PropertyChanged}"
+                                  UriHint="Ссылка на файл настроек обновления"
+                                  Margin="0,15,0,0"/>--><!--
+
+                <Button HorizontalAlignment="Stretch"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Content="Настройки обновления"
+                    Command="{Binding Path=EditUpdateCommand}"
+                    Margin="20,10"/>
+
+                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Margin="20,0"
+                        HorizontalAlignment="Stretch"
+                        Content="Сохранить"
+                        Command="{Binding Path=SaveUpdConfig}"/>
+            </StackPanel>
+
+        </GroupBox>-->
 
     </StackPanel>
 

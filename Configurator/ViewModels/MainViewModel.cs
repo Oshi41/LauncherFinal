@@ -6,6 +6,7 @@ using Core.Json;
 using Microsoft.Win32;
 using Mvvm;
 using Mvvm.Commands;
+using Newtonsoft.Json.Linq;
 
 namespace Configurator.ViewModels
 {
@@ -28,28 +29,44 @@ namespace Configurator.ViewModels
             set { SetProperty(ref _updateLink, value); }
         }
 
-        public ICommand SaveCommand { get; private set; }
+        public ICommand SaveProjConfig { get; private set; }
+        public ICommand SaveUpdConfig { get; private set; }
         public ICommand EditProjectCommand { get; private set; }
         public ICommand EditUpdateCommand { get; private set; }
 
         public MainViewModel()
         {
-            SaveCommand = new DelegateCommand(OnSaveCommand);
-            EditProjectCommand = new DelegateCommand(() => WindowService.ShowVerticalDialog(ProjectViewModel, 480));
-            EditUpdateCommand = new DelegateCommand(() => WindowService.ShowHorizontalialog(UpdateViewModel, 300));
+            SaveProjConfig = new DelegateCommand(() => OnSaveCommand(ProjectViewModel.ToJson()));
+            SaveUpdConfig = new DelegateCommand(() => OnSaveCommand(UpdateViewModel.ToJson()));
+            EditProjectCommand = new DelegateCommand(OnEditProject);
+            EditUpdateCommand = new DelegateCommand(OnEditUpd);
         }
 
-        private void OnSaveCommand()
+        private void OnEditUpd()
+        {
+            if (WindowService.ShowHorizontalialog(UpdateViewModel, 300) == true)
+            {
+                OnSaveCommand(UpdateViewModel.ToJson());
+            }
+        }
+
+        private void OnEditProject()
+        {
+            if (WindowService.ShowVerticalDialog(ProjectViewModel, 480) == true)
+            {
+                OnSaveCommand(ProjectViewModel.ToJson());
+            }
+        }
+
+        private void OnSaveCommand(JObject obj)
         {
             var dlg = new SaveFileDialog();
             if (dlg.ShowDialog() != true)
                 return;
 
             var path = dlg.FileName;
-            var serializer = new SettingsSerializer();
-            var settings = serializer.WriteSettings(UpdateViewModel.ToJson(), UpdateLink, ProjectViewModel.ToJson(), ProjectUri);
 
-            File.WriteAllText(path, settings.ToStringIgnoreNull());
+            File.WriteAllText(path, obj.ToStringIgnoreNull());
         }
     }
 }

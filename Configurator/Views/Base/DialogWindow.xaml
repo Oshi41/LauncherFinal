@@ -30,7 +30,7 @@
                     HorizontalAlignment="Right">
 
                 <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                    Content="Оk"
+                    Content="Сохранить"
                     Margin="5,0"
                     MinWidth="{Binding ElementName=CloseBtn, Path=ActualWidth}"
                     Command="Save"

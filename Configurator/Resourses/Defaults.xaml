@@ -14,6 +14,7 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.checkbox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.datagrid.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.scrollviewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.groupbox.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 
@@ -168,4 +169,8 @@
 
     <Style TargetType="{x:Type controls:UriPathView}"
            BasedOn="{StaticResource UriControlStyle}"/>
+    
+    <Style TargetType="{x:Type GroupBox}"
+           BasedOn="{StaticResource MaterialDesignGroupBox}"/>
+
 </ResourceDictionary>
