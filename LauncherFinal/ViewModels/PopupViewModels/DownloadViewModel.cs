@@ -17,7 +17,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
         private int _speed;
         private int _percantage;
         private bool _isError;
-        private readonly DownloadManager _manager;
+        private readonly IDownloadManager _manager;
 
         #endregion
 
@@ -81,7 +81,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
 
         #region Methods
 
-        public async Task<string> Start()
+        public async Task<FilesList> Start()
         {
             ShowPopup();
 

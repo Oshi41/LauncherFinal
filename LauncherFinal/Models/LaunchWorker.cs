@@ -134,18 +134,24 @@ namespace LauncherFinal.Models
             return true;
         }
 
-        async Task<KeyValuePair<bool, string>> SuccefullyDownloaded(string hostName)
+        async Task<KeyValuePair<bool, List<string>>> SuccefullyDownloaded(string hostName)
         {
             var vm = new DownloadViewModel(hostName, _server.DownloadLink);
             var filePath = await vm.Start();
 
-            return new KeyValuePair<bool, string>(vm.IsError, filePath);
+            return new KeyValuePair<bool, List<string>>(vm.IsError, filePath.Files);
         }
 
-        async Task<bool> SuccefullyUnzipped(string hostName, string zip)
+        async Task<bool> SuccefullyUnzipped(string hostName, List<string> zip)
         {
-            var compress = new CompressionViewModel(hostName, zip, _baseFolder, true, true, true);
-            return await compress.Extract();
+            foreach (var path in zip)
+            {
+                var compress = new CompressionViewModel(hostName, path, _baseFolder, true, true, true);
+                if (!await compress.Extract())
+                    return false;
+            }
+
+            return true;
         }
 
         async Task<KeyValuePair<bool, string>> GetAccessToken()

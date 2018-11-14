@@ -19,6 +19,6 @@ namespace LauncherFinal.Models
         void Cancel();
         bool Clear();
 
-        Task Download();
+        Task<FilesList> Download();
     }
 }

@@ -121,9 +121,9 @@ namespace LauncherFinal.Models
             
         }
 
-        async Task IDownloadManager.Download()
+        async Task<FilesList> IDownloadManager.Download()
         {
-            await Download();
+            return new FilesList(await Download());
         }
     }
 }
