@@ -64,7 +64,12 @@ namespace Configurator.ViewModels
         {
             EditHashes = new DelegateCommand(OnEditHash);
             AddUrl = new DelegateCommand(() => ClientUries.Add(" "));
-            DeleteUrl = new DelegateCommand(() => ClientUries.Remove(Selected), () => Selected != null && ClientUries.Contains(Selected));
+            DeleteUrl = new DelegateCommand(() => ClientUries.Remove(Selected), 
+                () => Selected != null 
+                      && ClientUries.Contains(Selected)
+                      && ClientUries.Count > 1);
+
+            _clientUries.Add(string.Empty);
         }
 
         public ServerViewModel(Dictionary<string, string> hashes)

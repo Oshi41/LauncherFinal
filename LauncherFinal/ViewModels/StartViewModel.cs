@@ -229,7 +229,7 @@ namespace LauncherFinal.ViewModels
             {
                 if (config.AuthModuleSettings.StrictUsage)
                 {
-                    modules.RemoveAll(x => x != ModuleTypes.Custom);
+                    modules = new List<ModuleTypes> {config.AuthModuleSettings.Type};
                 }
             }
 
