@@ -43,8 +43,15 @@ namespace LauncherTests
         }
 
         [DataTestMethod]
-        [DataRow("https://yadi.sk/d/qvBLvXBo3NJXB5")]
+        [DataRow("https://yadi.sk/d/JoL9CHFZ3NGugD")]
         public void DownloadFileFromYandex(string s)
+        {
+            Task.WaitAll(DownloadInner(s));
+        }
+
+        [DataTestMethod]
+        [DataRow("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/JoL9CHFZ3NGugD")]
+        public void DownloadFileFromYandexDirect(string s)
         {
             Task.WaitAll(DownloadInner(s));
         }

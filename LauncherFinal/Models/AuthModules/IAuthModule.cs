@@ -11,9 +11,9 @@ namespace LauncherFinal.Models.AuthModules
 
     public class EmptyModule : IAuthModule
     {
-        public async Task<KeyValuePair<bool, string>> GenerateToken(string login, SecureString password)
+        public Task<KeyValuePair<bool, string>> GenerateToken(string login, SecureString password)
         {
-            return new KeyValuePair<bool, string>(true, null);
+            return Task.Run(() => new KeyValuePair<bool, string>(true, null));
         }
     }
 }
