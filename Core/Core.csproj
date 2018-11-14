@@ -72,6 +72,9 @@
     <Compile Include="Json\DynamicProxy.cs" />
     <Compile Include="Json\Extensions.cs" />
     <Compile Include="Models\ActionArbiter.cs" />
+    <Compile Include="Models\DirectWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Models\HashCalculator.cs" />
     <Compile Include="Models\ServerStat.cs" />
     <Compile Include="Json\SettingsSerializer.cs" />

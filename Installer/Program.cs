@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ConsoleProgress;
 using Core;
 using Core.Json;
+using Core.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Installer
@@ -104,11 +105,11 @@ namespace Installer
 
                 var bar = new ProgressBar(options);
 
-                var client = new WebClient();
+                var client = new DirectWebClient();
                 client.DownloadProgressChanged += (sender, args) => { bar.Report(args.ProgressPercentage); };
                 client.DownloadFileCompleted += (sender, args) => { bar.Report(100); };
 
-                await client.DownloadFileTaskAsync(link, filePath);
+                await client.DownloadFileAsync(link, filePath);
                 return null;
             }
             catch (Exception e)

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Core.Models;
 
 namespace LauncherFinal.Models
 {
@@ -18,7 +19,7 @@ namespace LauncherFinal.Models
     public class DownloadManager : IDisposable
     {
         #region Fields
-        private readonly WebClient _client;
+        private readonly DirectWebClient _client = new DirectWebClient();
         private readonly string _uri;
         private readonly string _file;
         private readonly int _interval;
@@ -37,8 +38,6 @@ namespace LauncherFinal.Models
         /// <param name="interval">Интервал замера скорости скачивания</param>
         public DownloadManager(string uri, string file = null, int interval = 40)
         {
-            _client = new WebClient();
-
             _uri = uri;
             _file = file ?? Path.GetTempFileName();
 
@@ -104,7 +103,7 @@ namespace LauncherFinal.Models
 
             try
             {
-                var task = _client.DownloadFileTaskAsync(_uri, _file);
+                var task = _client.DownloadFileAsync(_uri, _file);
                 DownloadStarted?.Invoke(this, EventArgs.Empty);
 
                 await task;

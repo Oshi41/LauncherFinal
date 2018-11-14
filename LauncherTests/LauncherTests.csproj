@@ -58,6 +58,7 @@
     <Compile Include="ToJsonTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebClientTests.cs" />
     <Compile Include="СCryptoWorkertTest.cs" />
   </ItemGroup>
   <ItemGroup>
