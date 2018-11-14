@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Core.Models;
+using LauncherFinal.Models.Event_Args;
 
 namespace LauncherFinal.Models
 {
@@ -16,7 +17,7 @@ namespace LauncherFinal.Models
     ///         заданное время
     ///     </para>
     /// </summary>
-    public class DownloadManager : IDisposable
+    public class DownloadManager : IDownloadManager
     {
         #region Fields
         private readonly DirectWebClient _client = new DirectWebClient();
@@ -71,7 +72,7 @@ namespace LauncherFinal.Models
                 if (_percantage != value) return;
 
                 _percantage = value;
-                ProgressChanged?.Invoke(this, EventArgs.Empty);
+                ProgressChanged?.Invoke(this, Percantage);
             }
         }
 
@@ -85,9 +86,9 @@ namespace LauncherFinal.Models
 
         #region Events
 
-        public event EventHandler<string> DownloadComplited;
+        public event EventHandler<FilesDownloadEventArgs> DownloadComplited;
         public event EventHandler DownloadStarted;
-        public event EventHandler ProgressChanged;
+        public event EventHandler<int> ProgressChanged;
 
         #endregion
 
@@ -112,7 +113,7 @@ namespace LauncherFinal.Models
             {
                 Trace.Write(e);
                 LastError = e;
-                DownloadComplited?.Invoke(this, _file);
+                DownloadComplited?.Invoke(this, new FilesDownloadEventArgs());
             }
 
             return _file;
@@ -125,7 +126,7 @@ namespace LauncherFinal.Models
 
         }
 
-        public bool DeleteFile()
+        public bool Clear()
         {
             try
             {
@@ -166,7 +167,7 @@ namespace LauncherFinal.Models
             var kbInSec = bytes / mls * 1024.0 / 1000;
 
             Speed = (int)Math.Floor(kbInSec);
-            ProgressChanged?.Invoke(this, EventArgs.Empty);
+            ProgressChanged?.Invoke(this, Percantage);
         }
 
         private void OnDownloadComplited(object sender, AsyncCompletedEventArgs e)
@@ -174,7 +175,7 @@ namespace LauncherFinal.Models
             IsError = e.Cancelled || e.Error != null;
             LastError = e.Error;
 
-            DownloadComplited?.Invoke(sender, _file);
+            DownloadComplited?.Invoke(sender, new FilesDownloadEventArgs(_file));
         }
 
         #endregion
@@ -182,7 +183,12 @@ namespace LauncherFinal.Models
         public void Dispose()
         {
             _client?.Dispose();
-            DeleteFile();
+            Clear();
+        }
+
+        async Task IDownloadManager.Download()
+        {
+            await Download();
         }
     }
 }

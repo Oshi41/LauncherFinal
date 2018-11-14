@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using LauncherFinal.Models;
+using LauncherFinal.Models.Event_Args;
 using Mvvm.Commands;
 
 namespace LauncherFinal.ViewModels.PopupViewModels
@@ -64,12 +65,12 @@ namespace LauncherFinal.ViewModels.PopupViewModels
 
         #region Event handlers
 
-        private void OnProgressChanged(object sender, EventArgs e)
+        private void OnProgressChanged(object sender, int i)
         {
-            Percantage = _manager.Percantage;
+            Percantage = i;
         }
 
-        private void OnComplited(object sender, string e)
+        private void OnComplited(object sender, FilesDownloadEventArgs filesDownloadEventArgs)
         {
             IsError = _manager.IsError;
 

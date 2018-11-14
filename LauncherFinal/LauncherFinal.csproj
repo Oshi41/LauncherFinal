@@ -96,8 +96,11 @@
     <Compile Include="Models\AuthModules\ElyAuthModule.cs" />
     <Compile Include="Models\AuthModules\IAuthModule.cs" />
     <Compile Include="Models\AuthModules\YggdrasilAuthModule.cs" />
+    <Compile Include="Models\Event Args\FilesDownloadEventArgs.cs" />
     <Compile Include="Models\ForgeLaunchWorker.cs" />
+    <Compile Include="Models\IDownloadManager.cs" />
     <Compile Include="Models\LaunchWorker.cs" />
+    <Compile Include="Models\MultiDownloader.cs" />
     <Compile Include="Models\Settings\AuthModuleSettings.cs" />
     <Compile Include="Models\Settings\PasswordSettings.cs" />
     <Compile Include="Models\Settings\UpdateConfig.cs" />
