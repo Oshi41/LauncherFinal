@@ -52,7 +52,7 @@ namespace LauncherTests
             var server = new Configurator.ViewModels.ServerViewModel();
             var list = new List<JObject> {server.ToJson()};
 
-            server.ClientUri.Add("sdfgdgdfg");
+            server.ClientUries.Add("sdfgdgdfg");
             list.Add(server.ToJson());
 
             server.Address = "dsfgdfg";
@@ -87,7 +87,7 @@ namespace LauncherTests
                 Address = "adasdasdasd",
                 Name = "dgfhdgfj"
             };
-            server.ClientUri.Add("sfghdtghdgfh");
+            server.ClientUries.Add("sfghdtghdgfh");
             conf.Servers.Add(server);
 
             list.Add(conf.ToJson());
@@ -139,8 +139,8 @@ namespace LauncherTests
                 Address = "827r09er8wt",
                 Name = "dfghfdhsfghbsdykjfyu",
             };
-            server.ClientUri.Add("1111111111111111111");
-            server.ClientUri.Add("222222222222222222");
+            server.ClientUries.Add("1111111111111111111");
+            server.ClientUries.Add("222222222222222222");
 
             var text = server.ToJson().ToString(Formatting.None);
 
@@ -180,7 +180,7 @@ namespace LauncherTests
                 ProjectSite = "dfgdfgdfg",
             };
 
-            conf.Servers.ForEach(x => x.ClientUri.Add("uri"));
+            conf.Servers.ForEach(x => x.ClientUries.Add("uri"));
 
             var text = conf.ToJson().ToString(Formatting.None);
 

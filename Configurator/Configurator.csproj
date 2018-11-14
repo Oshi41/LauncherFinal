@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\TranslateBubbleWheelBehavior.cs" />
     <Compile Include="Converters\VersionConverter.cs" />
     <Compile Include="Models\PathWorker.cs" />
     <Compile Include="Models\Pinger.cs" />
@@ -90,6 +92,9 @@
     <Compile Include="Views\Controls\BaseUriView.cs" />
     <Compile Include="Views\Controls\CheckedGroupBox.xaml.cs">
       <DependentUpon>CheckedGroupBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\EditPanel.xaml.cs">
+      <DependentUpon>EditPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\MineServerPinger.cs" />
     <Compile Include="Views\Controls\UriPathView.cs" />
@@ -134,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\CheckedGroupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\EditPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

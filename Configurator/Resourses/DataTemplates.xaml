@@ -12,7 +12,11 @@
     </DataTemplate>
     
     <DataTemplate DataType="{x:Type viewModels:ServerViewModel}">
-        <views:ServerView/>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Hidden"
+                      Padding="5">
+            <views:ServerView/>
+        </ScrollViewer>
     </DataTemplate>
     
     <DataTemplate DataType="{x:Type viewModels:ProjectViewModel}">

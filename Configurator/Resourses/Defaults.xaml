@@ -15,6 +15,7 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.datagrid.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.scrollviewer.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.groupbox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.scrollbar.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 
@@ -104,7 +105,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:BaseUriView}">
-                    <DockPanel>
+                    <DockPanel HorizontalAlignment="Stretch"
+                                LastChildFill="True">
                         <Button DockPanel.Dock="Right"
                                 Style="{StaticResource PingBtnStyle}"
                                 Name="PingButton"
@@ -121,7 +123,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 
     <!-- DEFAULTS -->
@@ -172,5 +173,8 @@
     
     <Style TargetType="{x:Type GroupBox}"
            BasedOn="{StaticResource MaterialDesignGroupBox}"/>
+    
+    <Style TargetType="{x:Type ScrollBar}"
+           BasedOn="{StaticResource MaterialDesignScrollBar}"/>
 
 </ResourceDictionary>

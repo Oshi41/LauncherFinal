@@ -13,11 +13,12 @@ namespace Configurator.ViewModels
     public class ServerViewModel : BindableBase
     {
         private string _name;
-        private ObservableCollection<string> _clientUri = new ObservableCollection<string>();
+        private ObservableCollection<string> _clientUries = new ObservableCollection<string>();
         private string _address;
 
         private HashCheckerViewModel _hashCheckerViewModel = new HashCheckerViewModel();
         private bool _saveHashes = true;
+        private string _selected;
 
         public string Name
         {
@@ -25,10 +26,16 @@ namespace Configurator.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public ObservableCollection<string> ClientUri
+        public ObservableCollection<string> ClientUries
         {
-            get => _clientUri;
-            set => SetProperty(ref _clientUri, value);
+            get => _clientUries;
+            set => SetProperty(ref _clientUries, value);
+        }
+
+        public string Selected
+        {
+            get => _selected;
+            set => SetProperty(ref _selected, value);
         }
 
         public string Address
@@ -50,10 +57,14 @@ namespace Configurator.ViewModels
         }
 
         public ICommand EditHashes { get; private set; }
+        public ICommand AddUrl { get; private set; }
+        public ICommand DeleteUrl { get; private set; }
 
         public ServerViewModel()
         {
             EditHashes = new DelegateCommand(OnEditHash);
+            AddUrl = new DelegateCommand(() => ClientUries.Add(" "));
+            DeleteUrl = new DelegateCommand(() => ClientUries.Remove(Selected), () => Selected != null && ClientUries.Contains(Selected));
         }
 
         public ServerViewModel(Dictionary<string, string> hashes)
@@ -79,7 +90,7 @@ namespace Configurator.ViewModels
                 ? HashCheckerViewModel.Hashes.ToDictionary(x => x.Path, x => x.Hash)
                 : null;
 
-            return serializer.WriteServer(Name, Address, ClientUri, hashes);
+            return serializer.WriteServer(Name, Address, ClientUries, hashes);
         }
     }
 }

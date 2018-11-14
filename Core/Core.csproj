@@ -52,6 +52,7 @@
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.1.0.0.505\lib\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,12 +70,11 @@
     <Compile Include="Converter\BindingEqualsParamConverter.cs" />
     <Compile Include="Converter\EnumDescriptionConverter.cs" />
     <Compile Include="Converter\SwitchConverter.cs" />
+    <Compile Include="Helper\WpfHelper.cs" />
     <Compile Include="Json\DynamicProxy.cs" />
     <Compile Include="Json\Extensions.cs" />
     <Compile Include="Models\ActionArbiter.cs" />
-    <Compile Include="Models\DirectWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Models\DirectWebClient.cs" />
     <Compile Include="Models\HashCalculator.cs" />
     <Compile Include="Models\ServerStat.cs" />
     <Compile Include="Json\SettingsSerializer.cs" />

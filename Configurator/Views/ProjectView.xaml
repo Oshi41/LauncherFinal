@@ -48,33 +48,11 @@
 
         </ScrollViewer>
         
-        <StackPanel Margin="0,10,10,0"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-            <Button Command="{Binding Path=AddServer}"
-                    ToolTip="Добавить сервер"
-                    Style="{StaticResource ToolBarBtnStyle}">
-                <Viewbox>
-                    <materialDesign:PackIcon Kind="Add"/>
-                </Viewbox>
-            </Button>
-            <Button Command="{Binding Path=EditServer}"
-                    Margin="5,0"
-                    ToolTip="Редактировать"
-                    Style="{StaticResource ToolBarBtnStyle}">
-                <Viewbox>
-                    <materialDesign:PackIcon Kind="Edit"/>
-                </Viewbox>
-            </Button>
-            <Button Command="{Binding Path=DeleteServer}"
-                    Style="{StaticResource ToolBarBtnStyle}"
-                    ToolTip="Удалить">
-                <Viewbox>
-                    <materialDesign:PackIcon Kind="Delete"/>
-                </Viewbox>
-            </Button>
-        </StackPanel>
-
+        <controls:EditPanel Margin="0,10,10,0"
+                            AddCommand="{Binding Path=AddServer}"
+                            DeleteCommand="{Binding Path=DeleteServer}"
+                            EditCommand="{Binding Path=EditServer}"
+                            AddButtonHint="Добавить сервер"/>
 
     </StackPanel>
 
