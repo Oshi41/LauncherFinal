@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Configurator.Services;
@@ -12,7 +13,7 @@ namespace Configurator.ViewModels
     public class ServerViewModel : BindableBase
     {
         private string _name;
-        private string _clientUri;
+        private ObservableCollection<string> _clientUri = new ObservableCollection<string>();
         private string _address;
 
         private HashCheckerViewModel _hashCheckerViewModel = new HashCheckerViewModel();
@@ -24,7 +25,7 @@ namespace Configurator.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public string ClientUri
+        public ObservableCollection<string> ClientUri
         {
             get => _clientUri;
             set => SetProperty(ref _clientUri, value);

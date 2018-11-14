@@ -11,7 +11,7 @@ namespace Core.Json
     {
         readonly JsonSerializer _serializer = JsonSerializer.CreateDefault();
 
-        public JObject WriteServer(string name, string address, string clientUri, Dictionary<string, string> hashes)
+        public JObject WriteServer(string name, string address, IEnumerable<string> clientUri, Dictionary<string, string> hashes)
         {
             IServer server;
 
@@ -25,7 +25,7 @@ namespace Core.Json
             writer.WriteValue(name);
 
             writer.WritePropertyName(nameof(server.DownloadLink));
-            writer.WriteValue(clientUri);
+            _serializer.Serialize(writer, clientUri);
 
             if (hashes?.Any() == true)
             {
@@ -50,7 +50,7 @@ namespace Core.Json
             writer.WriteValue(strict);
 
             writer.WritePropertyName(nameof(set.Type));
-            writer.WriteValue(type);
+            _serializer.Serialize(writer, type);
 
             writer.Close();
             return obj;

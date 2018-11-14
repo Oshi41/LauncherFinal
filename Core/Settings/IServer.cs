@@ -17,7 +17,7 @@ namespace Core.Settings
         /// <summary>
         /// Ссылка на скачивание клиентских файлов
         /// </summary>
-        string DownloadLink { get; }
+        List<string> DownloadLink { get; }
 
         /// <summary>
         /// Хэш-суммы папки сервера

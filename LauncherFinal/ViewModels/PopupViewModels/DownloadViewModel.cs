@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using LauncherFinal.Models;
@@ -23,9 +24,7 @@ namespace LauncherFinal.ViewModels.PopupViewModels
 
         #region Properties
 
-        public string Url { get; }
-        public string Filename { get; }
-        public ICommand CancelDownloadCommand { get; }
+        public ICommand CancelDownloadCommand { get; private set; }
 
         public int Speed
         {
@@ -52,11 +51,20 @@ namespace LauncherFinal.ViewModels.PopupViewModels
             string filename = null)
             : base(dialogHostName, true)
         {
-            Url = url;
-            Filename = filename;
-
             _manager = new DownloadManager(url, filename);
+            BaseInit();
+        }
 
+        public DownloadViewModel(string dialogHostName,
+            List<string> urls)
+            : base(dialogHostName, true)
+        {
+            _manager = new MultiDownloader(urls);
+            BaseInit();
+        }
+
+        private void BaseInit()
+        {
             _manager.ProgressChanged += OnProgressChanged;
             _manager.DownloadComplited += OnComplited;
 

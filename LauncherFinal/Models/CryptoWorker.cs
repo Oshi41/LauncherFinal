@@ -9,6 +9,8 @@ namespace LauncherFinal.Models
 {
     public class CryptoWorker
     {
+        private int _prevSalt;
+
         private static readonly string DeviceName = "Win32_Processor";
         private static readonly string[] Identifiers = {
             "UniqueId",
@@ -16,6 +18,11 @@ namespace LauncherFinal.Models
             "Name",
             "Manufacturer"
         };
+
+        public CryptoWorker()
+        {
+            _prevSalt = (int) DateTime.Now.ToBinary();
+        }
 
         /// <summary>
         ///     Шифруем пароль
@@ -109,10 +116,14 @@ namespace LauncherFinal.Models
         /// <returns></returns>
         public string GetRandomSalt(int length = 32)
         {
-            var seed = (int) DateTime.Now.ToFileTime();
-            var rand = new Random(seed);
+            // используем созданныйсозданное ранее зерно
+            var rand = new Random(_prevSalt);
             var buffer = new byte[length];
             rand.NextBytes(buffer);
+
+            // генерируем новое зерно
+            _prevSalt = rand.Next(int.MinValue, int.MaxValue);
+
             return Convert.ToBase64String(buffer);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Configurator.ViewModels;
 using Core.Json;
 using Core.Settings;
+using LauncherFinal.Helper;
 using LauncherFinal.Models.Settings;
 using LauncherFinal.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -51,7 +52,7 @@ namespace LauncherTests
             var server = new Configurator.ViewModels.ServerViewModel();
             var list = new List<JObject> {server.ToJson()};
 
-            server.ClientUri = "sdfgdgdfg";
+            server.ClientUri.Add("sdfgdgdfg");
             list.Add(server.ToJson());
 
             server.Address = "dsfgdfg";
@@ -81,15 +82,13 @@ namespace LauncherTests
             var conf = new ProjectViewModel();
             var list = new List<JObject> {conf.ToJson()};
 
-            conf.Servers.Add(new Configurator.ViewModels.ServerViewModel(new Dictionary<string, string>
+            var server = new ServerViewModel(new Dictionary<string, string> {{"1", "2"}})
             {
-                {"1", "2"}
-            })
-            {
-                ClientUri = "sdrgdfg",
-                Address = "dfgdfg",
-                Name = "difughidfgh"
-            });
+                Address = "adasdasdasd",
+                Name = "dgfhdgfj"
+            };
+            server.ClientUri.Add("sfghdtghdgfh");
+            conf.Servers.Add(server);
 
             list.Add(conf.ToJson());
 
@@ -137,10 +136,11 @@ namespace LauncherTests
                 {"1", "2"}
             })
             {
-                ClientUri = "dfgdfg",
                 Address = "827r09er8wt",
                 Name = "dfghfdhsfghbsdykjfyu",
             };
+            server.ClientUri.Add("1111111111111111111");
+            server.ClientUri.Add("222222222222222222");
 
             var text = server.ToJson().ToString(Formatting.None);
 
@@ -164,7 +164,6 @@ namespace LauncherTests
                         {"1", "2"}
                     })
                     {
-                        ClientUri = "dfgdfg",
                         Address = "827r09er8wt",
                         Name = "dfghfdhsfghbsdykjfyu",
                     },
@@ -174,13 +173,14 @@ namespace LauncherTests
                         {"111111111", "222222222"}
                     })
                     {
-                        ClientUri = "uri",
                         Address = "address",
                         Name = "name",
                     },
                 },
                 ProjectSite = "dfgdfgdfg",
             };
+
+            conf.Servers.ForEach(x => x.ClientUri.Add("uri"));
 
             var text = conf.ToJson().ToString(Formatting.None);
 

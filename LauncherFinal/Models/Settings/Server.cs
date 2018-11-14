@@ -7,7 +7,7 @@ namespace LauncherFinal.Models.Settings
     {
         public string Address { get; set; }
         public string Name { get; set; }
-        public string DownloadLink { get;  set; }
+        public List<string> DownloadLink { get;  set; }
         public IDictionary<string, string> DirHashCheck { get; set; } = new Dictionary<string, string>();
 
         #region Equals

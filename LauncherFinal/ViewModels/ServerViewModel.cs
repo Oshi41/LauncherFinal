@@ -14,7 +14,7 @@ namespace LauncherFinal.ViewModels
 
         public string Address { get; }
         public string Name { get; }
-        public string DownloadLink { get; }
+        public List<string> DownloadLink { get; }
         public IDictionary<string, string> DirHashCheck { get; }
 
         public ServerStat StateInfo
