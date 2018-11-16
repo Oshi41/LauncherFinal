@@ -113,6 +113,7 @@ namespace LauncherFinal.Models
             if (mls < _interval)
                 return;
 
+            _prevData = now;
             ProgressChanged?.Invoke(this, Percantage);
         }
 

@@ -149,13 +149,13 @@ namespace LauncherFinal.ViewModels
 
         private void Refresh(IProjectConfig config)
         {
+            var choosen = ChoosenServer;
+
             Servers.Clear();
             SetModules(config);
             PassFromSettings();
             Login = _settings.Login;
-            RememberPassword = _settings.SavePass;
-
-            var choosen = ChoosenServer;
+            RememberPassword = _settings.SavePass;            
 
             if (config?.Servers?.Any() == true)
             {
@@ -166,7 +166,13 @@ namespace LauncherFinal.ViewModels
                 Servers = new ObservableCollection<ServerViewModel>(servers);
 
                 if (choosen != null)
-                    ChoosenServer = Servers.FirstOrDefault(x => Equals(choosen, x));
+                {
+                    ChoosenServer = Servers.FirstOrDefault(x => Equals(choosen.Address, x.Address));
+                }
+                else
+                {
+                    ChoosenServer = Servers.FirstOrDefault();
+                }
 
                 // запускаем в самом конце
                 Servers.ForEach(async x => await x.Ping());

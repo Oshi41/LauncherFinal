@@ -143,6 +143,7 @@
                       ItemsSource="{Binding Path=Servers}"
                       SelectedValue="{Binding Path=ChoosenServer}"
                       IsSynchronizedWithCurrentItem="True"
+                      SelectedIndex="0"
                       Grid.IsSharedSizeScope="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

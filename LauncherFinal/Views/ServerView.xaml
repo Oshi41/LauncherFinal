@@ -49,9 +49,9 @@
                    Margin="5,0"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center">
-            <Run Text="{Binding Path=StateInfo.CurrentPlayers, StringFormat={}{0:000}}"/>
-            <Run Text=" / "/>
-            <Run Text="{Binding Path=StateInfo.MaximumPlayers, StringFormat={}{0:000}}"/>
+            <Run Text="{Binding Path=StateInfo.CurrentPlayers}"/>
+            <Run Text="/"/>
+            <Run Text="{Binding Path=StateInfo.MaximumPlayers}"/>
         </TextBlock>
 
         <TextBlock Grid.Column="3"

@@ -28,10 +28,12 @@
         </Grid.RowDefinitions>
         
         <TextBlock Text="Ожидайте окончания загрузки..."
+                   TextWrapping="Wrap"
                    HorizontalAlignment="Center"/>
         
         <ProgressBar Grid.Row="1"
-                     Style="{StaticResource MaterialDesignCircularProgressBar}"
+                     Margin="10 0"
+                     Style="{StaticResource MaterialDesignLinearProgressBar}"
                      Maximum="100"
                      Minimum="0"
                      Value="{Binding Path=Percantage}"/>

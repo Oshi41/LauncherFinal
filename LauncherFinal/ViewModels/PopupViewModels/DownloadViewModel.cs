@@ -68,7 +68,12 @@ namespace LauncherFinal.ViewModels.PopupViewModels
             _manager.ProgressChanged += OnProgressChanged;
             _manager.DownloadComplited += OnComplited;
 
-            CancelDownloadCommand = new DelegateCommand(() => _manager.Cancel(), () => _manager.IsDownloading);
+            CancelDownloadCommand = new DelegateCommand(() => {
+
+                _manager.Cancel();
+                ClosePopup();
+
+            }, () => _manager.IsDownloading);
         }
 
         #region Event handlers

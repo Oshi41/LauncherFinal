@@ -53,7 +53,7 @@ namespace LauncherFinal.Models
             if (!IsFolderExists())
             {
                 var donloadInfo = await SuccefullyDownloaded(DialogHostNames.WorkerDialogName);
-                if (!donloadInfo.Key)
+                if (donloadInfo.Key)
                 {
                     return "Ошибка в скачивании клиентских файлов";
                 }
