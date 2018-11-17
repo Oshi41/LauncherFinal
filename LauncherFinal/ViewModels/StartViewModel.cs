@@ -127,9 +127,14 @@ namespace LauncherFinal.ViewModels
             }
         }
 
-        private void OnExit(object sender, EventArgs e)
+        private async void OnExit(object sender, bool e)
         {
             Application.Current.MainWindow?.Show();
+
+            if (e)
+            {
+                await MessageService.ShowMessage("Произошла какая-то ошибка");
+            }
         }
 
         #endregion

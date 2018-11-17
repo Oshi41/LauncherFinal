@@ -9,6 +9,7 @@ using System.Windows;
 using Core.Models;
 using Core.Settings;
 using LauncherFinal.Models.AuthModules;
+using LauncherFinal.Models.LaunchWorkers;
 using LauncherFinal.ViewModels.PopupViewModels;
 
 namespace LauncherFinal.Models
@@ -48,7 +49,7 @@ namespace LauncherFinal.Models
 
         #region Main launch
 
-        public async Task<string> Launch(EventHandler onExitCallBack)
+        public async Task<string> Launch(EventHandler<bool> onExitCallBack)
         {
             if (!IsFolderExists())
             {

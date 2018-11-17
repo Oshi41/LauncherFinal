@@ -9,9 +9,9 @@ using System.Windows;
 using LauncherFinal.Helper;
 using Newtonsoft.Json.Linq;
 
-namespace LauncherFinal.Models
+namespace LauncherFinal.Models.LaunchWorkers
 {
-    public class ForgeLaunchWorkerNew
+    public class ForgeLaunchWorkerNew : ILaunchWorker
     {
         #region Static Fields
 
@@ -136,7 +136,7 @@ namespace LauncherFinal.Models
 
         #region Main Launch
 
-        public void RegularLaunch(EventHandler onExit)
+        public void RegularLaunch(EventHandler<bool> onExit)
         {
             var startInfo = new ProcessStartInfo
             {
@@ -151,7 +151,11 @@ namespace LauncherFinal.Models
             };
 
             var process = new Process { StartInfo = startInfo };
-            process.Exited += onExit;
+
+            process.Exited += (sender, args) =>
+            {
+               onExit?.Invoke(sender, process.ExitCode != 0);
+            };
 
             process.Start();
         }
