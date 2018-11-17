@@ -89,10 +89,10 @@ namespace LauncherFinal.Models
 
             try
             {
-                var launcher = new ForgeLaunchWorker(_baseFolder,
-                    tokenInfo.Value,
+                var launcher = new ForgeLaunchWorkerNew(_baseFolder,
                     _settings.JavaPath,
                     _login,
+                    tokenInfo.Value,
                     _settings.OptimizeJava);
 
                 launcher.RegularLaunch(onExitCallBack);

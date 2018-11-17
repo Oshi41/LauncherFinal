@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using Newtonsoft.Json.Linq;
 
 namespace LauncherFinal.Models
 {
@@ -124,20 +126,17 @@ namespace LauncherFinal.Models
             string login,
             bool useExpArgs)
         {
-            MinecraftFolder = folder;
-            if (!Directory.Exists(MinecraftFolder))
-                throw new Exception("Can't find Minecraft folder by this path - " + MinecraftFolder);
-
-            if (!FindVersionsExperimantal())
-                throw new Exception("Can't find Forge Assests");
-
             _accessToken = accessToken;
+            _login = login;
+            _useExpArgs = useExpArgs;
             _javaPath = javaPath;
+
             if (!File.Exists(_javaPath))
                 throw new Exception("Can't find java by this path - " + _javaPath);
 
-            _login = login;
-            _useExpArgs = useExpArgs;
+            MinecraftFolder = folder;
+            if (!Directory.Exists(MinecraftFolder))
+                throw new Exception("Can't find Minecraft folder by this path - " + MinecraftFolder);
 
             Init();
         }
@@ -146,12 +145,9 @@ namespace LauncherFinal.Models
         {
             FillLibsArguments();
             FindNativesPath();
-            FindForgePaths();
 
-            if (_assetsIndex == null)
-            {
-                ParseAssetIndex();
-            }
+            if (!FindForgePaths())
+                throw new Exception("Can't find Forge library");
         }
 
         #endregion
@@ -185,7 +181,7 @@ namespace LauncherFinal.Models
         private string GetLauncArgs()
         {
             var result = $"-Xmn{_minMemory}M -Xmx{_maxMemory}M -Djava.library.path=\"{_natives}\"";
-            result += $" -cp \"{_forgeLibPath};{_libArgs};{_versionForgePath}\"";
+            result += $" -cp \"{_forgeLibPath};{_libArgs}{_versionForgePath}\"";
             result += $" net.minecraft.launchwrapper.Launch" +
                       $" --username {_login}";
             result += $" --version {_version}";
@@ -206,7 +202,7 @@ namespace LauncherFinal.Models
             return result;
         }
 
-        private string GetCmdArgs()
+        public string GetCmdArgs()
         {
             return $"\"{_javaPath}\" " + GetLauncArgs();
         }
@@ -215,46 +211,68 @@ namespace LauncherFinal.Models
 
         #region Methods
 
-        private void ParseAssetIndex()
+        //private void ParseAssetIndex()
+        //{
+        //    
+        //}
+
+        /// <summary>
+        /// Проводит поиск Forge
+        /// </summary>
+        /// <returns></returns>
+        private bool FindForgePaths()
         {
-            var version = GetVersion(_version);
+            var files = Directory.GetFiles(MinecraftFolder, "*forge*.jar", SearchOption.AllDirectories)
+                .OrderByDescending(x => x)
+                .ToArray();
+            if (files.Any())
+            {
+                _forgeLibPath = files.FirstOrDefault();
+                return SetVersion(GetJarVersion(_forgeLibPath).Item2);
+            }
+
+            files = Directory.GetFiles(MinecraftFolder, "*.jar");
+            var map = files.ToDictionary(x => x, GetJarVersion);
+
+            var first = map
+                .FirstOrDefault(x => x.Value.Item1.ToLower().Contains("forge"));
+
+            if (!File.Exists(first.Key))
+                return false;
+
+            _forgeLibPath = first.Key;
+            _versionForgePath = _forgeLibPath;
+            return SetVersion(first.Value.Item2);
+        }
+
+        private bool SetVersion(Version version)
+        {
             if (version.Major != 0)
             {
                 _assetsIndex = $"{version.Major}.{version.Minor}";
+                _version = $"Forge {_assetsIndex}.{version.Build}";
             }
-        }
 
-        private void FindForgePaths()
-        {
-            var path = Path.Combine(MinecraftFolder, "libraries", "net", "minecraftforge", "forge");
-            if (!Directory.Exists(path))
-                return;
-
-            var dirs = Directory.GetDirectories(path).ToList();
-            var version = new string(_version.Where(x => Regex.IsMatch(x.ToString(), "[0-9,\\.]")).ToArray()).Trim();
-
-            var find = dirs.FirstOrDefault(x => x.Contains(version));
-            if (find == null)
-                return;
-
-            var files = Directory.GetFiles(find, "*.jar");
-
-            _forgeLibPath = files.FirstOrDefault();
-
-
-            path = Path.Combine(MinecraftFolder, "versions", _version);
-            files = Directory.GetFiles(path, "*.jar", SearchOption.TopDirectoryOnly);
-
-            _versionForgePath = files.FirstOrDefault();
+            return version.Major != 0;
         }
 
         private void FindNativesPath()
         {
-            var dirs = Directory.GetDirectories(Path.Combine(MinecraftFolder, "versions")).ToList();
-            var first = dirs.FirstOrDefault(x => x.Contains(_version) || _version.Contains(x));
-            
-            if (first != null)
-                _natives = Path.Combine(first, "natives");
+            try
+            {
+                var info = new DirectoryInfo(MinecraftFolder);
+                var dirs = info.GetDirectories("*", SearchOption.AllDirectories);
+                var first = dirs.FirstOrDefault(x => string.Equals(x.Name, "natives"));
+
+                if (first != null)
+                {
+                    _natives = first.FullName;
+                }
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
         }
 
         /// <summary>
@@ -305,7 +323,7 @@ namespace LauncherFinal.Models
                 jars.Remove(find);
             }
 
-            _libArgs = args;
+            _libArgs = args.TrimEnd(';');
         }
 
         /// <summary>
@@ -326,26 +344,70 @@ namespace LauncherFinal.Models
             return new Version(0, 0, 0, 0);
         }
 
-        private bool FindVersionsExperimantal()
+        //private bool FindVersionsExperimantal()
+        //{
+        //    // путь к нативным либам forge
+        //    var path = Path.Combine(MinecraftFolder, "libraries", "net", "minecraftforge", "forge");
+
+        //    // по идее, располагается только одна либа.
+        //    var dirs = Directory.GetDirectories($"{path}\\", "*", SearchOption.TopDirectoryOnly);
+        //    var forgeDir = dirs.FirstOrDefault();
+        //    if (string.IsNullOrEmpty(forgeDir))
+        //        return false;
+
+        //    var version = GetVersion(Path.GetFileName(forgeDir));
+
+        //    if (version.Major != 0)
+        //    {
+        //    }
+
+        //    return true;
+        //}
+
+        /// <summary>
+        /// First - id из json описания jar
+        /// <para> Second - jar поле из описания jar </para>
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private Tuple<string, Version> GetJarVersion(string path)
         {
-            // путь к нативным либам forge
-            var path = Path.Combine(MinecraftFolder, "libraries", "net", "minecraftforge", "forge");
-
-            // по идее, располагается только одна либа.
-            var dirs = Directory.GetDirectories($"{path}\\", "*", SearchOption.TopDirectoryOnly);
-            var forgeDir = dirs.FirstOrDefault();
-            if (string.IsNullOrEmpty(forgeDir))
-                return false;
-
-            var version = GetVersion(Path.GetFileName(forgeDir));
-
-            if (version.Major != 0)
+            try
             {
-                _assetsIndex = $"{version.Major}.{version.Minor}";
-                _version = $"Forge {_assetsIndex}.{version.Build}";
+                // читаю из того же файла, что и jar файл
+                var jsonFile = Path.ChangeExtension(path, "json");
+                var json = JObject.Parse(File.ReadAllText(jsonFile));
+
+                return new Tuple<string, Version>(json["id"].ToString(), Version.Parse(json["jar"].ToString()));
+            }
+            catch 
+            {
+                try
+                {
+                    var zip = ZipFile.OpenRead(path);
+                    var all = zip.Entries.Where(x => x.Name.Contains("json"))
+                        .OrderByDescending(x => x.FullName)
+                        .ToList();
+                    var jsonZip = all.FirstOrDefault();
+                    if (jsonZip != null)
+                    {
+                        using (var stream = jsonZip.Open())
+                        {
+                            using (var reader = new StreamReader(stream))
+                            {
+                                var json = JObject.Parse(reader.ReadToEnd());
+                                return new Tuple<string, Version>(json["id"].ToString(), Version.Parse(json["jar"].ToString()));
+                            }
+                        }
+                    }
+                }
+                catch 
+                {
+                    // ignored
+                }
             }
 
-            return true;
+            return new Tuple<string, Version>(string.Empty, GetVersion(Path.GetFileName(path)));
         }
         #endregion
     }

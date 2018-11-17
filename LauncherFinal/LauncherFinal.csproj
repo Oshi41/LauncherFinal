@@ -92,6 +92,7 @@
     <Compile Include="Behaviors\PassworBinderBehavior.cs" />
     <Compile Include="Converters\InvertBool2VisConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="Helper\PathsHelper.cs" />
     <Compile Include="JsonConverters\JsonListCoverter.cs" />
     <Compile Include="Models\AuthModules\AuthModuleFactory.cs" />
     <Compile Include="Models\AuthModules\ElyAuthModule.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Models\AuthModules\YggdrasilAuthModule.cs" />
     <Compile Include="Models\Event Args\FilesDownloadEventArgs.cs" />
     <Compile Include="Models\ForgeLaunchWorker.cs" />
+    <Compile Include="Models\ForgeLaunchWorkerNew.cs" />
     <Compile Include="Models\IDownloadManager.cs" />
     <Compile Include="Models\LaunchWorker.cs" />
     <Compile Include="Models\MultiDownloader.cs" />

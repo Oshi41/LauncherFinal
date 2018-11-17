@@ -55,6 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HashTest.cs" />
+    <Compile Include="LauncherTests.cs" />
+    <Compile Include="PathHelperTests.cs" />
     <Compile Include="ToJsonTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
